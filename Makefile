@@ -1,5 +1,5 @@
-.PHONY : astro neovim zsh asdf
-install : astro neovim zsh asdf
+.PHONY : astro neovim neovide zsh asdf
+install : astro neovim neovide zsh asdf
 
 clean : astro-delete neovim-delete zsh-delete asdf-delete
 
@@ -26,3 +26,9 @@ asdf :
 
 asdf-delete :
 	rm -rf "${HOME}/.asdf"
+
+neovide :
+	zsh ./deps/install_neovide.zsh
+
+neovide-delete :
+	rm -rf ${HOME}/.local/bin/neovide

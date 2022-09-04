@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Neovide
+Comment=No-nonsense, cross-platform graphical user interface for Neovim 
+Exec=env -u WAYLAND_DISPLAY "$HOME/.local/bin/neovide"
+Icon=$HOME/.local/share/icons/custom/Neovide.png
+X-Desktop-File-Install-Version=0.26
+Terminal=false
