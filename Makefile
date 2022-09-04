@@ -1,7 +1,10 @@
-.PHONY : neovim zsh asdf
-install : neovim zsh asdf
+.PHONY : astro neovim zsh asdf
+install : astro neovim zsh asdf
 
 clean : neovim-delete zsh-delete asdf-delete
+
+astro :
+	zsh ./deps/install_astronvim.zsh
 
 neovim :
 	stow -S neovim
