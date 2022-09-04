@@ -19,7 +19,7 @@ zstyle ':completion:*' menu select=long
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
-zstyle :compinstall filename '/home/zed/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -53,49 +53,17 @@ setopt noshwordsplit
 # allow use of comments in interactive code
 setopt interactivecomments
 
-if [[ -z "$ZSH_SANEOPT_INSANITY" ]]; then
-    ZSH_SANEOPT_INSANITY=1
-fi
-
-if [[ "$ZSH_SANEOPT_INSANITY" -gt 0 ]]; then
-    # in order to use #, ~ and ^ for filename generation grep word
-    # *~(*.gz|*.bz|*.bz2|*.zip|*.Z) -> searches for word not in compressed files
-    # don't forget to quote '^', '~' and '#'!
-    setopt extended_glob
-    
-    # don't error out when unset parameters are used
-    setopt unset
-fi
-
-###########
-# These are some more options that might warrant being on higher insanity levels,
-# but since I don't use them... I'll leave them out for now
-
-# watch for everyone but me and root
-#watch=(notme root)
-# automatically remove duplicates from these arrays
-#typeset -U path cdpath fpath manpath
-
 # import new commands from the history file also in other zsh-session
-#setopt share_history
+setopt share_history
 # If a new command line being added to the history list duplicates an older
 # one, the older command is removed from the list
 setopt histignorealldups
 # remove command lines from the history list when the first character on the
 # line is a space
 setopt histignorespace
-# if a command is issued that can't be executed as a normal command, and the
-# command is the name of a directory, perform the cd command to that directory.
-#setopt auto_cd
 
-
-# Don't send SIGHUP to background processes when the shell exits.
-#setopt nohup
-# make cd push the old directory onto the directory stack.
-#setopt auto_pushd
 # avoid "beep"ing
 setopt nobeep
-
 if [ ! -e "$HOME/.antidote/antidote.zsh" ]
 then
     git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
