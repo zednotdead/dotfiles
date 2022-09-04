@@ -36,9 +36,8 @@ fi
 echo "Installing asdf plugins..."
 
 function install_nodejs() {
-  if [[ "$(asdf plugin list | grep nodejs)" -eq "nodejs" ]]
-  then
-    echo "NodeJS plugin is already installed."
+  if asdf plugin list | grep -q nodejs; then
+    echo "NodeJS plugin already installed."
   else
     install_package dirmngr
     install_package gpg
