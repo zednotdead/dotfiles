@@ -4,6 +4,8 @@ ASDF_URL="https://github.com/asdf-vm/asdf.git"
 ASDF_VERSION="v0.10.2"
 ASDF_PATH="$HOME/.asdf"
 
+ASDF_NODEJS_URL="https://github.com/asdf-vm/asdf-nodejs.git"
+
 source `dirname $0`/installer.zsh
 
 if [[ "$+commands[curl]" -eq "0" ]]
@@ -43,7 +45,9 @@ function install_nodejs() {
     install_package gpg
     install_package curl
     install_package gawk
-    asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+    asdf plugin add nodejs $ASDF_NODEJS_URL
+    asdf install nodejs latest
+    asdf global nodejs latest
   fi
 }
 
