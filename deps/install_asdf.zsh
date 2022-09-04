@@ -28,17 +28,13 @@ function install_package() {
 
 if [[ "$+commands[curl]" -eq "0" ]]
 then
-  echo "cURL is not installed. Install cURL."
-  return 1;
-else
+  echo "cURL is not installed. Installing cURL."
   install_package curl;
 fi
 
 if [[ "$+commands[git]" -eq "0" ]]
 then
-  echo "git is not installed. Install git."
-  return 1;
-else
+  echo "git is not installed. Installing git."
   install_package git;
 fi
 

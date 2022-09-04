@@ -1,7 +1,7 @@
-.PHONY : neovim zsh
-install : neovim zsh
+.PHONY : neovim zsh asdf
+install : neovim zsh asdf
 
-clean : neovim-delete zsh-delete
+clean : neovim-delete zsh-delete asdf-delete
 
 neovim :
 	stow -S neovim
