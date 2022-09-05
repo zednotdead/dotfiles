@@ -1,7 +1,7 @@
-.PHONY : astro neovim neovide zsh asdf
-install : astro neovim neovide zsh asdf
+.PHONY : astro neovim neovide zsh asdf rust
+install : astro neovim neovide zsh asdf rust
 
-clean : astro-delete neovim-delete zsh-delete asdf-delete
+clean : astro-delete neovim-delete zsh-delete asdf-delete rust-delete
 
 astro :
 	zsh ./deps/install_astronvim.zsh
@@ -32,3 +32,9 @@ neovide :
 
 neovide-delete :
 	rm -rf ${HOME}/.local/bin/neovide
+
+rust :
+	zsh ./deps/install_rust.zsh
+
+rust-delete :
+	rm -rf ${HOME}/.cargo
