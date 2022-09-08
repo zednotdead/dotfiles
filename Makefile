@@ -1,8 +1,9 @@
 .PHONY : astro neovim neovide zsh asdf rust
 install : astro neovim neovide zsh asdf rust
-mac : astro neovim zsh asdf
+install-mac : astro neovim zsh asdf
 
 clean : astro-delete neovim-delete zsh-delete asdf-delete rust-delete
+clean-mac : astro-delete neovim-delete zsh-delete asdf-delete
 
 astro :
 	zsh ./deps/install_astronvim.zsh

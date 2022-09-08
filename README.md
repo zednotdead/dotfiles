@@ -12,7 +12,8 @@ Everything else will be installed automatically, but you need `zsh` and `make`.
 
 ## Installation
 
-To install the dotfiles, run: 
+To install the dotfiles, run:
+
 ```bash
 $ make install
 ```
@@ -20,5 +21,12 @@ $ make install
 To uninstall the dotfiles, run:
 
 ```bash
+$ make clean
+```
+
+If you are on a macOS device, the commands are respectively:
+
+```bash
+$ make install
 $ make clean
 ```
