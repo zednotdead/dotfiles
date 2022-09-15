@@ -49,6 +49,10 @@ function install_nodejs() {
     asdf install nodejs latest
     asdf global nodejs latest
   fi
+  if asdf plugin list | grep -q stern; then
+    asdf plugin-add stern
+    asdf install stern latest
+  fi
 }
 
 install_nodejs

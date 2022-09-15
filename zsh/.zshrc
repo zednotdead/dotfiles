@@ -8,7 +8,11 @@ fi
 fpath=($HOME/.asdf/completions $fpath)
 
 export PATH=$HOME/.local/bin:$PATH
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
+export EDITOR=/usr/bin/nvim
+export DIRENV_LOG_FORMAT=
+export SOPS_AGE_KEY_FILE=$HOME/.config/sops/age/keys.txt
 
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' group-name ''
@@ -21,8 +25,13 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
 zstyle :compinstall filename '$HOME/.zshrc'
 
-autoload -Uz compinit
-compinit
+
+autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+complete -o nospace -C /usr/bin/terraform terraform
+. <(flux completion zsh)
+. <(direnv hook zsh)
+source <(kubectl completion zsh)
 
 HISTFILE=~/.cache/zsh/.histfile
 HISTSIZE=2000
@@ -87,3 +96,4 @@ bindkey "^H" backward-kill-word
 antidote load
 
 . $HOME/.asdf/asdf.sh
+
