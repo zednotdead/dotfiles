@@ -1,3 +1,4 @@
+local is_available = astronvim.toggle_term_cmd
 --              AstroNvim Configuration Table
 -- All configuration changes should go inside of the table below
 
@@ -176,6 +177,8 @@ local config = {
 			-- quick save
 			-- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
 			["<leader>."] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Run a LSP code action" },
+			["<leader>gg"] = { function() astronvim.toggle_term_cmd "gitui" end, desc = "ToggleTerm gitui" },
+			["<leader>tl"] = { function() astronvim.toggle_term_cmd "gitui" end, desc = "ToggleTerm gitui" },
 		},
 		t = {
 			-- setting a mapping to false will disable it

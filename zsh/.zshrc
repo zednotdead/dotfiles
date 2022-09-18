@@ -32,6 +32,7 @@ complete -o nospace -C /usr/bin/terraform terraform
 . <(flux completion zsh)
 . <(direnv hook zsh)
 source <(kubectl completion zsh)
+source <(helm completion zsh)
 
 HISTFILE=~/.cache/zsh/.histfile
 HISTSIZE=2000
