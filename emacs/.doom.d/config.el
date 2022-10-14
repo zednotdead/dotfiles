@@ -1,16 +1,9 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 (setq user-full-name "Zbigniew Żołnierowicz"
       user-mail-address "zbigniew.zolnierowicz@gmail.com")
 
 (setq doom-theme 'doom-one)
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers 'relative)
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/orgs/")
+(setq display-line-numbers-type 'relative)
 
 (after! emms
         (emms-all)
@@ -40,3 +33,9 @@
 (map! :leader
       (:prefix ("t")
        :desc "Tabs" "t" #'centaur-tabs-mode))
+
+(use-package! org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config
+  (setq org-auto-tangle-default t))
