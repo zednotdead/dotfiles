@@ -2,6 +2,8 @@
 #+author:    Zbigniew Żołnierowicz
 #+email:     zbigniew.zolnierowicz@gmail.com
 
+* Packages
+
 * Configuration for Git and other things
 #+begin_src emacs-lisp :tangle config.el
 (setq user-full-name "Zbigniew Żołnierowicz"
@@ -95,10 +97,37 @@ Add a toggle for showing and hiding tabs
 #+end_src
 
 * Auto tangle
+#+begin_src emacs-lisp :tangle packages.el
+(package! org-auto-tangle)
+#+end_src
+
 #+begin_src emacs-lisp :tangle config.el
 (use-package! org-auto-tangle
   :defer t
   :hook (org-mode . org-auto-tangle-mode)
   :config
   (setq org-auto-tangle-default t))
+#+end_src
+
+* Org Mode
+#+begin_src emacs-lisp :tangle config.el
+(setq org-startup-indented t
+          org-pretty-entities t
+          org-hide-emphasis-markers t
+          org-startup-with-inline-images t
+          org-image-actual-width '(300))
+#+end_src
+
+Configure ~org-superstar~ - the package for the pretty headings
+
+#+begin_src emacs-lisp :tangle packages.el
+(package! org-superstar)
+#+end_src
+
+#+begin_src emacs-lisp :tangle config.el
+(use-package! org-superstar
+  :defer t
+  :hook (org-mode . org-superstar-mode)
+  :config
+  (setq org-superstar-special-todo-items t))
 #+end_src
