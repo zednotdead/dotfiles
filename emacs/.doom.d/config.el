@@ -2,7 +2,7 @@
       user-mail-address "zbigniew.zolnierowicz@gmail.com")
 
 (setq doom-theme 'doom-one)
-(setq org-directory "~/orgs/")
+(setq org-directory "~/org/")
 (setq display-line-numbers-type 'relative)
 
 (after! emms
