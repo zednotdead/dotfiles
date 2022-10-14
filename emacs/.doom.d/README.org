@@ -96,6 +96,13 @@ Add a toggle for showing and hiding tabs
        :desc "Tabs" "t" #'centaur-tabs-mode))
 #+end_src
 
+Group tabs by ~projectile~ project
+
+#+begin_src emacs-lisp :tangle config.el
+(after! centaur-tabs
+  (centaur-tabs-group-by-projectile-project))
+#+end_src
+
 * Auto tangle
 #+begin_src emacs-lisp :tangle packages.el
 (package! org-auto-tangle)

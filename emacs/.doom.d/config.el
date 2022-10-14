@@ -34,6 +34,9 @@
       (:prefix ("t")
        :desc "Tabs" "t" #'centaur-tabs-mode))
 
+(after! centaur-tabs
+  (centaur-tabs-group-by-projectile-project))
+
 (use-package! org-auto-tangle
   :defer t
   :hook (org-mode . org-auto-tangle-mode)
