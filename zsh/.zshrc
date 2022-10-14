@@ -7,7 +7,7 @@ fi
 
 fpath=($HOME/.asdf/completions $fpath)
 
-export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.emacs.d/bin/:$PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
 export EDITOR=/usr/bin/nvim
@@ -98,3 +98,5 @@ antidote load
 
 . $HOME/.asdf/asdf.sh
 
+
+[ -f "/home/zed/.ghcup/env" ] && source "/home/zed/.ghcup/env" # ghcup-env
