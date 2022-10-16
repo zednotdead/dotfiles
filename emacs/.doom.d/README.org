@@ -2,7 +2,10 @@
 #+author:    Zbigniew Żołnierowicz
 #+email:     zbigniew.zolnierowicz@gmail.com
 
-* Packages
+* Start Emacs maximized
+#+begin_src emacs-list :tangle config.el
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+end_src
 
 * Configuration for Git and other things
 #+begin_src emacs-lisp :tangle config.el
@@ -137,4 +140,13 @@ Configure ~org-superstar~ - the package for the pretty headings
   :hook (org-mode . org-superstar-mode)
   :config
   (setq org-superstar-special-todo-items t))
+#+end_src
+
+* Treemacs
+
+#+begin_src emacs-lisp :tangle config.el
+(use-package! magit
+  :defer t
+  :config
+  (setq magit-diff-refine-hunk (quote all)))
 #+end_src

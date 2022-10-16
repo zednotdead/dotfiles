@@ -1,3 +1,5 @@
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 (setq user-full-name "Zbigniew Żołnierowicz"
       user-mail-address "zbigniew.zolnierowicz@gmail.com")
 
@@ -54,3 +56,8 @@
   :hook (org-mode . org-superstar-mode)
   :config
   (setq org-superstar-special-todo-items t))
+
+(use-package! magit
+  :defer t
+  :config
+  (setq magit-diff-refine-hunk (quote all)))
