@@ -7,7 +7,7 @@ fi
 
 fpath=($HOME/.asdf/completions $fpath)
 
-export PATH=$HOME/.local/bin:$HOME/.emacs.d/bin/:$PATH
+export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin/:$PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
 export EDITOR=/usr/bin/nvim
@@ -100,3 +100,5 @@ antidote load
 
 
 [ -f "/home/zed/.ghcup/env" ] && source "/home/zed/.ghcup/env" # ghcup-env
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+alias em="emacsclient -c"
