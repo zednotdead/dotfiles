@@ -29,10 +29,19 @@ zstyle :compinstall filename '$HOME/.zshrc'
 autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 complete -o nospace -C /usr/bin/terraform terraform
-. <(flux completion zsh)
-. <(direnv hook zsh)
-source <(kubectl completion zsh)
-source <(helm completion zsh)
+
+if (( $+commands[flux] )) then
+  . <(flux completion zsh)
+fi
+if (( $+commands[direnv] )) then
+  . <(direnv hook zsh)
+fi
+if (( $+commands[kubectl] )) then
+  source <(kubectl completion zsh)
+fi
+if (( $+commands[helm] )) then
+  source <(helm completion zsh)
+fi
 
 HISTFILE=~/.cache/zsh/.histfile
 HISTSIZE=2000
@@ -76,7 +85,7 @@ setopt histignorespace
 setopt nobeep
 if [ ! -e "$HOME/.antidote/antidote.zsh" ]
 then
-    git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
+  git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 fi
 
 source $HOME/.antidote/antidote.zsh
@@ -96,8 +105,13 @@ bindkey "^H" backward-kill-word
 
 antidote load
 
-. $HOME/.asdf/asdf.sh
+if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
+  . $HOME/.asdf/asdf.sh
+fi
 
+if [[ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]]; then
+  . $(brew --prefix asdf)/libexec/asdf.sh 
+fi
 
 [ -f "/home/zed/.ghcup/env" ] && source "/home/zed/.ghcup/env" # ghcup-env
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
