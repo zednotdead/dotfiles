@@ -1,3 +1,4 @@
 zsh-users/zsh-completions
 romkatv/powerlevel10k
 zsh-users/zsh-history-substring-search
+joshskidmore/zsh-fzf-history-search
