@@ -39,8 +39,8 @@ for _, server in pairs(servers) do
 
   opts = {
     on_attach = function(_, bufnr)
-      local null_ls_status_ok, wk = pcall(require, "which-key")
-      if not null_ls_status_ok then
+      local wk_status_ok, wk = pcall(require, "which-key")
+      if not wk_status_ok then
         return
       end
 
@@ -60,6 +60,7 @@ for _, server in pairs(servers) do
             name = "+LSP",
             a = {"<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action"},
             r = {"<cmd>lua vim.lsp.buf.rename()<CR>", "Rename symbol"},
+            I = {"<cmd>Mason<CR>", "LSP Installer" },
           },
         },
         ["<C-.>"] = {"<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action"},
