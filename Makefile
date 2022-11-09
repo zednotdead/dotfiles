@@ -1,21 +1,15 @@
-.PHONY : astro neovim neovide zsh asdf rust
-install : astro neovim neovide zsh asdf rust
-install-mac : astro neovim zsh asdf
+.PHONY : neovim neovide zsh asdf rust
+install : neovim neovide zsh asdf rust
+install-mac : neovim zsh asdf
 
-clean : astro-delete neovim-delete zsh-delete asdf-delete rust-delete
-clean-mac : astro-delete neovim-delete zsh-delete asdf-delete
-
-astro :
-	zsh ./deps/install_astronvim.zsh
+clean : neovim-delete zsh-delete asdf-delete rust-delete
+clean-mac : neovim-delete zsh-delete asdf-delete
 
 neovim :
 	stow -S neovim
 
 zsh :
 	stow -S zsh
-
-astro-delete :
-	rm -rf "${HOME}/.config/nvim"
 
 neovim-delete :
 	-stow -D neovim 2> /dev/null
