@@ -109,8 +109,10 @@ if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
   . $HOME/.asdf/asdf.sh
 fi
 
-if [[ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]]; then
-  . $(brew --prefix asdf)/libexec/asdf.sh 
+if (( $+commands[flux] )) then
+  if [[ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]]; then
+    . $(brew --prefix asdf)/libexec/asdf.sh 
+  fi
 fi
 
 [ -f "/home/zed/.ghcup/env" ] && source "/home/zed/.ghcup/env" # ghcup-env
