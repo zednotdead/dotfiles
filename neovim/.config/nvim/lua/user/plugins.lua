@@ -93,6 +93,8 @@ return packer.startup(function(use)
   use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
   use { "RRethy/vim-illuminate" }
 
+  use { "moll/vim-bbye" }
+  use { 'lewis6991/impatient.nvim' }
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then

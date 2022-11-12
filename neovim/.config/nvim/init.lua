@@ -12,3 +12,9 @@ require "user.sessions"
 require "user.cmp"
 require "user.lsp"
 require "user.autocommands"
+require "user.misc"
+
+-- Load Neovide settings, if Neovide is opened
+if (vim.g.neovide) then
+  require "user.neovide"
+end

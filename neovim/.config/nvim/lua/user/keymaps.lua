@@ -4,7 +4,7 @@ wk.register(mappings, opts)
 wk.register({
   ["<leader>"] = {
 		o = { "<cmd>Neotree position=left action=focus toggle=true<cr>", "Toggle NeoTree" },
-    x = { "<cmd>bp<bar>sp<bar>bn<bar>bd<cr>", "Close buffer" },
+    x = { "<cmd>Bwipeout<cr>", "Close buffer" },
     d = { "<cmd>Neotree position=left action=close<bar>%bd<bar>Alpha<cr>", "Show dashboard" },
     f = {
       name = "+find",
@@ -25,7 +25,8 @@ wk.register({
     },
     l = {
       name = "+lsp",
-    }
+    },
+    qq = { "<cmd>wqa!<cr>", "Close everything" }
 	},
   ["<C-p>"] = { "<cmd>Telescope find_files<cr>", "Find files" },
   ["<C-f>"] = { "<cmd>Telescope grep_string<cr>", "Find words in file" },
