@@ -36,7 +36,7 @@ main = xmonad
   where
     myTerminal = "st"
 
-myLayout = spacingWithEdge 10 $ (tiled ||| Mirror tiled ||| Full ||| threeCols)
+myLayout = spacingWithEdge 10 (tiled ||| Mirror tiled ||| Full ||| threeCols)
   where
     threeCols = ResizableThreeColMid nmaster delta ratio []
     tiled = ResizableTall nmaster delta ratio []
