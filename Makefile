@@ -34,3 +34,4 @@ rust :
 
 rust-delete :
 	rm -rf ${HOME}/.cargo
+
