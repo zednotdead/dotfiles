@@ -13,11 +13,18 @@ import XMonad.Hooks.Script (execScriptHook)
 import XMonad.Config.Desktop (desktopConfig)
 import XMonad.Actions.UpdateFocus (adjustEventInput)
 import XMonad.Util.SpawnOnce
+import XMonad.Layout.Gaps
+import XMonad.Layout.Spacing
+import System.Directory
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
 
 main :: IO ()
 main = xmonad 
   . ewmhFullscreen
   . ewmh
+  . withEasySB (statusBarProp "xmobar" (pure def)) defToggleStrutsKey
   $ def
   { modMask = mod4Mask
   , layoutHook = myLayout
@@ -29,7 +36,7 @@ main = xmonad
   where
     myTerminal = "st"
 
-myLayout = tiled ||| Mirror tiled ||| Full ||| threeCols 
+myLayout = spacingWithEdge 10 $ (tiled ||| Mirror tiled ||| Full ||| threeCols)
   where
     threeCols = ResizableThreeColMid nmaster delta ratio []
     tiled = ResizableTall nmaster delta ratio []
@@ -64,7 +71,8 @@ myStartupHook = do
   startupHook desktopConfig
   spawn "~/.fehbg"
   spawn "~/.local/bin/set-screen.bash"
-  spawnOnce "picom"
+  spawnOnce "picom --no-fading-openclose"
+  spawnOnce "discord"
   spawnOnce "flatpak run com.discordapp.Discord"
   spawnOnce "steam"
   adjustEventInput
