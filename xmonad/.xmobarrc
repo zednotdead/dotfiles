@@ -4,6 +4,7 @@ Config { font = "xft:Iosevka:size=12"
        , position = TopW C 90
        , allDesktops = True
        , overrideRedirect = True
+       , pickBroadest = True
        , commands = [ Run Swap [] 10
                     , Run Date "%a %Y-%m-%d %H:%M:%S" "date" 10
                     , Run Battery [ "-t"

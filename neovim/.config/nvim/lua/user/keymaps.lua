@@ -30,5 +30,12 @@ wk.register({
 	},
   ["<C-p>"] = { "<cmd>Telescope find_files<cr>", "Find files" },
   ["<C-f>"] = { "<cmd>Telescope grep_string<cr>", "Find words in file" },
+  ["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Toggle comment" }
 })
 
+wk.register(
+  {
+    ["/"] = { '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', "Toggle comment" }
+  },
+  { mode = "x" }
+)

@@ -94,7 +94,12 @@ return packer.startup(function(use)
   use { "RRethy/vim-illuminate" }
 
   use { "moll/vim-bbye" }
-  use { 'lewis6991/impatient.nvim' }
+  use { 'lewis6991/impatient.nvim', requires = { "JoosepAlviste/nvim-ts-context-commentstring" } }
+
+  use { 'tpope/vim-cucumber' }
+  use { "numToStr/Comment.nvim" }
+
+  use { 'akinsho/toggleterm.nvim' }
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then

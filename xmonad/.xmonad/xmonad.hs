@@ -24,7 +24,7 @@ main :: IO ()
 main = xmonad 
   . ewmhFullscreen
   . ewmh
-  . withEasySB (statusBarProp "xmobar" (pure def)) defToggleStrutsKey
+  . withEasySB (statusBarProp "xmobar -x 0" (pure def)) defToggleStrutsKey
   $ def
   { modMask = mod4Mask
   , layoutHook = myLayout
