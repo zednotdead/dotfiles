@@ -118,3 +118,9 @@ fi
 [ -f "/home/zed/.ghcup/env" ] && source "/home/zed/.ghcup/env" # ghcup-env
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 alias em="emacsclient -c"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/zed/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/zed/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/zed/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/google-cloud-sdk/completion.zsh.inc'; fi
