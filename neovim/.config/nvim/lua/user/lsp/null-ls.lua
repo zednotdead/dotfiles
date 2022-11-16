@@ -19,6 +19,8 @@ null_ls.setup {
     formatting.stylua,
     formatting.google_java_format,
     formatting.fourmolu,
+    formatting.mix,
     diagnostics.flake8,
+    -- diagnostics.credo
   },
 }

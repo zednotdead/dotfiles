@@ -86,7 +86,7 @@ return packer.startup(function(use)
   use { "L3MON4D3/LuaSnip" } --snippet engine
   use { "rafamadriz/friendly-snippets" } -- a bunch of snippets to use
 
-  use { "williamboman/nvim-lsp-installer" } -- simple to use language server installer
+  -- use { "williamboman/nvim-lsp-installer" } -- simple to use language server installer
   use { "neovim/nvim-lspconfig" } -- enable LSP
   use { "williamboman/mason.nvim"}
   use { "williamboman/mason-lspconfig.nvim" }
@@ -100,6 +100,9 @@ return packer.startup(function(use)
   use { "numToStr/Comment.nvim" }
 
   use { 'akinsho/toggleterm.nvim' }
+  use { 'elixir-editors/vim-elixir' }
+  use { 'direnv/direnv.vim' }
+  use { 'petobens/poet-v' }
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then
