@@ -1,3 +1,7 @@
 local set = vim.opt
 
-set.guifont = "Iosevka:h15"
+if vim.fn.has('macunix') then
+  set.guifont = "Iosevka Nerd Font:h15"
+else 
+  set.guifont = "Iosevka:h15"
+end
