@@ -31,6 +31,7 @@ dashboard.section.buttons.val = {
   dashboard.button( "f", "  > Find files", ":Telescope find_files<CR>"),
   dashboard.button( "l", "ﮦ  > Load last session", ":SessionManager load_last_session<CR>"),
   dashboard.button( "r", "  > Show sessions", ":SessionManager load_session<CR>"),
+  dashboard.button( "<C-\\>", "  > Show terminal", ":ToggleTerm<CR>"),
   dashboard.button( "q", "  > Quit", ":qa<CR>"),
 }
 

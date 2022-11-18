@@ -5,6 +5,15 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+if (( $+commands[rustup] )) then
+  if [[ ! -f "$HOME/.zfunc/_rustup" ]] then
+    rustup completions zsh rustup > $HOME/.zfunc/_rustup
+  fi
+  if [[ ! -f "$HOME/.zfunc/_cargo" ]] then
+    rustup completions zsh cargo > $HOME/.zfunc/_cargo
+  fi
+fi
+
 fpath=($HOME/.asdf/completions $HOME/.zfunc $fpath)
 
 export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin/:$PATH
@@ -130,3 +139,4 @@ if [ -f '/Users/zed/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/g
 if (( $+commands[fnm] )) then
   . <(fnm env)
 fi
+

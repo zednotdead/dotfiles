@@ -1,3 +1,4 @@
 xmonad/.xmonad/*
 !xmonad/.xmonad/xmonad.hs
 neovim/.config/nvim/plugin/
+zsh/.zfunc/*
