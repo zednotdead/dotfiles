@@ -28,8 +28,8 @@ wk.register({
     },
     qq = { "<cmd>wqa!<cr>", "Close everything" },
     ["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Toggle comment" }
-  },
-  ["<C-p>"] = { "<cmd>Telescope find_files<cr>", "Find files" },
+	},
+  ["<C-p>"] = { "<cmd>Telescope find_files hidden=true<cr>", "Find files" },
   ["<C-f>"] = { "<cmd>Telescope grep_string<cr>", "Find words in file" },
 })
 
