@@ -54,7 +54,11 @@ for _, server in pairs(servers) do
         g = {
           D = {"<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration"},
           d = {"<cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition"},
+          ["]"] = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Go to next LSP hint" },
+          ["["] = { "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Go to previous LSP hint" }
         },
+        ["]d"] = { vim.diagnostic.goto_next, "Go to next diagnostic" },
+        ["[d"] = { vim.diagnostic.goto_prev, "Go to previous diagnostic" },
         ["<leader>"] = {
           l = {
             name = "+LSP",
