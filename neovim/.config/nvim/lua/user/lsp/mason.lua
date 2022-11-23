@@ -7,6 +7,7 @@ local servers = {
   "bashls",
   "jsonls",
   "yamlls",
+  "rust_analyzer",
 }
 
 local settings = {
@@ -36,38 +37,6 @@ end
 local opts = {}
 
 for _, server in pairs(servers) do
-
-  opts = {
-    on_attach = function(_, bufnr)
-      local wk_status_ok, wk = pcall(require, "which-key")
-      if not wk_status_ok then
-        return
-      end
-
-      local wk_opts = {
-        mode = "n",
-        buffer = bufnr
-      }
-
-      wk.register({
-        K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
-        g = {
-          D = {"<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration"},
-          d = {"<cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition"},
-        },
-        ["<leader>"] = {
-          l = {
-            name = "+LSP",
-            a = {"<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action"},
-            r = {"<cmd>lua vim.lsp.buf.rename()<CR>", "Rename symbol"},
-            I = {"<cmd>Mason<CR>", "LSP Installer" },
-          },
-        },
-        ["<C-.>"] = {"<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action"},
-      }, wk_opts)
-    end
-  }
-
   server = vim.split(server, "@")[1]
 
   local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)

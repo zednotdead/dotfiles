@@ -16,7 +16,7 @@ fi
 
 fpath=($HOME/.asdf/completions $HOME/.zfunc $fpath)
 
-export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin/:$PATH
+export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
 export EDITOR=/usr/bin/nvim

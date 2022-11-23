@@ -42,5 +42,9 @@ fi
 
 # Setting PATH for Python 3.11
 # The original version is saved in .zprofile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:${PATH}"
+PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:$HOME/.deno/bin:${PATH}"
 export PATH
+
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    export MOZ_ENABLE_WAYLAND=1
+fi

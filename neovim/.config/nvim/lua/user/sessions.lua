@@ -4,7 +4,7 @@ if not status_ok then
 end
 local Path = require('plenary.path')
 
-require('session_manager').setup({
+session.setup({
   sessions_dir = Path:new(vim.fn.stdpath('data'), 'sessions'), -- The directory where the session files will be saved.
   path_replacer = '__', -- The character to which the path separator will be replaced for session files.
   colon_replacer = '++', -- The character to which the colon symbol will be replaced for session files.

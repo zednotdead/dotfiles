@@ -22,3 +22,18 @@ vim.api.nvim_create_autocmd(
     command = "setlocal fillchars=eob:\\ "
   }
 )
+
+vim.api.nvim_create_autocmd(
+  "FileType",
+  {
+    pattern = { 'neo-tree' },
+    command = "setlocal nonu"
+  }
+)
+
+vim.cmd [[
+  augroup ft_jsonc_events
+    autocmd!
+    autocmd BufNewFile,BufRead rush.json setlocal filetype=jsonc
+  augroup END
+]]

@@ -81,6 +81,8 @@ return packer.startup(function(use)
   use { "saadparwaiz1/cmp_luasnip" } -- snippet completions
   use { "hrsh7th/cmp-nvim-lsp" }
   use { "hrsh7th/cmp-nvim-lua" }
+  use { 'simrat39/rust-tools.nvim' }
+  use { 'rust-lang/rust.vim' }
 
   -- snippets
   use { "L3MON4D3/LuaSnip" } --snippet engine
@@ -103,6 +105,15 @@ return packer.startup(function(use)
   use { 'elixir-editors/vim-elixir' }
   use { 'direnv/direnv.vim' }
   use { 'petobens/poet-v' }
+
+  use { 'nvim-lua/popup.nvim' }
+  use {
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup()
+    end
+  }
+  use { 'neoclide/jsonc.vim' }
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then
