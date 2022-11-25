@@ -8,6 +8,8 @@ local servers = {
   "jsonls",
   "yamlls",
   "rust_analyzer",
+  "rnix",
+  "sqlls",
 }
 
 local settings = {
