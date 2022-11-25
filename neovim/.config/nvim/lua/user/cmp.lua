@@ -27,7 +27,7 @@ cmp.setup({
 	},
 
 	mapping = cmp.mapping.preset.insert({
-    ["<Esc>"] = cmp.mapping.close(),
+		["<Esc>"] = cmp.mapping.close(),
 		["<C-k>"] = cmp.mapping.select_prev_item(),
 		["<C-j>"] = cmp.mapping.select_next_item(),
 		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
@@ -69,13 +69,13 @@ cmp.setup({
 			"s",
 		}),
 	}),
-  formatting = {
-    format = lspkind.cmp_format({
-      mode = 'symbol',
-      maxwidth = 50,
-      ellipsis_char = '...',
-    })
-  },
+	formatting = {
+		format = lspkind.cmp_format({
+			mode = "symbol",
+			maxwidth = 50,
+			ellipsis_char = "...",
+		}),
+	},
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
@@ -95,4 +95,3 @@ cmp.setup({
 		ghost_text = true,
 	},
 })
-

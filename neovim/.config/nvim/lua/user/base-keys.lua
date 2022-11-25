@@ -35,4 +35,3 @@ keymap("v", ">", ">gv", opts)
 
 -- Better paste
 keymap("v", "p", '"_dP', opts)
-

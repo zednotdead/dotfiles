@@ -2,16 +2,16 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 if (( $+commands[rustup] )) then
-  if [[ ! -f "$HOME/.zfunc/_rustup" ]] then
-    rustup completions zsh rustup > $HOME/.zfunc/_rustup
-  fi
-  if [[ ! -f "$HOME/.zfunc/_cargo" ]] then
-    rustup completions zsh cargo > $HOME/.zfunc/_cargo
-  fi
+    if [[ ! -f "$HOME/.zfunc/_rustup" ]] then
+        rustup completions zsh rustup > $HOME/.zfunc/_rustup
+    fi
+    if [[ ! -f "$HOME/.zfunc/_cargo" ]] then
+        rustup completions zsh cargo > $HOME/.zfunc/_cargo
+    fi
 fi
 
 fpath=($HOME/.asdf/completions $HOME/.zfunc $fpath)
@@ -40,16 +40,16 @@ autoload -Uz compinit && compinit
 complete -o nospace -C /usr/bin/terraform terraform
 
 if (( $+commands[flux] )) then
-  . <(flux completion zsh)
+    . <(flux completion zsh)
 fi
 if (( $+commands[direnv] )) then
-  . <(direnv hook zsh)
+    . <(direnv hook zsh)
 fi
 if (( $+commands[kubectl] )) then
-  source <(kubectl completion zsh)
+    source <(kubectl completion zsh)
 fi
 if (( $+commands[helm] )) then
-  source <(helm completion zsh)
+    source <(helm completion zsh)
 fi
 
 HISTFILE=~/.cache/zsh/.histfile
@@ -94,7 +94,7 @@ setopt histignorespace
 setopt nobeep
 if [ ! -e "$HOME/.antidote/antidote.zsh" ]
 then
-  git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
+    git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 fi
 
 source $HOME/.antidote/antidote.zsh
@@ -115,15 +115,15 @@ bindkey "^H" backward-kill-word
 antidote load
 
 if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
-  . $HOME/.asdf/asdf.sh
+    . $HOME/.asdf/asdf.sh
 fi
 
 if [[ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]]; then
-  . $(brew --prefix asdf)/libexec/asdf.sh 
+    . $(brew --prefix asdf)/libexec/asdf.sh
 fi
 
 if (( $+commands[flux] )) then
-  . <(flux completion zsh)
+    . <(flux completion zsh)
 fi
 
 [ -f "/home/zed/.ghcup/env" ] && source "/home/zed/.ghcup/env" # ghcup-env
@@ -137,6 +137,5 @@ if [ -f '/Users/zed/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/zed/google-
 if [ -f '/Users/zed/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/google-cloud-sdk/completion.zsh.inc'; fi
 
 if (( $+commands[fnm] )) then
-  . <(fnm env)
+    . <(fnm env)
 fi
-

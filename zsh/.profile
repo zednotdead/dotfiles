@@ -1,6 +1,6 @@
 export PATH="$HOME/.local/bin/:$PATH"
 if [[ -f "$HOME/.cargo/env" ]]; then
-  . "$HOME/.cargo/env"
+    . "$HOME/.cargo/env"
 fi
 
 autoload -U +X bashcompinit && bashcompinit
