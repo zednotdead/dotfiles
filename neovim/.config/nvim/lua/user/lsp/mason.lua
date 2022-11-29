@@ -9,7 +9,7 @@ local servers = {
 	"yamlls",
 	"rust_analyzer",
 	"rnix",
-	"sqlls",
+	"sqls",
 }
 
 local settings = {

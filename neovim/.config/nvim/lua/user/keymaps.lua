@@ -5,7 +5,6 @@ wk.register({
 	["<leader>"] = {
 		o = { "<cmd>Neotree position=left action=focus toggle=true<cr>", "Toggle NeoTree" },
 		x = { "<cmd>Bwipeout<cr>", "Close buffer" },
-		d = { "<cmd>Neotree position=left action=close<bar>%bd<bar>Alpha<cr>", "Show dashboard" },
 		f = {
 			name = "+find",
 			f = { "<cmd>Telescope find_files<cr>", "Find files" },
@@ -23,14 +22,35 @@ wk.register({
 			o = { "<cmd>Neotree position=left action=close<cr>", "Close NeoTree" },
 			f = { "<cmd>Telescope find_files<cr>", "Find files" },
 		},
-		l = {
-			name = "+lsp",
-		},
+    l = {
+      name = "+LSP",
+      a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action" },
+      r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename symbol" },
+      I = { "<cmd>Mason<CR>", "LSP Installer" },
+      f = { "<cmd>lua vim.lsp.buf.format()<CR>", "Format" },
+    },
+    d = {
+      name = "+database",
+      u = { "<Cmd>DBUIToggle<Cr>", "Toggle UI" },
+      f = { "<Cmd>DBUIFindBuffer<Cr>", "Find buffer" },
+      r = { "<Cmd>DBUIRenameBuffer<Cr>", "Rename buffer" },
+      q = { "<Cmd>DBUILastQueryInfo<Cr>", "Last query info" },
+    },
 		qq = { "<cmd>wqa!<cr>", "Close everything" },
 		["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Toggle comment" },
 	},
 	["<C-p>"] = { "<cmd>Telescope find_files hidden=true<cr>", "Find files" },
 	["<C-f>"] = { "<cmd>Telescope grep_string<cr>", "Find words in file" },
+  K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
+  g = {
+    D = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration" },
+    d = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition" },
+    ["]"] = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Go to next LSP hint" },
+    ["["] = { "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Go to previous LSP hint" },
+  },
+  ["]d"] = { vim.diagnostic.goto_next, "Go to next diagnostic" },
+  ["[d"] = { vim.diagnostic.goto_prev, "Go to previous diagnostic" },
+  ["<C-.>"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action" },
 })
 
 wk.register({
@@ -41,23 +61,4 @@ wk.register({
 }, { mode = "x" })
 
 wk.register({
-  K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
-  g = {
-    D = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration" },
-    d = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition" },
-    ["]"] = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Go to next LSP hint" },
-    ["["] = { "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Go to previous LSP hint" },
-  },
-  ["]d"] = { vim.diagnostic.goto_next, "Go to next diagnostic" },
-  ["[d"] = { vim.diagnostic.goto_prev, "Go to previous diagnostic" },
-  ["<leader>"] = {
-    l = {
-      name = "+LSP",
-      a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action" },
-      r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename symbol" },
-      I = { "<cmd>Mason<CR>", "LSP Installer" },
-      f = { "<cmd>lua vim.lsp.buf.format()<CR>", "Format" },
-    },
-  },
-  ["<C-.>"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action" },
 })
