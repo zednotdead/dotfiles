@@ -16,7 +16,7 @@ fi
 
 fpath=($HOME/.asdf/completions $HOME/.zfunc $fpath)
 
-export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$HOME/go/bin:$PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
 export EDITOR=/usr/bin/nvim
@@ -118,8 +118,10 @@ if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
     . $HOME/.asdf/asdf.sh
 fi
 
-if [[ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]]; then
+if (( $+commands[flux] )) then
+  if [[ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]]; then
     . $(brew --prefix asdf)/libexec/asdf.sh
+  fi
 fi
 
 if (( $+commands[flux] )) then
@@ -139,3 +141,7 @@ if [ -f '/Users/zed/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/g
 if (( $+commands[fnm] )) then
     . <(fnm env)
 fi
+
+# fnm
+export PATH="/home/zed/.local/share/fnm:$PATH"
+eval "`fnm env`"
