@@ -83,15 +83,26 @@
 (use-package evil-surround
   :after evil
   :config
-  (global-evil-surround-mode 1))
+  (global-evil-surround-mode 1)
+  (evil-add-to-alist
+   'evil-surround-pairs-alist
+   ?\( '("(" . ")")
+   ?\[ '("[" . "]")
+   ?\{ '("{" . "}")
+   ?\) '("( " . " )")
+   ?\] '("[ " . " ]")
+   ?\} '("{ " . " }")))
+
+(evil-set-leader 'normal (kbd "SPC"))
+
+;; Magit
 
 (use-package magit
   :commands (magit-status magit-get-current-branch)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-(evil-set-leader nil (kbd "SPC"))
-(evil-set-leader 'normal (kbd "C-SPC"))
+(use-package forge
+  :after magit)
 
 ;; Better keybinding
 
@@ -115,6 +126,12 @@
 
 (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
 
+;; YAML
+
+(use-package yaml-mode
+  :config 
+  (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode)))
+
 ;; Treemacs
 
 (use-package treemacs
@@ -129,15 +146,21 @@
   (setq lsp-keymap-prefix "C-l")
   (setq lsp-beancount-langserver-executable "beancount-language-server")
   (setq lsp-beancount-journal-file "tx.beancount")
-  :hook ((lsp-mode . lsp-enable-which-key-integration))
+  :hook ((lsp-mode . lsp-enable-which-key-integration)
+	 (yaml-mode . lsp-deferred))
   :commands (lsp lsp-deferred))
-
-(add-to-list 'auto-mode-alist '("\\.yaml\\'" . lsp-mode))
 
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 (use-package dap-mode)
+
+(use-package company
+  :config
+  (global-company-mode))
+
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 
 ;; Projectile
 
@@ -148,6 +171,8 @@
 
 (use-package treemacs-projectile
   :after '(treemacs projectile))
+(use-package counsel-projectile
+  :after projectile)
 
 ;; Terminal
 
@@ -161,19 +186,33 @@
           "Output\\*$"
           "\\*Async Shell Command\\*"
           "\\*vterm\\*"
-          "\\*Warnings\\*"
           help-mode
           compilation-mode))
   (popper-mode +1)
   (popper-echo-mode +1))
 
-;; Key bindings
+;; Dashboard
+
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook)
+  (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+  (setq dashboard-content-center t)
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-projects-backend 'projectile)
+  (setq dashboard-items '((recents  . 5)
+			  (bookmarks . 5)
+			  (projects . 5)))
+  (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name))
+
+;; Key binding
 
 (general-nmap
   :prefix "<leader>"
   "o" 'treemacs
   "t" 'vterm
-  "p" 'projectile-switch-project
+  "p" 'counsel-projectile-switch-project
+  "g" 'magit-status
   "e" '(:ignore t :which-key "emacs"))
 
 (general-nmap
@@ -192,4 +231,13 @@
   "C-k" 'evil-window-up)
 
 (general-imap
-  "C-g" 'evil-normal-state)
+  "C-g" 'evil-normal-state
+  "C-SPC" 'company-manual-begin)
+
+(general-imap
+  :keymaps 'company-mode-map
+  "ESC" 'company-abort)
+
+(general-define-key
+ "M-x"
+ 'counsel-M-x)
