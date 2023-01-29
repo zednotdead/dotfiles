@@ -37,10 +37,6 @@ if [[ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]]; then
     . $(brew --prefix asdf)/libexec/asdf.sh
 fi
 
-if (( $+commands[fnm] )) then
-    . <(fnm env)
-fi
-
 # Setting PATH for Python 3.11
 # The original version is saved in .zprofile.pysave
 PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:$HOME/.deno/bin:${PATH}"
@@ -53,3 +49,11 @@ fi
 if (( $+commands[podman] )) then
   export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 fi
+
+if (( $+commands[fnm] )) then
+    . <(fnm env)
+fi
+
+# fnm
+export PATH="/home/zed/.local/share/fnm:$PATH"
+eval "`fnm env`"

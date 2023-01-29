@@ -51,6 +51,9 @@ fi
 if (( $+commands[helm] )) then
     source <(helm completion zsh)
 fi
+if (( $+commands[flux] )) then
+  eval "$(zoxide init zsh)"
+fi
 
 HISTFILE=~/.cache/zsh/.histfile
 HISTSIZE=2000
@@ -138,10 +141,3 @@ if [ -f '/Users/zed/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/zed/google-
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/zed/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/google-cloud-sdk/completion.zsh.inc'; fi
 
-if (( $+commands[fnm] )) then
-    . <(fnm env)
-fi
-
-# fnm
-export PATH="/home/zed/.local/share/fnm:$PATH"
-eval "`fnm env`"
