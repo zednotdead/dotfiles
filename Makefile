@@ -1,5 +1,5 @@
 .PHONY : neovim neovide zsh asdf rust
-install : neovim neovide zsh asdf rust
+install : neovim neovide zsh asdf rust emacs
 install-mac : neovim zsh asdf
 
 clean : neovim-delete zsh-delete asdf-delete rust-delete
@@ -35,3 +35,8 @@ rust :
 rust-delete :
 	rm -rf ${HOME}/.cargo
 
+emacs:
+	stow -S emacs
+
+emacs-delete:
+	rm -rf ${HOME}/.emacs.d/*
