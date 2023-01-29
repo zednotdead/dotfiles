@@ -1,19 +1,4 @@
 ;; -*- lexical-binding: t; -*-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("d80952c58cf1b06d936b1392c38230b74ae1a2a6729594770762dc0779ac66b7" default))
- '(warning-suppress-log-types '((comp))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
 ;; Global keymaps
 ;; Make ESC be immediate
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -24,8 +9,10 @@
 (tool-bar-mode -1)
 (set-fringe-mode 10)
 (menu-bar-mode -1)
-(set-face-attribute 'default nil :font "Iosevka Term" :height 150)
 (setq visible-bell nil)
+
+(add-to-list 'default-frame-alist '(font . "Iosevka Term-15"))
+(set-face-attribute 'default nil :font "Iosevka Term" :height 150)
 
 ;; Install use-package
 (require 'package)
@@ -70,8 +57,6 @@
   (ivy-prescient-mode 1)
   (prescient-persist-mode 1))
 
-;; 
-
 ;; Evil mode
 
 (use-package undo-tree
@@ -80,14 +65,30 @@
 (use-package evil-leader)
 
 (use-package evil
-  :requires (undo-tree)
-  :config (evil-mode 1)
-  (evil-set-undo-system 'undo-tree))
+  :init
+  (setq evil-want-keybinding nil)
+  (setq evil-want-integration t)
+  :config
+  (evil-mode 1)
+  (evil-set-undo-system 'undo-tree)
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
+  (evil-set-initial-state 'dashboard-mode 'normal))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
 (use-package evil-surround
-  :after '(evil)
+  :after evil
   :config
   (global-evil-surround-mode 1))
+
+(use-package magit
+  :commands (magit-status magit-get-current-branch)
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (evil-set-leader nil (kbd "SPC"))
 (evil-set-leader 'normal (kbd "C-SPC"))
@@ -105,7 +106,7 @@
   (telephone-line-mode 1))
 
 (use-package gruvbox-theme
-  :config (load-theme 'gruvbox-dark-hard))
+  :config (load-theme 'gruvbox-dark-hard t))
 
 ;; Beancount
 
@@ -131,6 +132,8 @@
   :hook ((lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . lsp-mode))
+
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
@@ -139,9 +142,54 @@
 ;; Projectile
 
 (use-package projectile
+  :config
+  (projectile-mode +1)
+  (treemacs-project-follow-mode +1))
+
+(use-package treemacs-projectile
+  :after '(treemacs projectile))
+
+;; Terminal
+
+(use-package vterm)
+(use-package popper
+  :bind (("C-`"   . popper-toggle-latest)
+         ("C-M-`"   . popper-cycle))
   :init
-  (projectile-mode +1))
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          "Output\\*$"
+          "\\*Async Shell Command\\*"
+          "\\*vterm\\*"
+          "\\*Warnings\\*"
+          help-mode
+          compilation-mode))
+  (popper-mode +1)
+  (popper-echo-mode +1))
+
+;; Key bindings
 
 (general-nmap
-  :prefix "SPC"
-  "o" 'treemacs)
+  :prefix "<leader>"
+  "o" 'treemacs
+  "t" 'vterm
+  "p" 'projectile-switch-project
+  "e" '(:ignore t :which-key "emacs"))
+
+(general-nmap
+  :prefix "<leader> e"
+  "c" 'calc)
+
+(general-nmap
+  :keymaps 'emacs-lisp-mode-map
+  :prefix "<leader> e"
+  "x" 'eval-buffer)
+
+(general-nmap
+  "C-h" 'evil-window-left
+  "C-l" 'evil-window-right
+  "C-j" 'evil-window-down
+  "C-k" 'evil-window-up)
+
+(general-imap
+  "C-g" 'evil-normal-state)

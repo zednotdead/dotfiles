@@ -50,10 +50,8 @@ if (( $+commands[podman] )) then
   export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 fi
 
-if (( $+commands[fnm] )) then
-    . <(fnm env)
-fi
-
 # fnm
 export PATH="/home/zed/.local/share/fnm:$PATH"
-eval "`fnm env`"
+if (( $+commands[fnm] )) then
+   eval "`fnm env`"
+fi

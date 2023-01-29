@@ -27,6 +27,6 @@ $ make clean
 If you are on a macOS device, the commands are respectively:
 
 ```bash
-$ make install
-$ make clean
+$ make install-mac
+$ make clean-mac
 ```
