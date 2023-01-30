@@ -11,7 +11,10 @@
 (menu-bar-mode -1)
 (setq visible-bell nil)
 
+(cond
+  ((eq system-type 'gnu/linux)
 (add-to-list 'default-frame-alist '(font . "Iosevka"))
+(set-face-attribute 'default t :font "Iosevka")))
 
 (setq evil-want-keybinding nil)
 (setq evil-want-integration t)
