@@ -11,9 +11,10 @@
 (menu-bar-mode -1)
 (setq visible-bell nil)
 
-(add-to-list 'default-frame-alist '(font . "Iosevka Term-15"))
-(set-face-attribute 'default nil :font "Iosevka Term" :height 150)
+(add-to-list 'default-frame-alist '(font . "Iosevka"))
 
+(setq evil-want-keybinding nil)
+(setq evil-want-integration t)
 ;; Install use-package
 (require 'package)
 (add-to-list 'package-archives
@@ -66,8 +67,6 @@
 
 (use-package evil
   :init
-  (setq evil-want-keybinding nil)
-  (setq evil-want-integration t)
   :config
   (evil-mode 1)
   (evil-set-undo-system 'undo-tree)
@@ -132,12 +131,37 @@
   :config 
   (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode)))
 
+;; JS/TS
+
+(use-package tree-sitter
+  :config
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+(use-package tree-sitter-langs
+  :after tree-sitter)
+
+(use-package typescript-mode
+  :after (:all tree-sitter)
+  :config
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescriptreact-mode . tsx)))
+
+(straight-use-package '(tsi :type git :host github :repo "orzechowskid/tsi.el"))
+(straight-use-package '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el" :branch "emacs28"))
+(require 'tsx-mode)
+
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-mode))
+
 ;; Treemacs
 
 (use-package treemacs
   :defer t)
 (use-package treemacs-evil
   :after (treemacs evil))
+
+;; Lua
+
+(use-package lua-mode)
 
 ;; LSP
 
@@ -146,8 +170,13 @@
   (setq lsp-keymap-prefix "C-l")
   (setq lsp-beancount-langserver-executable "beancount-language-server")
   (setq lsp-beancount-journal-file "tx.beancount")
+  (setq gc-cons-threshold 100000000)
+  (setq read-process-output-max (* 1024 1024)) ;; 1mb
   :hook ((lsp-mode . lsp-enable-which-key-integration)
-	 (yaml-mode . lsp-deferred))
+	 (yaml-mode . lsp-deferred)
+	 (lua-mode . lsp-deferred)
+	 (javascript-mode . lsp-deferred)
+	 (typescript-mode . lsp-deferred))
   :commands (lsp lsp-deferred))
 
 (use-package lsp-ui :commands lsp-ui-mode)
@@ -173,6 +202,8 @@
   :after '(treemacs projectile))
 (use-package counsel-projectile
   :after projectile)
+(use-package ripgrep)
+(use-package ag)
 
 ;; Terminal
 
@@ -186,6 +217,7 @@
 	  "Output\\*$"
 	  "\\*Async Shell Command\\*"
 	  "\\*vterm\\*"
+	  "\\*ripgrep-search\\*"
 	  help-mode
 	  compilation-mode))
   (popper-mode +1)
@@ -238,6 +270,6 @@
   :keymaps 'company-mode-map
   "ESC" 'company-abort)
 
-(general-define-key
- "M-x"
- 'counsel-M-x)
+(general-mmap
+  "M-x"
+  'counsel-M-x)
