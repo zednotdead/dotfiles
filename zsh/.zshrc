@@ -141,3 +141,8 @@ if [ -f '/Users/zed/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/zed/google-
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/zed/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/google-cloud-sdk/completion.zsh.inc'; fi
 
+if (( $+commands[fnm] )) then
+    if [[ ! -f "$HOME/.zfunc/_fnm" ]] then
+        fnm completions > $HOME/.zfunc/_fnm
+    fi
+fi
