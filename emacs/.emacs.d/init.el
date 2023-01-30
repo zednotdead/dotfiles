@@ -179,15 +179,15 @@
 (use-package vterm)
 (use-package popper
   :bind (("C-`"   . popper-toggle-latest)
-         ("C-M-`"   . popper-cycle))
+	 ("C-M-`"   . popper-cycle))
   :init
   (setq popper-reference-buffers
-        '("\\*Messages\\*"
-          "Output\\*$"
-          "\\*Async Shell Command\\*"
-          "\\*vterm\\*"
-          help-mode
-          compilation-mode))
+	'("\\*Messages\\*"
+	  "Output\\*$"
+	  "\\*Async Shell Command\\*"
+	  "\\*vterm\\*"
+	  help-mode
+	  compilation-mode))
   (popper-mode +1)
   (popper-echo-mode +1))
 
