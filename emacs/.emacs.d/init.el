@@ -168,6 +168,9 @@
 
 ;; LSP
 
+(use-package flycheck
+  :init (global-flycheck-mode))
+
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-l")
