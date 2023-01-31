@@ -276,3 +276,13 @@
 (general-mmap
   "M-x"
   'counsel-M-x)
+
+(setq ck-font-name (cond
+		    ((eq system-type 'darwin) "Iosevka Nerd Font")
+		    (t "Iosevka")))
+
+(setq ck-font-size 15)
+
+(setq fontspec (concat ck-font-name "-" (number-to-string ck-font-size)))
+(add-to-list 'default-frame-alist `(font . ,fontspec))
+(set-face-attribute 'default t :font ck-font-name :height (* ck-font-size 10))
