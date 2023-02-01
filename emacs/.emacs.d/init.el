@@ -276,10 +276,6 @@
   :keymaps 'company-mode-map
   "ESC" 'company-abort)
 
-(general-mmap
-  "M-x"
-  'counsel-M-x)
-
 (setq ck-font-name (cond
 		    ((eq system-type 'darwin) "Iosevka Nerd Font")
 		    (t "Iosevka")))
