@@ -1,3 +1,8 @@
+;;; package --- Summary:
+;; Config file for my Emacs distribution.
+;;; Commentary:
+;;
+;;; Code:
 ;; -*- lexical-binding: t; -*-
 ;; Global keymaps
 ;; Make ESC be immediate
@@ -11,14 +16,24 @@
 (menu-bar-mode -1)
 (setq visible-bell nil)
 
-(cond
-  ((eq system-type 'gnu/linux)
-(add-to-list 'default-frame-alist '(font . "Iosevka"))
-(set-face-attribute 'default t :font "Iosevka")))
+;;; Setup font
+(defvar my-font-name)
+(defvar my-font-size)
+(defvar my-fontspec)
 
-(setq evil-want-keybinding nil)
-(setq evil-want-integration t)
+(setq my-font-name (cond
+		    ((eq system-type 'darwin) "Iosevka Nerd Font")
+		    (t "Iosevka")))
+
+(setq my-font-size (cond
+		    (t 15)))
+
+(setq my-fontspec (concat my-font-name "-" (number-to-string my-font-size)))
+(add-to-list 'default-frame-alist `(font . ,my-fontspec))
+(set-face-attribute 'default t :font my-font-name :height (* my-font-size 10))
+
 ;; Install use-package
+
 (require 'package)
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/") t)
@@ -63,6 +78,12 @@
 
 ;; Evil mode
 
+(defvar evil-want-keybinding)
+(defvar evil-want-integration)
+
+(setq evil-want-keybinding nil)
+(setq evil-want-integration t)
+
 (use-package undo-tree
   :config (global-undo-tree-mode))
 
@@ -86,7 +107,7 @@
   :after evil
   :config
   (global-evil-surround-mode 1)
-  (evil-add-to-alist
+  (evil--add-to-alist
    'evil-surround-pairs-alist
    ?\( '("(" . ")")
    ?\[ '("[" . "]")
@@ -103,8 +124,13 @@
   :commands (magit-status magit-get-current-branch)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
 (use-package forge
   :after magit)
+
+(use-package diff-hl
+  :config
+  (global-diff-hl-mode))
 
 ;; Better keybinding
 
@@ -118,9 +144,13 @@
   :config
   (telephone-line-mode 1))
 
-(use-package gruvbox-theme
-  :config (load-theme 'gruvbox-dark-hard t))
+;; (use-package gruvbox-theme
+;;  :config (load-theme 'gruvbox-dark-hard t))
 
+(use-package base16-theme
+  :ensure t
+  :config
+  (load-theme 'base16-woodland t))
 ;; Beancount
 
 (straight-use-package '(beancount-mode :host github :repo "beancount/beancount-mode"))
@@ -131,7 +161,7 @@
 ;; YAML
 
 (use-package yaml-mode
-  :config 
+  :config
   (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode)))
 
 ;; JS/TS
@@ -243,6 +273,24 @@
 			  (projects . 5)))
   (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name))
 
+;; Centaur Tabs
+
+(use-package all-the-icons
+  :if (display-graphic-p))
+
+(use-package centaur-tabs
+  :after all-the-icons
+  :init
+  (setq centaur-tabs-set-icons t)
+  (setq centaur-tabs-style "wave")
+  (setq centaur-tabs-height 32)
+  :config
+  (centaur-tabs-mode t)
+  (centaur-tabs-group-by-projectile-project)
+  :bind
+  ("C-S-h" . centaur-tabs-backward)
+  ("C-S-l" . centaur-tabs-forward))
+
 ;; Key binding
 
 (general-nmap
@@ -276,13 +324,9 @@
   :keymaps 'company-mode-map
   "ESC" 'company-abort)
 
-(setq ck-font-name (cond
-		    ((eq system-type 'darwin) "Iosevka Nerd Font")
-		    (t "Iosevka")))
+(general-nmap
+  :prefix "SPC"
+  "x" 'kill-current-buffer)
 
-(setq ck-font-size (cond
-		    (t 15)))
-
-(setq fontspec (concat ck-font-name "-" (number-to-string ck-font-size)))
-(add-to-list 'default-frame-alist `(font . ,fontspec))
-(set-face-attribute 'default t :font ck-font-name :height (* ck-font-size 10))
+(provide 'init)
+;;; init.el ends here
