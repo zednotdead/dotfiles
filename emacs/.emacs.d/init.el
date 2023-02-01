@@ -284,7 +284,8 @@
 		    ((eq system-type 'darwin) "Iosevka Nerd Font")
 		    (t "Iosevka")))
 
-(setq ck-font-size 15)
+(setq ck-font-size (cond
+		    (t 15)))
 
 (setq fontspec (concat ck-font-name "-" (number-to-string ck-font-size)))
 (add-to-list 'default-frame-alist `(font . ,fontspec))
