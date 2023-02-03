@@ -93,6 +93,7 @@
   :init
   :config
   (evil-mode 1)
+  (evil-set-leader 'normal (kbd "SPC"))
   (evil-set-undo-system 'undo-tree)
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
@@ -116,7 +117,6 @@
    ?\] '("[ " . " ]")
    ?\} '("{ " . " }")))
 
-(evil-set-leader 'normal (kbd "SPC"))
 
 ;; Magit
 
@@ -181,7 +181,6 @@
 
 (straight-use-package '(tsi :type git :host github :repo "orzechowskid/tsi.el"))
 (straight-use-package '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el" :branch "emacs28"))
-(require 'tsx-mode)
 
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-mode))
 
@@ -284,6 +283,34 @@
   (setq centaur-tabs-set-icons t)
   (setq centaur-tabs-style "wave")
   (setq centaur-tabs-height 32)
+  (defun centaur-tabs-hide-tab (x)
+    "Do no to show buffer X in tabs."
+    (let ((name (format "%s" x)))
+      (or
+       ;; Current window is not dedicated window.
+       (window-dedicated-p (selected-window))
+
+       ;; Buffer name not match below blacklist.
+       (string-prefix-p "*epc" name)
+       (string-prefix-p "*helm" name)
+       (string-prefix-p "*Helm" name)
+       (string-prefix-p "*Compile-Log*" name)
+       (string-prefix-p "*lsp" name)
+       (string-prefix-p "*company" name)
+       (string-prefix-p "*Flycheck" name)
+       (string-prefix-p "*tramp" name)
+       (string-prefix-p " *Mini" name)
+       (string-prefix-p "*help" name)
+       (string-prefix-p "*straight" name)
+       (string-prefix-p " *temp" name)
+       (string-prefix-p "*Help" name)
+       (string-prefix-p "*mybuf" name)
+       (string-prefix-p "*dashboard" name)
+
+       ;; Is not magit buffer.
+       (and (string-prefix-p "magit" name)
+	    (not (file-name-extension name)))
+       )))
   :config
   (centaur-tabs-mode t)
   (centaur-tabs-group-by-projectile-project)
@@ -291,24 +318,37 @@
   ("C-S-h" . centaur-tabs-backward)
   ("C-S-l" . centaur-tabs-forward))
 
+;; Lispy
+
+(use-package lispyville
+  :init
+  (general-add-hook '(emacs-lisp-mode-hook lisp-mode-hook) #'lispyville-mode)
+  :config
+  (lispyville-set-key-theme '(operators c-u additional)))
+
 ;; Key binding
 
 (general-nmap
-  :prefix "<leader>"
+  :prefix "SPC"
   "o" 'treemacs
   "t" 'vterm
   "p" 'counsel-projectile-switch-project
   "g" 'magit-status
-  "e" '(:ignore t :which-key "emacs"))
+  "e" '(:ignore t :which-key "emacs")
+  "l" '(:ignore t :which-key "lsp"))
 
 (general-nmap
-  :prefix "<leader> e"
+  :prefix "SPC e"
   "c" 'calc)
 
 (general-nmap
   :keymaps 'emacs-lisp-mode-map
-  :prefix "<leader> e"
+  :prefix "SPC e"
   "x" 'eval-buffer)
+
+(general-nmap
+  "] q" '(flycheck-next-error 1 1)
+  "[ q" '(flycheck-previous-error 1 1))
 
 (general-nmap
   "C-h" 'evil-window-left
