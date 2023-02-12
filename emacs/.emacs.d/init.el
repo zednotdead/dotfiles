@@ -126,6 +126,8 @@
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (use-package forge
+  :init
+  (setq auth-sources '("~/.authinfo"))
   :after magit)
 
 (use-package diff-hl
@@ -211,9 +213,95 @@
 	 (yaml-mode . lsp-deferred)
 	 (lua-mode . lsp-deferred)
 	 (javascript-mode . lsp-deferred)
-	 (typescript-mode . lsp-deferred))
-  :commands (lsp lsp-deferred))
+	 (typescript-mode . lsp-deferred)
+	 (python-mode . lsp-deferred))
+  :commands (lsp lsp-deferred)
+  :config
+  (defgroup lsp-ruff-lsp nil
+    "LSP support for Python, using ruff-lsp's Python Language Server."
+    :group 'lsp-mode
+    :link '(url-link "https://github.com/charliermarsh/ruff-lsp"))
 
+  (defcustom lsp-ruff-lsp-server-command '("ruff-lsp")
+    "Command to start ruff-lsp."
+    :risky t
+    :type '(repeat string)
+    :group 'lsp-ruff-lsp)
+
+  (defcustom lsp-ruff-lsp-ruff-path ["ruff"]
+    "Paths to ruff to try, in order."
+    :risky t
+    :type 'lsp-string-vector
+    :group 'lsp-ruff-lsp)
+
+  (defcustom lsp-ruff-lsp-ruff-args []
+    "Arguments, passed to ruff."
+    :risky t
+    :type 'lsp-string-vector
+    :group 'lsp-ruff-lsp)
+
+  (defcustom lsp-ruff-lsp-log-level "error"
+    "Tracing level."
+    :type '(choice (const "debug")
+		   (const "error")
+		   (const "info")
+		   (const "off")
+		   (const "warn"))
+    :group 'lsp-ruff-lsp)
+
+  (defcustom lsp-ruff-lsp-python-path "python3"
+    "Path to the Python interpreter."
+    :risky t
+    :type 'string
+    :group 'lsp-ruff-lsp)
+
+  (defcustom lsp-ruff-lsp-show-notifications "off"
+    "When notifications are shown."
+    :type '(choice (const "off")
+		   (const "onError")
+		   (const "onWarning")
+		   (const "always"))
+    :group 'lsp-ruff-lsp)
+
+  (defcustom lsp-ruff-lsp-advertize-organize-imports t
+    "Whether to report ability to handle source.organizeImports actions."
+    :type 'boolean
+    :group 'lsp-ruff-lsp)
+
+  (defcustom lsp-ruff-lsp-advertize-fix-all t
+    "Whether to report ability to handle source.fixAll actions."
+    :type 'boolean
+    :group 'lsp-ruff-lsp)
+
+  (defcustom lsp-ruff-lsp-import-strategy "fromEnvironment"
+    "Where ruff is imported from if lsp-ruff-lsp-ruff-path is not set."
+    :type '(choice (const "fromEnvironment")
+		   (const "useBundled"))
+    :group 'lsp-ruff-lsp)
+
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection
+		     (lambda () lsp-ruff-lsp-server-command))
+    :activation-fn (lsp-activate-on "python")
+    :server-id 'ruff-lsp
+    :priority -2
+    :add-on? t
+    :initialization-options
+    (lambda ()
+      (list :settings
+	    (list :args lsp-ruff-lsp-ruff-args
+		  :logLevel lsp-ruff-lsp-log-level
+		  :path lsp-ruff-lsp-ruff-path
+		  :interpreter (vector lsp-ruff-lsp-python-path)
+		  :showNotifications lsp-ruff-lsp-show-notifications
+		  :organizeImports (lsp-json-bool lsp-ruff-lsp-advertize-organize-imports)
+		  :fixAll (lsp-json-bool lsp-ruff-lsp-advertize-fix-all)
+		  :importStrategy lsp-ruff-lsp-import-strategy)))))
+
+  (lsp-consistency-check lsp-ruff-lsp))
+
+(use-package yasnippet :after lsp-mode)
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
@@ -252,6 +340,7 @@
 	  "Output\\*$"
 	  "\\*Async Shell Command\\*"
 	  "\\*vterm\\*"
+	  "\\*poetry-shell\\*"
 	  "\\*ripgrep-search\\*"
 	  help-mode
 	  compilation-mode))
@@ -316,15 +405,33 @@
   (centaur-tabs-group-by-projectile-project)
   :bind
   ("C-S-h" . centaur-tabs-backward)
-  ("C-S-l" . centaur-tabs-forward))
+  ("C-S-l" . centaur-tabs-forward)
+  ("C-S-<left>" . centaur-tabs-backward)
+  ("C-S-<right>" . centaur-tabs-forward))
 
-;; Lispy
+;; Poetry
 
-(use-package lispyville
-  :init
-  (general-add-hook '(emacs-lisp-mode-hook lisp-mode-hook) #'lispyville-mode)
+(use-package poetry
   :config
-  (lispyville-set-key-theme '(operators c-u additional)))
+  (poetry-tracking-mode))
+
+(use-package paren
+  :straight (:type built-in)
+  :custom
+  (show-paren-when-point-inside-paren t)
+  :custom-face
+  (show-paren-match ((t (:background nil :weight bold :foreground "white"))))
+  :hook
+  (dashboard-after-initialize . show-paren-mode))
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package color-identifiers-mode
+  :commands color-identifiers-mode)
+
+(use-package rainbow-mode
+  :hook (prog-mode . rainbow-mode))
 
 ;; Key binding
 
@@ -367,6 +474,10 @@
 (general-nmap
   :prefix "SPC"
   "x" 'kill-current-buffer)
+
+(general-nmap
+  :prefix "SPC l"
+  "p" 'poetry)
 
 (provide 'init)
 ;;; init.el ends here
