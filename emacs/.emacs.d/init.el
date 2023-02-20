@@ -214,7 +214,8 @@
 	 (lua-mode . lsp-deferred)
 	 (javascript-mode . lsp-deferred)
 	 (typescript-mode . lsp-deferred)
-	 (python-mode . lsp-deferred))
+	 (python-mode . lsp-deferred)
+	 (elixir-mode . lsp-deferred))
   :commands (lsp lsp-deferred)
   :config
   (defgroup lsp-ruff-lsp nil
@@ -300,6 +301,8 @@
 		  :importStrategy lsp-ruff-lsp-import-strategy)))))
 
   (lsp-consistency-check lsp-ruff-lsp))
+
+(use-package elixir-mode)
 
 (use-package yasnippet :after lsp-mode)
 (use-package lsp-ui :commands lsp-ui-mode)
