@@ -55,3 +55,7 @@ export PATH="/home/zed/.local/share/fnm:$PATH"
 if (( $+commands[fnm] )) then
    eval "`fnm env --use-on-cd`"
 fi
+
+if (( $+commands[rtx] )) then
+  eval "$(rtx activate zsh)"
+fi
