@@ -58,4 +58,5 @@ fi
 
 if (( $+commands[rtx] )) then
   eval "$(rtx activate zsh)"
+  eval "$(rtx env -s zsh)"
 fi

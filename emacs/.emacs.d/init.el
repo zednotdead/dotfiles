@@ -158,6 +158,9 @@
 (straight-use-package '(beancount-mode :host github :repo "beancount/beancount-mode"))
 (use-package no-littering)
 
+(use-package nix-mode
+  :mode "\\.nix\\'")
+
 (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
 
 ;; YAML
@@ -304,7 +307,20 @@
 
 (use-package elixir-mode)
 
-(use-package yasnippet :after lsp-mode)
+(use-package yasnippet
+  :ensure t
+  :diminish yas-minor-mode
+  :bind (:map yas-minor-mode-map
+              ("C-c C-e" . yas-expand))
+  
+  :config
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
+  (yas-global-mode 1)
+  (setq yas-prompt-functions '(yas-dropdown-prompt
+                               yas-ido-prompt
+                               yas-completing-prompt)))
+
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
@@ -436,6 +452,8 @@
 (use-package rainbow-mode
   :hook (prog-mode . rainbow-mode))
 
+(use-package sudo-edit)
+
 ;; Key binding
 
 (general-nmap
@@ -478,9 +496,25 @@
   :prefix "SPC"
   "x" 'kill-current-buffer)
 
+(general-vmap
+  :prefix "SPC"
+  "/" 'comment-line)
+
 (general-nmap
   :prefix "SPC l"
   "p" 'poetry)
 
 (provide 'init)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(warning-suppress-types '((comp))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
