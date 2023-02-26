@@ -135,14 +135,14 @@ fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 alias em="emacsclient -c"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/zed/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/zed/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/zed/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/google-cloud-sdk/completion.zsh.inc'; fi
-
 if (( $+commands[fnm] )) then
     if [[ ! -f "$HOME/.zfunc/_fnm" ]] then
         fnm completions > $HOME/.zfunc/_fnm
     fi
 fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
