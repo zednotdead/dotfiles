@@ -146,3 +146,4 @@ if [ -f '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/z
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+eval "$(rtx activate zsh)"
