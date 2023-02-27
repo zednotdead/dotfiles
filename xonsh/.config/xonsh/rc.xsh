@@ -1,5 +1,5 @@
 $XONTRIBS_AUTOLOAD_DISABLED = {"homebrew", }
-xontrib load homebrew
+source-bash $(brew shellenv)
 
 from shutil import which
 from pathlib        	import Path
