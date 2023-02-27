@@ -22,8 +22,8 @@
 (defvar my-fontspec)
 
 (setq my-font-name (cond
-		    ((eq system-type 'darwin) "Iosevka Nerd Font")
-		    (t "PragmataPro Mono Liga")))
+		    ((eq system-type 'darwin) "PragmataPro Liga")
+		    (t "PragmataPro Liga")))
 
 (setq my-font-size (cond
 		    (t 15)))
