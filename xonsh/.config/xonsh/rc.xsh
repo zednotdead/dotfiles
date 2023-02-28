@@ -1,5 +1,6 @@
 $XONTRIBS_AUTOLOAD_DISABLED = {"homebrew", }
-source-bash $(brew shellenv)
+# source-bash $(brew shellenv)
+# source-zsh --login True "echo loading xonsh foreign shell"
 
 from shutil import which
 from pathlib        	import Path
