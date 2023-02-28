@@ -1,26 +1,8 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-if (( $+commands[rustup] )) then
-    if [[ ! -f "$HOME/.zfunc/_rustup" ]] then
-        rustup completions zsh rustup > $HOME/.zfunc/_rustup
-    fi
-    if [[ ! -f "$HOME/.zfunc/_cargo" ]] then
-        rustup completions zsh cargo > $HOME/.zfunc/_cargo
-    fi
-fi
-
-fpath=($HOME/.asdf/completions $HOME/.zfunc $fpath)
+fpath=($HOME/.zfunc $fpath)
 
 export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$HOME/go/bin:$PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
-export EDITOR=/usr/bin/nvim
-export DIRENV_LOG_FORMAT=
 export SOPS_AGE_KEY_FILE=$HOME/.config/sops/age/keys.txt
 
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
@@ -34,6 +16,8 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
 zstyle :compinstall filename '$HOME/.zshrc'
 
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+antidote load
 
 autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
@@ -95,12 +79,6 @@ setopt histignorespace
 
 # avoid "beep"ing
 setopt nobeep
-if [ ! -e "$HOME/.antidote/antidote.zsh" ]
-then
-    git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
-fi
-
-source $HOME/.antidote/antidote.zsh
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -111,11 +89,6 @@ bindkey "^[[F" end-of-line
 bindkey "^[[3~" delete-char
 bindkey "^[[3;5~" kill-word
 bindkey "^H" backward-kill-word
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-antidote load
 
 if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
     . $HOME/.asdf/asdf.sh
@@ -132,7 +105,6 @@ if (( $+commands[flux] )) then
 fi
 
 [ -f "/home/zed/.ghcup/env" ] && source "/home/zed/.ghcup/env" # ghcup-env
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 alias em="emacsclient -c"
 
 if (( $+commands[fnm] )) then
@@ -146,3 +118,11 @@ if [ -f '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/z
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+if (( $+commands[rtx] )) then
+    eval "$(rtx activate zsh)"
+fi
+
+if (( $+commands[starship] )) then
+    eval "$(starship init zsh)"
+fi
