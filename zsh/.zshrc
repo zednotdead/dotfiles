@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 fpath=($HOME/.zfunc $fpath)
 
 export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$HOME/go/bin:$PATH
@@ -45,7 +47,7 @@ fi
 if (( $+commands[helm] )) then
     source <(helm completion zsh)
 fi
-if (( $+commands[flux] )) then
+if (( $+commands[zoxide] )) then
   eval "$(zoxide init zsh)"
 fi
 

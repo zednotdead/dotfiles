@@ -11,8 +11,11 @@ fi
 export PNPM_HOME="/home/zed/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export EDITOR=$HOME/.local/bin/neovide
 export XDG_DATA_DIRS="$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
+
+if [[ -f "$HOME/.local/bin/neovide" ]]; then
+	export EDITOR=$HOME/.local/bin/neovide
+fi
 
 if (( $+commands[flux] )) then
     . <(flux completion zsh)
