@@ -358,7 +358,7 @@
 	'("\\*Messages\\*"
 	  "Output\\*$"
 	  "\\*Async Shell Command\\*"
-	  "\\*vterm\\*"
+	  "\\*vterm"
 	  "\\*poetry-shell\\*"
 	  "\\*ripgrep-search\\*"
 	  help-mode

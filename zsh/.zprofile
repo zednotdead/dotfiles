@@ -63,3 +63,7 @@ if (( $+commands[rtx] )) then
   eval "$(rtx activate zsh)"
   eval "$(rtx env -s zsh)"
 fi
+
+if [[ -f "$HOME/.cargo/env" ]]; then
+	source "$HOME/.cargo/env"
+fi

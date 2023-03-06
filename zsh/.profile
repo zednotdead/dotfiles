@@ -1,3 +1,6 @@
-export $PATH = $PATH:$HOME/.local/bin
+export $PATH = $PATH:$HOME/.local/bin:$HOME/.cargo:$HOME/.cargo/bin
 
-. rtx activate bash
+if [[ -f "$HOME/.cargo/env" ]]; then
+	source "$HOME/.cargo/env"
+	. rtx e
+fi
