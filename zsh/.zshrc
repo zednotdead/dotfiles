@@ -32,19 +32,19 @@ autoload -Uz compinit && compinit
 complete -o nospace -C /usr/bin/terraform terraform
 
 if (( $+commands[flux] )) then
-    . <(flux completion zsh)
+	. <(flux completion zsh)
 fi
 if (( $+commands[direnv] )) then
-    . <(direnv hook zsh)
+	. <(direnv hook zsh)
 fi
 if (( $+commands[kubectl] )) then
-    source <(kubectl completion zsh)
+	source <(kubectl completion zsh)
 fi
 if (( $+commands[helm] )) then
-    source <(helm completion zsh)
+	source <(helm completion zsh)
 fi
 if (( $+commands[zoxide] )) then
-  eval "$(zoxide init zsh)"
+	eval "$(zoxide init zsh)"
 fi
 
 HISTFILE=~/.cache/zsh/.histfile
@@ -99,25 +99,26 @@ bindkey "^[[3;5~" kill-word
 bindkey "^H" backward-kill-word
 
 if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
-    . $HOME/.asdf/asdf.sh
+	. $HOME/.asdf/asdf.sh
 fi
 
 if (( $+commands[flux] )) then
-  if [[ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]]; then
-    . $(brew --prefix asdf)/libexec/asdf.sh
-  fi
+	if [[ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]]; then
+		. $(brew --prefix asdf)/libexec/asdf.sh
+	fi
 fi
 
 if (( $+commands[flux] )) then
-    . <(flux completion zsh)
+	. <(flux completion zsh)
 fi
 
 alias em="emacsclient -c"
 
 if (( $+commands[fnm] )) then
-    if [[ ! -f "$HOME/.zfunc/_fnm" ]] then
-        fnm completions > $HOME/.zfunc/_fnm
-    fi
+	if [[ ! -f "$HOME/.zfunc/_fnm" ]] then
+		echo "fnm completion file not found, generating..."
+		fnm completions > $HOME/.zfunc/_fnm
+	fi
 fi
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -127,25 +128,39 @@ if [ -f '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/z
 if [ -f '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 if (( $+commands[rtx] )) then
-    eval "$(rtx activate zsh)"
+	eval "$(rtx activate zsh)"
+	if [[ ! -f "$HOME/.zfunc/_fnm" ]] then
+		echo "rtx completion file not found, generating..."
+		rtx complete --shell zsh > $HOME/.zfunc/_fnm
+	fi
 fi
 
 if (( $+commands[starship] )) then
-    eval "$(starship init zsh)"
+	eval "$(starship init zsh)"
 fi
 
 if (( $+commands[flux] )) then
-    . <(flux completion zsh)
+	. <(flux completion zsh)
 fi
 
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 if [[ -f "/usr/local/bin/talosctl" ]]; then
-    . <(talosctl completion zsh)
+	. <(talosctl completion zsh)
 fi
 
 if [[ -f "/usr/local/bin/cilium" ]]; then
-    . <(cilium completion zsh)
+	. <(cilium completion zsh)
+fi
+
+if (( $+commands[cargo] )) then
+	echo "cargo completion file not found, generating..."
+	rustup completions zsh cargo > $HOME/.zfunc/_cargo
+fi
+
+if (( $+commands[rustup] )) then
+	echo "rustup completion file not found, generating..."
+	rustup completions zsh rustup > $HOME/.zfunc/_rustup
 fi
