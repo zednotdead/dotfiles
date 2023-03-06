@@ -22,10 +22,6 @@ zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
-# switch group using `,` and `.`
-zstyle ':fzf-tab:*' switch-group ',' '.'
 zstyle :compinstall filename '$HOME/.zshrc'
 
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
@@ -116,7 +112,6 @@ if (( $+commands[flux] )) then
     . <(flux completion zsh)
 fi
 
-[ -f "/home/zed/.ghcup/env" ] && source "/home/zed/.ghcup/env" # ghcup-env
 alias em="emacsclient -c"
 
 if (( $+commands[fnm] )) then
@@ -137,4 +132,20 @@ fi
 
 if (( $+commands[starship] )) then
     eval "$(starship init zsh)"
+fi
+
+if (( $+commands[flux] )) then
+    . <(flux completion zsh)
+fi
+
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+if [[ -f "/usr/local/bin/talosctl" ]]; then
+    . <(talosctl completion zsh)
+fi
+
+if [[ -f "/usr/local/bin/cilium" ]]; then
+    . <(cilium completion zsh)
 fi
