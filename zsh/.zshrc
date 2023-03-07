@@ -156,11 +156,14 @@ if [[ -f "/usr/local/bin/cilium" ]]; then
 fi
 
 if (( $+commands[cargo] )) then
-	echo "cargo completion file not found, generating..."
-	rustup completions zsh cargo > $HOME/.zfunc/_cargo
+	if [[ ! -f "$HOME/.zfunc/_cargo" ]]; then
+		rustup completions zsh cargo > $HOME/.zfunc/_cargo
+	fi
 fi
 
 if (( $+commands[rustup] )) then
-	echo "rustup completion file not found, generating..."
-	rustup completions zsh rustup > $HOME/.zfunc/_rustup
+	if [[ ! -f "$HOME/.zfunc/_rustup" ]]; then
+		echo "rustup completion file not found, generating..."
+		rustup completions zsh > $HOME/.zfunc/_rustup
+	fi
 fi
