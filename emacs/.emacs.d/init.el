@@ -221,6 +221,7 @@
 	 (elixir-mode . lsp-deferred))
   :commands (lsp lsp-deferred)
   :config
+  (add-to-list 'auto-mode-alist '("\\.astro" . lsp-mode))
   (defgroup lsp-ruff-lsp nil
     "LSP support for Python, using ruff-lsp's Python Language Server."
     :group 'lsp-mode

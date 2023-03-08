@@ -129,9 +129,9 @@ if [ -f '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/U
 
 if (( $+commands[rtx] )) then
 	eval "$(rtx activate zsh)"
-	if [[ ! -f "$HOME/.zfunc/_fnm" ]] then
+	if [[ ! -f "$HOME/.zfunc/_rtx" ]] then
 		echo "rtx completion file not found, generating..."
-		rtx complete --shell zsh > $HOME/.zfunc/_fnm
+		rtx complete --shell zsh > $HOME/.zfunc/_rtx
 	fi
 fi
 
