@@ -203,3 +203,9 @@ fzf-git-checkout() {
 }
 
 alias gch="fzf-git-checkout"
+
+alias fzf-git-get-hash='git log --oneline | fzf | grep -oE "^.{10}"'
+
+grev() {
+	git revert $(fzf-git-get-hash)
+}
