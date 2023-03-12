@@ -44,18 +44,6 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 6))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-	(url-retrieve-synchronously
-	 "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-	 'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
 
 ;; Plugins
 
@@ -189,10 +177,13 @@
 
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-mode))
 
+(use-package svelte-mode)
+
 ;; Treemacs
 
 (use-package treemacs
   :defer t)
+
 (use-package treemacs-evil
   :after (treemacs evil))
 
@@ -218,10 +209,16 @@
 	 (javascript-mode . lsp-deferred)
 	 (typescript-mode . lsp-deferred)
 	 (python-mode . lsp-deferred)
-	 (elixir-mode . lsp-deferred))
+	 (elixir-mode . lsp-deferred)
+	 (svelte-mode . lsp-deferred))
   :commands (lsp lsp-deferred)
   :config
-  (add-to-list 'auto-mode-alist '("\\.astro" . lsp-mode))
+  (setq auto-mode-alist
+	(append '((".*\\.astro\\'" . js-jsx-mode))
+		auto-mode-alist))
+  (setq auto-mode-alist
+	(append '((".*\\.svelte\\'" . svelte-mode))
+		auto-mode-alist))
   (defgroup lsp-ruff-lsp nil
     "LSP support for Python, using ruff-lsp's Python Language Server."
     :group 'lsp-mode
@@ -322,7 +319,9 @@
                                yas-ido-prompt
                                yas-completing-prompt)))
 
-(use-package lsp-ui :commands lsp-ui-mode)
+(use-package lsp-ui
+  :commands lsp-ui-mode
+  :config (setq lsp-ui-doc-show-with-cursor t))
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 (use-package dap-mode)
@@ -388,6 +387,7 @@
 
 (use-package centaur-tabs
   :after all-the-icons
+  :demand
   :init
   (setq centaur-tabs-set-icons t)
   (setq centaur-tabs-style "wave")
@@ -501,6 +501,13 @@
 				))
   (global-ligature-mode t))
 
+;; Editorconfig
+
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
 ;; Key binding
 
 (general-nmap
@@ -551,8 +558,9 @@
   :prefix "SPC l"
   "p" 'poetry)
 
-(provide 'init)
-;;; init.el ends here
+(setq backup-directory-alist
+      '((".*" . "~/.cache/emacs/backup")))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -565,3 +573,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(provide 'init)
+;;; init.el ends here
