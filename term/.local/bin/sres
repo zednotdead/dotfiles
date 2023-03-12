@@ -1,0 +1,19 @@
+_sres() {
+	local service_name
+	service_name=$(
+			find ~/.config/systemd/user/ -maxdepth 1 ! -type d \
+			| grep -oP "(?<=\/)\w*.service" \
+			| fzf \
+			| xargs basename
+		      )
+
+	if [[ "$service_name" = "" ]]; then
+	echo "No service selected."
+	return
+	fi
+
+	echo "Restarting $service_name..."
+	systemctl --user restart $service_name
+}
+
+_sres

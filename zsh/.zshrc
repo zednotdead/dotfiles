@@ -210,5 +210,4 @@ grev() {
 	git revert $(fzf-git-get-hash)
 }
 
-alias sysres="systemctl --user restart"
 alias gpu="git push"
