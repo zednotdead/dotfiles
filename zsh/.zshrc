@@ -209,3 +209,5 @@ alias fzf-git-get-hash='git log --oneline | fzf | grep -oE "^.{10}"'
 grev() {
 	git revert $(fzf-git-get-hash)
 }
+
+alias sysres="systemctl --user restart"
