@@ -1,9 +1,11 @@
+#!/usr/bin/env bash
+
 _sres() {
 	local service_name
 	service_name=$(
 			find ~/.config/systemd/user/ -maxdepth 1 ! -type d \
 			| grep -oP "(?<=\/)\w*.service" \
-			| fzf \
+			| fzf --height 20% \
 			| xargs basename
 		      )
 
@@ -13,7 +15,7 @@ _sres() {
 	fi
 
 	echo "Restarting $service_name..."
-	systemctl --user restart $service_name
+	systemctl --user restart "$service_name"
 }
 
 _sres
