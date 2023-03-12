@@ -211,3 +211,4 @@ grev() {
 }
 
 alias sysres="systemctl --user restart"
+alias gpu="git push"
