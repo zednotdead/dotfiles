@@ -310,7 +310,6 @@
   :diminish yas-minor-mode
   :bind (:map yas-minor-mode-map
 	      ("C-c C-e" . yas-expand))
-  
   :config
   (yas-reload-all)
   (add-hook 'prog-mode-hook #'yas-minor-mode)
@@ -318,6 +317,9 @@
   (setq yas-prompt-functions '(yas-dropdown-prompt
 			       yas-ido-prompt
 			       yas-completing-prompt)))
+
+(use-package yasnippet-snippets
+  :after yasnippet)
 
 (use-package lsp-ui
   :commands lsp-ui-mode
@@ -358,9 +360,9 @@
 	'("\\*Messages\\*"
 	  "Output\\*$"
 	  "\\*Async Shell Command\\*"
-	  "\\*vterm"
 	  "\\*poetry-shell\\*"
 	  "\\*ripgrep-search\\*"
+	  vterm-mode
 	  help-mode
 	  compilation-mode))
   (popper-mode +1)
@@ -420,7 +422,7 @@
        (and (string-prefix-p "magit" name)
 	    (not (file-name-extension name)))
        )))
-
+  :functions centaur-tabs-group-by-projectile-project
   :config
   (centaur-tabs-mode t)
   (centaur-tabs-group-by-projectile-project)
