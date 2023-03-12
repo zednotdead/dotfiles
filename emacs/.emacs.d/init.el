@@ -309,15 +309,15 @@
   :ensure t
   :diminish yas-minor-mode
   :bind (:map yas-minor-mode-map
-              ("C-c C-e" . yas-expand))
+	      ("C-c C-e" . yas-expand))
   
   :config
   (yas-reload-all)
   (add-hook 'prog-mode-hook #'yas-minor-mode)
   (yas-global-mode 1)
   (setq yas-prompt-functions '(yas-dropdown-prompt
-                               yas-ido-prompt
-                               yas-completing-prompt)))
+			       yas-ido-prompt
+			       yas-completing-prompt)))
 
 (use-package lsp-ui
   :commands lsp-ui-mode
@@ -390,6 +390,7 @@
   :demand
   :init
   (setq centaur-tabs-set-icons t)
+  (setq centaur-tabs-cycle-scope "tabs")
   (setq centaur-tabs-style "wave")
   (setq centaur-tabs-height 32)
   (defun centaur-tabs-hide-tab (x)
@@ -414,12 +415,12 @@
        (string-prefix-p " *temp" name)
        (string-prefix-p "*Help" name)
        (string-prefix-p "*mybuf" name)
-       (string-prefix-p "*dashboard" name)
 
        ;; Is not magit buffer.
        (and (string-prefix-p "magit" name)
 	    (not (file-name-extension name)))
        )))
+
   :config
   (centaur-tabs-mode t)
   (centaur-tabs-group-by-projectile-project)
@@ -460,45 +461,45 @@
   (ligature-set-ligatures 't '("www"))
   (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
   (ligature-set-ligatures 'prog-mode
-  			  '(
-				"!=" "!==" "!=<"
-				"#(" "#_" "#_(" "#{" "#>" "##" "#["
-				"$>" "%=" "&%" "&&" "&+" "&-" "&/" "&=" "&&&"
-				"(|" "*>" "++" "+++" "+=" "+>" "++="
-				"--" "-<" "-<<" "-=" "->" "->>" "---" "-->" "-+-"
-				"-\/" "-|>" "-<|" "->-" "-<-" "-|" "-||" "-|:"
-				"- [v]" "- [x]" "- [-]"
-				".=" "/=" "/==" "/-\\" "/-:" "/->"
-				"/=>" "/-<" "/=<" "/=:" "//="
-				":=" ":=>" ":-\\" ":|=" ":=/"
-				":-/" ":-|" ":=|" ":|-" ":|="
-				"<$>" "<*" "<*>" "<+>" "<-" "<<=" "<=" "<=>"
-				"<>" "<|>" "<<-" "<|" "<=<" "<~" "<~~" "<<~"
-				"<$" "<+" "<!>" "<@>" "<%>" "<^>" "<&>"
-				"<?>" "<.>" "</>" "<\\>" "<\">" "<:>" "<~>" "<**>"
-				"<<^" "<->" "<!--" "<--" "<~<" "<==>" "<|-"
-				"<<|" "<||" "<-<" "<-->" "<==" "<<=="
-				"<-\\" "<-/" "<=\\" "<=/"
-				"=<<" "==" "===" "==>" "=>" "=~" "=>>"
-				"=|" "=||" "=|:" "=/" "=/=" "=/<"
-				">-" ">=" ">>-" ">>=" ">=>"
-				">>^" ">>|" ">!=" ">->" ">==" ">/=" ">-|"
-				">=|" ">-\\" ">=\\" ">-/" ">=/" ">λ="
-				"?." "[[" "[|"
-				"[BUG]" "[DEBUG]" "[ERR]"
-				"[ERROR]" "[FAIL]" "[FATAL]" "[FIXME]"
-				"[HACK]" "[INFO]" "[INFO ]" "[KO]"
-				"[MARK]" "[NOTE]" "[OK]" "[PASS]"
-				"[PASS ]" "[TODO]" "[TRACE]" "[VERBOSE]"
-				"[WARN]" "[WARN ]" "[WARNING]"
-				"]]" "\\==" "\\/-" "\\-/" "\\-:" "\\->"
-				"\\=>" "\\-<" "\\=<" "\\=:"
-				"_|_" "^=" "^<<" "^>>"
-				"|)" "|=" "|>=" "|>" "|+|" "|->" "|-->" "|=>"
-				"|==>" "|>-" "|<<" "||>" "|>>" "|-" "||-" "||="
-				"|-:" "|=:" "|-<" "|=<" "|--<" "|==<" "|]"
-				"~=" "~>" "~~>" "~>>"
-				))
+			  '(
+			    "!=" "!==" "!=<"
+			    "#(" "#_" "#_(" "#{" "#>" "##" "#["
+			    "$>" "%=" "&%" "&&" "&+" "&-" "&/" "&=" "&&&"
+			    "(|" "*>" "++" "+++" "+=" "+>" "++="
+			    "--" "-<" "-<<" "-=" "->" "->>" "---" "-->" "-+-"
+			    "-\/" "-|>" "-<|" "->-" "-<-" "-|" "-||" "-|:"
+			    "- [v]" "- [x]" "- [-]"
+			    ".=" "/=" "/==" "/-\\" "/-:" "/->"
+			    "/=>" "/-<" "/=<" "/=:" "//="
+			    ":=" ":=>" ":-\\" ":|=" ":=/"
+			    ":-/" ":-|" ":=|" ":|-" ":|="
+			    "<$>" "<*" "<*>" "<+>" "<-" "<<=" "<=" "<=>"
+			    "<>" "<|>" "<<-" "<|" "<=<" "<~" "<~~" "<<~"
+			    "<$" "<+" "<!>" "<@>" "<%>" "<^>" "<&>"
+			    "<?>" "<.>" "</>" "<\\>" "<\">" "<:>" "<~>" "<**>"
+			    "<<^" "<->" "<!--" "<--" "<~<" "<==>" "<|-"
+			    "<<|" "<||" "<-<" "<-->" "<==" "<<=="
+			    "<-\\" "<-/" "<=\\" "<=/"
+			    "=<<" "==" "===" "==>" "=>" "=~" "=>>"
+			    "=|" "=||" "=|:" "=/" "=/=" "=/<"
+			    ">-" ">=" ">>-" ">>=" ">=>"
+			    ">>^" ">>|" ">!=" ">->" ">==" ">/=" ">-|"
+			    ">=|" ">-\\" ">=\\" ">-/" ">=/" ">λ="
+			    "?." "[[" "[|"
+			    "[BUG]" "[DEBUG]" "[ERR]"
+			    "[ERROR]" "[FAIL]" "[FATAL]" "[FIXME]"
+			    "[HACK]" "[INFO]" "[INFO ]" "[KO]"
+			    "[MARK]" "[NOTE]" "[OK]" "[PASS]"
+			    "[PASS ]" "[TODO]" "[TRACE]" "[VERBOSE]"
+			    "[WARN]" "[WARN ]" "[WARNING]"
+			    "]]" "\\==" "\\/-" "\\-/" "\\-:" "\\->"
+			    "\\=>" "\\-<" "\\=<" "\\=:"
+			    "_|_" "^=" "^<<" "^>>"
+			    "|)" "|=" "|>=" "|>" "|+|" "|->" "|-->" "|=>"
+			    "|==>" "|>-" "|<<" "||>" "|>>" "|-" "||-" "||="
+			    "|-:" "|=:" "|-<" "|=<" "|--<" "|==<" "|]"
+			    "~=" "~>" "~~>" "~>>"
+			    ))
   (global-ligature-mode t))
 
 ;; Editorconfig
@@ -516,6 +517,7 @@
   "t" 'vterm
   "p" 'counsel-projectile-switch-project
   "g" 'magit-status
+  "<tab>" 'centaur-tabs--groups-menu
   "e" '(:ignore t :which-key "emacs")
   "l" '(:ignore t :which-key "lsp"))
 
@@ -530,9 +532,7 @@
 
 (general-nmap
   "] q" '(flycheck-next-error 1 1)
-  "[ q" '(flycheck-previous-error 1 1))
-
-(general-nmap
+  "[ q" '(flycheck-previous-error 1 1)
   "C-h" 'evil-window-left
   "C-l" 'evil-window-right
   "C-j" 'evil-window-down
@@ -544,15 +544,15 @@
 
 (general-imap
   :keymaps 'company-mode-map
-  "ESC" 'company-abort)
+  "ESC" 'company-abort
+  "C-." 'company-manual-begin)
 
 (general-nmap
   :prefix "SPC"
   "x" 'kill-current-buffer)
 
 (general-vmap
-  :prefix "SPC"
-  "/" 'comment-line)
+  "C-/" 'comment-line)
 
 (general-nmap
   :prefix "SPC l"
