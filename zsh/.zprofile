@@ -29,3 +29,4 @@ if (( $+commands[zellij] )) then
 fi
 
 export PATH
+export WLR_NO_HARDWARE_CURSORS=1
