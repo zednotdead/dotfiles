@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
 _sres() {
+	local system_name
+	system_name=$(uname)
+	if [[ "$system_name" = "Darwin" ]]; then
+		echo "macOS is not supported."
+		return
+	fi
 	local service_name
 	service_name=$(
 			find ~/.config/systemd/user/ -maxdepth 1 ! -type d \
@@ -10,8 +16,8 @@ _sres() {
 		      )
 
 	if [[ "$service_name" = "" ]]; then
-	echo "No service selected."
-	return
+		echo "No service selected."
+		return
 	fi
 
 	echo "Restarting $service_name..."
