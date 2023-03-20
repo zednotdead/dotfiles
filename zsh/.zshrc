@@ -211,3 +211,4 @@ grev() {
 }
 
 alias gpu="git push"
+alias gpl="git pull"
