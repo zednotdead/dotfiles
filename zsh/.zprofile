@@ -28,4 +28,9 @@ if (( $+commands[zellij] )) then
 	alias tmux=zellij
 fi
 
+# Wasmer
+export WASMER_DIR="/home/zed/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
+
 export PATH
+export WLR_NO_HARDWARE_CURSORS=1

@@ -44,18 +44,6 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 6))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-	(url-retrieve-synchronously
-	 "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-	 'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
 
 ;; Plugins
 
@@ -189,10 +177,13 @@
 
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-mode))
 
+(use-package svelte-mode)
+
 ;; Treemacs
 
 (use-package treemacs
   :defer t)
+
 (use-package treemacs-evil
   :after (treemacs evil))
 
@@ -218,10 +209,16 @@
 	 (javascript-mode . lsp-deferred)
 	 (typescript-mode . lsp-deferred)
 	 (python-mode . lsp-deferred)
-	 (elixir-mode . lsp-deferred))
+	 (elixir-mode . lsp-deferred)
+	 (svelte-mode . lsp-deferred))
   :commands (lsp lsp-deferred)
   :config
-  (add-to-list 'auto-mode-alist '("\\.astro" . lsp-mode))
+  (setq auto-mode-alist
+	(append '((".*\\.astro\\'" . js-jsx-mode))
+		auto-mode-alist))
+  (setq auto-mode-alist
+	(append '((".*\\.svelte\\'" . svelte-mode))
+		auto-mode-alist))
   (defgroup lsp-ruff-lsp nil
     "LSP support for Python, using ruff-lsp's Python Language Server."
     :group 'lsp-mode
@@ -312,17 +309,21 @@
   :ensure t
   :diminish yas-minor-mode
   :bind (:map yas-minor-mode-map
-              ("C-c C-e" . yas-expand))
-  
+	      ("C-c C-e" . yas-expand))
   :config
   (yas-reload-all)
   (add-hook 'prog-mode-hook #'yas-minor-mode)
   (yas-global-mode 1)
   (setq yas-prompt-functions '(yas-dropdown-prompt
-                               yas-ido-prompt
-                               yas-completing-prompt)))
+			       yas-ido-prompt
+			       yas-completing-prompt)))
 
-(use-package lsp-ui :commands lsp-ui-mode)
+(use-package yasnippet-snippets
+  :after yasnippet)
+
+(use-package lsp-ui
+  :commands lsp-ui-mode
+  :config (setq lsp-ui-doc-show-with-cursor t))
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 (use-package dap-mode)
@@ -359,9 +360,9 @@
 	'("\\*Messages\\*"
 	  "Output\\*$"
 	  "\\*Async Shell Command\\*"
-	  "\\*vterm"
 	  "\\*poetry-shell\\*"
 	  "\\*ripgrep-search\\*"
+	  vterm-mode
 	  help-mode
 	  compilation-mode))
   (popper-mode +1)
@@ -388,8 +389,10 @@
 
 (use-package centaur-tabs
   :after all-the-icons
+  :demand
   :init
   (setq centaur-tabs-set-icons t)
+  (setq centaur-tabs-cycle-scope "tabs")
   (setq centaur-tabs-style "wave")
   (setq centaur-tabs-height 32)
   (defun centaur-tabs-hide-tab (x)
@@ -414,12 +417,12 @@
        (string-prefix-p " *temp" name)
        (string-prefix-p "*Help" name)
        (string-prefix-p "*mybuf" name)
-       (string-prefix-p "*dashboard" name)
 
        ;; Is not magit buffer.
        (and (string-prefix-p "magit" name)
 	    (not (file-name-extension name)))
        )))
+  :functions centaur-tabs-group-by-projectile-project
   :config
   (centaur-tabs-mode t)
   (centaur-tabs-group-by-projectile-project)
@@ -460,46 +463,53 @@
   (ligature-set-ligatures 't '("www"))
   (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
   (ligature-set-ligatures 'prog-mode
-  			  '(
-				"!=" "!==" "!=<"
-				"#(" "#_" "#_(" "#{" "#>" "##" "#["
-				"$>" "%=" "&%" "&&" "&+" "&-" "&/" "&=" "&&&"
-				"(|" "*>" "++" "+++" "+=" "+>" "++="
-				"--" "-<" "-<<" "-=" "->" "->>" "---" "-->" "-+-"
-				"-\/" "-|>" "-<|" "->-" "-<-" "-|" "-||" "-|:"
-				"- [v]" "- [x]" "- [-]"
-				".=" "/=" "/==" "/-\\" "/-:" "/->"
-				"/=>" "/-<" "/=<" "/=:" "//="
-				":=" ":=>" ":-\\" ":|=" ":=/"
-				":-/" ":-|" ":=|" ":|-" ":|="
-				"<$>" "<*" "<*>" "<+>" "<-" "<<=" "<=" "<=>"
-				"<>" "<|>" "<<-" "<|" "<=<" "<~" "<~~" "<<~"
-				"<$" "<+" "<!>" "<@>" "<%>" "<^>" "<&>"
-				"<?>" "<.>" "</>" "<\\>" "<\">" "<:>" "<~>" "<**>"
-				"<<^" "<->" "<!--" "<--" "<~<" "<==>" "<|-"
-				"<<|" "<||" "<-<" "<-->" "<==" "<<=="
-				"<-\\" "<-/" "<=\\" "<=/"
-				"=<<" "==" "===" "==>" "=>" "=~" "=>>"
-				"=|" "=||" "=|:" "=/" "=/=" "=/<"
-				">-" ">=" ">>-" ">>=" ">=>"
-				">>^" ">>|" ">!=" ">->" ">==" ">/=" ">-|"
-				">=|" ">-\\" ">=\\" ">-/" ">=/" ">λ="
-				"?." "[[" "[|"
-				"[BUG]" "[DEBUG]" "[ERR]"
-				"[ERROR]" "[FAIL]" "[FATAL]" "[FIXME]"
-				"[HACK]" "[INFO]" "[INFO ]" "[KO]"
-				"[MARK]" "[NOTE]" "[OK]" "[PASS]"
-				"[PASS ]" "[TODO]" "[TRACE]" "[VERBOSE]"
-				"[WARN]" "[WARN ]" "[WARNING]"
-				"]]" "\\==" "\\/-" "\\-/" "\\-:" "\\->"
-				"\\=>" "\\-<" "\\=<" "\\=:"
-				"_|_" "^=" "^<<" "^>>"
-				"|)" "|=" "|>=" "|>" "|+|" "|->" "|-->" "|=>"
-				"|==>" "|>-" "|<<" "||>" "|>>" "|-" "||-" "||="
-				"|-:" "|=:" "|-<" "|=<" "|--<" "|==<" "|]"
-				"~=" "~>" "~~>" "~>>"
-				))
+			  '(
+			    "!=" "!==" "!=<"
+			    "#(" "#_" "#_(" "#{" "#>" "##" "#["
+			    "$>" "%=" "&%" "&&" "&+" "&-" "&/" "&=" "&&&"
+			    "(|" "*>" "++" "+++" "+=" "+>" "++="
+			    "--" "-<" "-<<" "-=" "->" "->>" "---" "-->" "-+-"
+			    "-\/" "-|>" "-<|" "->-" "-<-" "-|" "-||" "-|:"
+			    "- [v]" "- [x]" "- [-]"
+			    ".=" "/=" "/==" "/-\\" "/-:" "/->"
+			    "/=>" "/-<" "/=<" "/=:" "//="
+			    ":=" ":=>" ":-\\" ":|=" ":=/"
+			    ":-/" ":-|" ":=|" ":|-" ":|="
+			    "<$>" "<*" "<*>" "<+>" "<-" "<<=" "<=" "<=>"
+			    "<>" "<|>" "<<-" "<|" "<=<" "<~" "<~~" "<<~"
+			    "<$" "<+" "<!>" "<@>" "<%>" "<^>" "<&>"
+			    "<?>" "<.>" "</>" "<\\>" "<\">" "<:>" "<~>" "<**>"
+			    "<<^" "<->" "<!--" "<--" "<~<" "<==>" "<|-"
+			    "<<|" "<||" "<-<" "<-->" "<==" "<<=="
+			    "<-\\" "<-/" "<=\\" "<=/"
+			    "=<<" "==" "===" "==>" "=>" "=~" "=>>"
+			    "=|" "=||" "=|:" "=/" "=/=" "=/<"
+			    ">-" ">=" ">>-" ">>=" ">=>"
+			    ">>^" ">>|" ">!=" ">->" ">==" ">/=" ">-|"
+			    ">=|" ">-\\" ">=\\" ">-/" ">=/" ">λ="
+			    "?." "[[" "[|"
+			    "[BUG]" "[DEBUG]" "[ERR]"
+			    "[ERROR]" "[FAIL]" "[FATAL]" "[FIXME]"
+			    "[HACK]" "[INFO]" "[INFO ]" "[KO]"
+			    "[MARK]" "[NOTE]" "[OK]" "[PASS]"
+			    "[PASS ]" "[TODO]" "[TRACE]" "[VERBOSE]"
+			    "[WARN]" "[WARN ]" "[WARNING]"
+			    "]]" "\\==" "\\/-" "\\-/" "\\-:" "\\->"
+			    "\\=>" "\\-<" "\\=<" "\\=:"
+			    "_|_" "^=" "^<<" "^>>"
+			    "|)" "|=" "|>=" "|>" "|+|" "|->" "|-->" "|=>"
+			    "|==>" "|>-" "|<<" "||>" "|>>" "|-" "||-" "||="
+			    "|-:" "|=:" "|-<" "|=<" "|--<" "|==<" "|]"
+			    "~=" "~>" "~~>" "~>>"
+			    ))
   (global-ligature-mode t))
+
+;; Editorconfig
+
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
 
 ;; Key binding
 
@@ -509,6 +519,7 @@
   "t" 'vterm
   "p" 'counsel-projectile-switch-project
   "g" 'magit-status
+  "<tab>" 'centaur-tabs--groups-menu
   "e" '(:ignore t :which-key "emacs")
   "l" '(:ignore t :which-key "lsp"))
 
@@ -523,9 +534,7 @@
 
 (general-nmap
   "] q" '(flycheck-next-error 1 1)
-  "[ q" '(flycheck-previous-error 1 1))
-
-(general-nmap
+  "[ q" '(flycheck-previous-error 1 1)
   "C-h" 'evil-window-left
   "C-l" 'evil-window-right
   "C-j" 'evil-window-down
@@ -537,22 +546,23 @@
 
 (general-imap
   :keymaps 'company-mode-map
-  "ESC" 'company-abort)
+  "ESC" 'company-abort
+  "C-." 'company-manual-begin)
 
 (general-nmap
   :prefix "SPC"
   "x" 'kill-current-buffer)
 
 (general-vmap
-  :prefix "SPC"
-  "/" 'comment-line)
+  "C-/" 'comment-line)
 
 (general-nmap
   :prefix "SPC l"
   "p" 'poetry)
 
-(provide 'init)
-;;; init.el ends here
+(setq backup-directory-alist
+      '((".*" . "~/.cache/emacs/backup")))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -565,3 +575,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(provide 'init)
+;;; init.el ends here
