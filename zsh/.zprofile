@@ -32,5 +32,9 @@ fi
 export WASMER_DIR="/home/zed/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
 
+# Wasmtime
+export WASMTIME_HOME="$HOME/.wasmtime"
+export PATH="$WASMTIME_HOME/bin:$PATH"
+
 export PATH
 export WLR_NO_HARDWARE_CURSORS=1
