@@ -196,6 +196,8 @@
 (use-package flycheck
   :init (global-flycheck-mode))
 
+(use-package rust-mode)
+
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-l")
