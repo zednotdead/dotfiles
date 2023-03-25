@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 _sres() {
+	local initial_query=$1
 	local service_name
 	service_name=$(
 			find ~/.config/systemd/user/ -maxdepth 1 ! -type d \
 			| grep -oP "(?<=\/)\w*.service" \
-			| fzf --height 20% \
+			| fzf --height 20% --query "$initial_query" \
 			| xargs basename
 		      )
 
