@@ -211,4 +211,5 @@ grev() {
 	git revert $(fzf-git-get-hash)
 }
 
+alias ls="exa --icons"
 alias gpu="git push"
