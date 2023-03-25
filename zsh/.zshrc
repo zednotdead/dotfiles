@@ -168,7 +168,6 @@ if (( $+commands[rustup] )) then
 	fi
 fi
 
-
 # Fuzzy git checkout
 # by: https://polothy.github.io/post/2019-08-19-fzf-git-checkout/
 

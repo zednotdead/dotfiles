@@ -28,6 +28,10 @@ if (( $+commands[zellij] )) then
 	alias tmux=zellij
 fi
 
+if (( $+commands[nvim] )) then
+	export EDITOR=`which nvim`
+fi
+
 # Wasmer
 export WASMER_DIR="/home/zed/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
