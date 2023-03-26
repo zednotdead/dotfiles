@@ -213,3 +213,4 @@ grev() {
 alias ls="exa --icons"
 alias gpu="git push"
 alias gpl="git pull"
+alias "1f"="onefetch --include-hidden"
