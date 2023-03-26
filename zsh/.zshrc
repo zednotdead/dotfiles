@@ -121,6 +121,13 @@ if (( $+commands[fnm] )) then
 	fi
 fi
 
+if (( $+commands[diffsitter] )) then
+	if [[ ! -f "$HOME/.zfunc/_diffsitter" ]] then
+		echo "diffsitter completion file not found, generating..."
+		diffsitter gen-completion zsh > $HOME/.zfunc/_diffsitter
+	fi
+fi
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
