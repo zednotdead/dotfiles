@@ -24,12 +24,8 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle :compinstall filename '$HOME/.zshrc'
 
-source ${ZDOTDIR:-~}/.antidote/antidote.zsh
-antidote load
-
 autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
-complete -o nospace -C /usr/bin/terraform terraform
 
 if (( $+commands[flux] )) then
 	. <(flux completion zsh)
@@ -112,8 +108,6 @@ if (( $+commands[flux] )) then
 	. <(flux completion zsh)
 fi
 
-alias em="emacsclient -c"
-
 if (( $+commands[fnm] )) then
 	if [[ ! -f "$HOME/.zfunc/_fnm" ]] then
 		echo "fnm completion file not found, generating..."
@@ -175,6 +169,21 @@ if (( $+commands[rustup] )) then
 	fi
 fi
 
+
+if (( $+commands[poetry] )) then
+	if [[ ! -f "$HOME/.zfunc/_poetry" ]]; then
+		echo "poetry completion file not found, generating..."
+		poetry completions zsh > $HOME/.zfunc/_poetry
+	fi
+fi
+
+# source antidote
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+
+# initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
+antidote load
+
+
 # Fuzzy git checkout
 # by: https://polothy.github.io/post/2019-08-19-fzf-git-checkout/
 
@@ -222,3 +231,5 @@ alias gpu="git push"
 alias gpl="git pull"
 alias "1f"="onefetch --include-hidden"
 alias "cls"="clear"
+
+
