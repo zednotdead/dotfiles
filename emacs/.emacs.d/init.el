@@ -434,6 +434,10 @@
   :config
   (editorconfig-mode 1))
 
+(use-package avy)
+
+(use-package evil-nerd-commenter)
+
 ;; Key binding
 
 (general-nmap
