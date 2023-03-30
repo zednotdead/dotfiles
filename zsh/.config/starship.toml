@@ -20,7 +20,7 @@ $nodejs\
 $nim\
 $rust\
 $scala\
-[ ](fg:#7C6F64)\
+[ \n](fg:#7C6F64)\
 $character
 """
 
