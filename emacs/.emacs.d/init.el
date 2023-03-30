@@ -484,6 +484,7 @@
   "C-/" 'evilnc-comment-or-uncomment-region)
 
 (general-nmap
+  :hook 'python-mode-hook
   :prefix "SPC l"
   "p" 'poetry)
 
