@@ -197,6 +197,7 @@
   :init (global-flycheck-mode))
 
 (use-package rust-mode)
+(use-package dockerfile-mode)
 
 (use-package lsp-mode
   :init
