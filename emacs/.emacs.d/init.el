@@ -22,11 +22,11 @@
 (defvar my-fontspec)
 
 (setq my-font-name (cond
-		    ((eq system-type 'darwin) "PragmataPro Liga")
-		    (t "PragmataPro Liga")))
+                     ((eq system-type 'darwin) "PragmataPro Liga")
+                     (t "PragmataPro Liga")))
 
 (setq my-font-size (cond
-		    (t 15)))
+                     (t 15)))
 
 (setq my-fontspec (concat my-font-name "-" (number-to-string my-font-size)))
 (add-to-list 'default-frame-alist `(font . ,my-fontspec))
@@ -36,7 +36,7 @@
 
 (require 'package)
 (add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/") t)
+  '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 (unless package-archive-contents (package-refresh-contents))
 (unless (package-installed-p 'use-package)
@@ -97,13 +97,13 @@
   :config
   (global-evil-surround-mode 1)
   (evil--add-to-alist
-   'evil-surround-pairs-alist
-   ?\( '("(" . ")")
-   ?\[ '("[" . "]")
-   ?\{ '("{" . "}")
-   ?\) '("( " . " )")
-   ?\] '("[ " . " ]")
-   ?\} '("{ " . " }")))
+    'evil-surround-pairs-alist
+    ?\( '("(" . ")")
+    ?\[ '("[" . "]")
+    ?\{ '("{" . "}")
+    ?\) '("( " . " )")
+    ?\] '("[ " . " ]")
+    ?\} '("{ " . " }")))
 
 
 ;; Magit
@@ -206,36 +206,37 @@
   (setq gc-cons-threshold 100000000)
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
   :hook ((lsp-mode . lsp-enable-which-key-integration)
-	 (yaml-mode . lsp-deferred)
-	 (lua-mode . lsp-deferred)
-	 (javascript-mode . lsp-deferred)
-	 (typescript-mode . lsp-deferred)
-	 (python-mode . lsp-deferred)
-	 (elixir-mode . lsp-deferred)
-	 (svelte-mode . lsp-deferred)
-	 (rust-mode . lsp-deferred))
+          (yaml-mode . lsp-deferred)
+          (lua-mode . lsp-deferred)
+          (javascript-mode . lsp-deferred)
+          (typescript-mode . lsp-deferred)
+          (python-mode . lsp-deferred)
+          (elixir-mode . lsp-deferred)
+          (svelte-mode . lsp-deferred)
+          (rust-mode . lsp-deferred)
+          (dockerfile-mode . lsp-deferred))
   :commands (lsp lsp-deferred)
   :config
   (setq auto-mode-alist
-	(append '((".*\\.astro\\'" . js-jsx-mode))
-		auto-mode-alist))
+    (append '((".*\\.astro\\'" . js-jsx-mode))
+      auto-mode-alist))
   (setq auto-mode-alist
-	(append '((".*\\.svelte\\'" . svelte-mode))
-		auto-mode-alist)))
+    (append '((".*\\.svelte\\'" . svelte-mode))
+      auto-mode-alist)))
 
 (use-package elixir-mode)
 
 (use-package yasnippet
   :diminish yas-minor-mode
   :bind (:map yas-minor-mode-map
-	      ("C-c C-e" . yas-expand))
+          ("C-c C-e" . yas-expand))
   :config
   (yas-reload-all)
   (add-hook 'prog-mode-hook #'yas-minor-mode)
   (yas-global-mode 1)
   (setq yas-prompt-functions '(yas-dropdown-prompt
-			       yas-ido-prompt
-			       yas-completing-prompt)))
+                                yas-ido-prompt
+                                yas-completing-prompt)))
 
 (use-package yasnippet-snippets
   :after yasnippet)
@@ -273,17 +274,19 @@
 (use-package vterm)
 (use-package popper
   :bind (("C-`"   . popper-toggle-latest)
-	 ("C-M-`"   . popper-cycle))
+          ("C-M-`"   . popper-cycle))
   :init
   (setq popper-reference-buffers
-	'("\\*Messages\\*"
-	  "Output\\*$"
-	  "\\*Async Shell Command\\*"
-	  "\\*poetry-shell\\*"
-	  "\\*ripgrep-search\\*"
-	  vterm-mode
-	  help-mode
-	  compilation-mode))
+    '("\\*Messages\\*"
+       "Output\\*$"
+       "\\*Async Shell Command\\*"
+       "\\*poetry-shell\\*"
+       "\\*ripgrep-search\\*"
+       "\\*lsp-install"
+       "\\*xref\\*"
+       vterm-mode
+       help-mode
+       compilation-mode))
   (popper-mode +1)
   (popper-echo-mode +1))
 
@@ -297,8 +300,8 @@
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-projects-backend 'projectile)
   (setq dashboard-items '((recents  . 5)
-			  (bookmarks . 5)
-			  (projects . 5)))
+                           (bookmarks . 5)
+                           (projects . 5)))
   (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name))
 
 ;; Centaur Tabs
@@ -318,29 +321,29 @@
     "Do no to show buffer X in tabs."
     (let ((name (format "%s" x)))
       (or
-       ;; Current window is not dedicated window.
-       (window-dedicated-p (selected-window))
+        ;; Current window is not dedicated window.
+        (window-dedicated-p (selected-window))
 
-       ;; Buffer name not match below blacklist.
-       (string-prefix-p "*epc" name)
-       (string-prefix-p "*helm" name)
-       (string-prefix-p "*Helm" name)
-       (string-prefix-p "*Compile-Log*" name)
-       (string-prefix-p "*lsp" name)
-       (string-prefix-p "*company" name)
-       (string-prefix-p "*Flycheck" name)
-       (string-prefix-p "*tramp" name)
-       (string-prefix-p " *Mini" name)
-       (string-prefix-p "*help" name)
-       (string-prefix-p "*straight" name)
-       (string-prefix-p " *temp" name)
-       (string-prefix-p "*Help" name)
-       (string-prefix-p "*mybuf" name)
+        ;; Buffer name not match below blacklist.
+        (string-prefix-p "*epc" name)
+        (string-prefix-p "*helm" name)
+        (string-prefix-p "*Helm" name)
+        (string-prefix-p "*Compile-Log*" name)
+        (string-prefix-p "*lsp" name)
+        (string-prefix-p "*company" name)
+        (string-prefix-p "*Flycheck" name)
+        (string-prefix-p "*tramp" name)
+        (string-prefix-p " *Mini" name)
+        (string-prefix-p "*help" name)
+        (string-prefix-p "*straight" name)
+        (string-prefix-p " *temp" name)
+        (string-prefix-p "*Help" name)
+        (string-prefix-p "*mybuf" name)
 
-       ;; Is not magit buffer.
-       (and (string-prefix-p "magit" name)
-	    (not (file-name-extension name)))
-       )))
+        ;; Is not magit buffer.
+        (and (string-prefix-p "magit" name)
+          (not (file-name-extension name)))
+        )))
   :functions centaur-tabs-group-by-projectile-project
   :config
   (centaur-tabs-mode t)
@@ -382,45 +385,45 @@
   (ligature-set-ligatures 't '("www"))
   (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
   (ligature-set-ligatures 'prog-mode
-			  '(
-			    "!=" "!==" "!=<"
-			    "#(" "#_" "#_(" "#{" "#>" "##" "#["
-			    "$>" "%=" "&%" "&&" "&+" "&-" "&/" "&=" "&&&"
-			    "(|" "*>" "++" "+++" "+=" "+>" "++="
-			    "--" "-<" "-<<" "-=" "->" "->>" "---" "-->" "-+-"
-			    "-\/" "-|>" "-<|" "->-" "-<-" "-|" "-||" "-|:"
-			    "- [v]" "- [x]" "- [-]"
-			    ".=" "/=" "/==" "/-\\" "/-:" "/->"
-			    "/=>" "/-<" "/=<" "/=:" "//="
-			    ":=" ":=>" ":-\\" ":|=" ":=/"
-			    ":-/" ":-|" ":=|" ":|-" ":|="
-			    "<$>" "<*" "<*>" "<+>" "<-" "<<=" "<=" "<=>"
-			    "<>" "<|>" "<<-" "<|" "<=<" "<~" "<~~" "<<~"
-			    "<$" "<+" "<!>" "<@>" "<%>" "<^>" "<&>"
-			    "<?>" "<.>" "</>" "<\\>" "<\">" "<:>" "<~>" "<**>"
-			    "<<^" "<->" "<!--" "<--" "<~<" "<==>" "<|-"
-			    "<<|" "<||" "<-<" "<-->" "<==" "<<=="
-			    "<-\\" "<-/" "<=\\" "<=/"
-			    "=<<" "==" "===" "==>" "=>" "=~" "=>>"
-			    "=|" "=||" "=|:" "=/" "=/=" "=/<"
-			    ">-" ">=" ">>-" ">>=" ">=>"
-			    ">>^" ">>|" ">!=" ">->" ">==" ">/=" ">-|"
-			    ">=|" ">-\\" ">=\\" ">-/" ">=/" ">λ="
-			    "?." "[[" "[|"
-			    "[BUG]" "[DEBUG]" "[ERR]"
-			    "[ERROR]" "[FAIL]" "[FATAL]" "[FIXME]"
-			    "[HACK]" "[INFO]" "[INFO ]" "[KO]"
-			    "[MARK]" "[NOTE]" "[OK]" "[PASS]"
-			    "[PASS ]" "[TODO]" "[TRACE]" "[VERBOSE]"
-			    "[WARN]" "[WARN ]" "[WARNING]"
-			    "]]" "\\==" "\\/-" "\\-/" "\\-:" "\\->"
-			    "\\=>" "\\-<" "\\=<" "\\=:"
-			    "_|_" "^=" "^<<" "^>>"
-			    "|)" "|=" "|>=" "|>" "|+|" "|->" "|-->" "|=>"
-			    "|==>" "|>-" "|<<" "||>" "|>>" "|-" "||-" "||="
-			    "|-:" "|=:" "|-<" "|=<" "|--<" "|==<" "|]"
-			    "~=" "~>" "~~>" "~>>"
-			    ))
+    '(
+       "!=" "!==" "!=<"
+       "#(" "#_" "#_(" "#{" "#>" "##" "#["
+       "$>" "%=" "&%" "&&" "&+" "&-" "&/" "&=" "&&&"
+       "(|" "*>" "++" "+++" "+=" "+>" "++="
+       "--" "-<" "-<<" "-=" "->" "->>" "---" "-->" "-+-"
+       "-\/" "-|>" "-<|" "->-" "-<-" "-|" "-||" "-|:"
+       "- [v]" "- [x]" "- [-]"
+       ".=" "/=" "/==" "/-\\" "/-:" "/->"
+       "/=>" "/-<" "/=<" "/=:" "//="
+       ":=" ":=>" ":-\\" ":|=" ":=/"
+       ":-/" ":-|" ":=|" ":|-" ":|="
+       "<$>" "<*" "<*>" "<+>" "<-" "<<=" "<=" "<=>"
+       "<>" "<|>" "<<-" "<|" "<=<" "<~" "<~~" "<<~"
+       "<$" "<+" "<!>" "<@>" "<%>" "<^>" "<&>"
+       "<?>" "<.>" "</>" "<\\>" "<\">" "<:>" "<~>" "<**>"
+       "<<^" "<->" "<!--" "<--" "<~<" "<==>" "<|-"
+       "<<|" "<||" "<-<" "<-->" "<==" "<<=="
+       "<-\\" "<-/" "<=\\" "<=/"
+       "=<<" "==" "===" "==>" "=>" "=~" "=>>"
+       "=|" "=||" "=|:" "=/" "=/=" "=/<"
+       ">-" ">=" ">>-" ">>=" ">=>"
+       ">>^" ">>|" ">!=" ">->" ">==" ">/=" ">-|"
+       ">=|" ">-\\" ">=\\" ">-/" ">=/" ">λ="
+       "?." "[[" "[|"
+       "[BUG]" "[DEBUG]" "[ERR]"
+       "[ERROR]" "[FAIL]" "[FATAL]" "[FIXME]"
+       "[HACK]" "[INFO]" "[INFO ]" "[KO]"
+       "[MARK]" "[NOTE]" "[OK]" "[PASS]"
+       "[PASS ]" "[TODO]" "[TRACE]" "[VERBOSE]"
+       "[WARN]" "[WARN ]" "[WARNING]"
+       "]]" "\\==" "\\/-" "\\-/" "\\-:" "\\->"
+       "\\=>" "\\-<" "\\=<" "\\=:"
+       "_|_" "^=" "^<<" "^>>"
+       "|)" "|=" "|>=" "|>" "|+|" "|->" "|-->" "|=>"
+       "|==>" "|>-" "|<<" "||>" "|>>" "|-" "||-" "||="
+       "|-:" "|=:" "|-<" "|=<" "|--<" "|==<" "|]"
+       "~=" "~>" "~~>" "~>>"
+       ))
   (global-ligature-mode t))
 
 ;; Editorconfig
@@ -473,27 +476,31 @@
   "x" 'kill-current-buffer)
 
 (general-vmap
-  "C-/" 'comment-line)
+  "C-/" 'evilnc-comment-or-uncomment-region)
 
 (general-nmap
   :prefix "SPC l"
   "p" 'poetry)
 
+(general-define-key
+  :keymaps '(normal insert emacs)
+  "C-;" 'avy-goto-char)
+
 (setq backup-directory-alist
-      '((".*" . "~/.cache/emacs/backup")))
+  '((".*" . "~/.cache/emacs/backup")))
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(warning-suppress-types '((comp))))
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  '(warning-suppress-types '((comp))))
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  )
 
 (provide 'init)
 ;;; init.el ends here
