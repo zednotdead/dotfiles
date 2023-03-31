@@ -1,5 +1,5 @@
 #+TITLE: Literate config
-#+AUTHOR: Zbigniew Zolnierowicz
+#+AUTHOR: Zbigniew Żołnierowicz
 
 * Basic setup
 ** Package management
@@ -247,50 +247,50 @@ Treemacs is side window file viewer
 #+end_src
 ** Tabs
 #+begin_src emacs-lisp
-(use-package centaur-tabs
-:after all-the-icons
-:demand
-:init
-(setq centaur-tabs-set-icons t)
-(setq centaur-tabs-cycle-scope "tabs")
-(setq centaur-tabs-style "wave")
-(setq centaur-tabs-height 32)
-(defun centaur-tabs-hide-tab (x)
-"Do no to show buffer X in tabs."
-(let ((name (format "%s" x)))
-(or
-;; Current window is not dedicated window.
-(window-dedicated-p (selected-window))
+  (use-package centaur-tabs
+    :after all-the-icons
+    :demand
+    :init
+    (setq centaur-tabs-set-icons t)
+    (setq centaur-tabs-cycle-scope "tabs")
+    (setq centaur-tabs-style "wave")
+    (setq centaur-tabs-height 32)
+    (defun centaur-tabs-hide-tab (x)
+      "Do no to show buffer X in tabs."
+      (let ((name (format "%s" x)))
+        (or
+         ;; Current window is not dedicated window.
+         (window-dedicated-p (selected-window))
 
-;; Buffer name not match below blacklist.
-(string-prefix-p "*epc" name)
-(string-prefix-p "*helm" name)
-(string-prefix-p "*Helm" name)
-(string-prefix-p "*Compile-Log*" name)
-(string-prefix-p "*lsp" name)
-(string-prefix-p "*company" name)
-(string-prefix-p "*Flycheck" name)
-(string-prefix-p "*tramp" name)
-(string-prefix-p " *Mini" name)
-(string-prefix-p "*help" name)
-(string-prefix-p "*straight" name)
-(string-prefix-p " *temp" name)
-(string-prefix-p "*Help" name)
-(string-prefix-p "*mybuf" name)
+         ;; Buffer name not match below blacklist.
+         (string-prefix-p "*epc" name)
+         (string-prefix-p "*helm" name)
+         (string-prefix-p "*Helm" name)
+         (string-prefix-p "*Compile-Log*" name)
+         (string-prefix-p "*lsp" name)
+         (string-prefix-p "*company" name)
+         (string-prefix-p "*Flycheck" name)
+         (string-prefix-p "*tramp" name)
+         (string-prefix-p " *Mini" name)
+         (string-prefix-p "*help" name)
+         (string-prefix-p "*straight" name)
+         (string-prefix-p " *temp" name)
+         (string-prefix-p "*Help" name)
+         (string-prefix-p "*mybuf" name)
 
-;; Is not magit buffer.
-(and (string-prefix-p "magit" name)
-(not (file-name-extension name)))
-)))
-:functions centaur-tabs-group-by-projectile-project
-:config
-(centaur-tabs-mode t)
-(centaur-tabs-group-by-projectile-project)
-:bind
-("C-S-h" . centaur-tabs-backward)
-("C-S-l" . centaur-tabs-forward)
-("C-S-<left>" . centaur-tabs-backward)
-("C-S-<right>" . centaur-tabs-forward))
+         ;; Is not magit buffer.
+         (and (string-prefix-p "magit" name)
+              (not (file-name-extension name)))
+         )))
+    :functions centaur-tabs-group-by-projectile-project
+    :config
+    (centaur-tabs-mode t)
+    (centaur-tabs-group-by-projectile-project)
+    :bind
+    ("C-S-h" . centaur-tabs-backward)
+    ("C-S-l" . centaur-tabs-forward)
+    ("C-S-<left>" . centaur-tabs-backward)
+    ("C-S-<right>" . centaur-tabs-forward))
 #+end_src
 * Dashboard
 #+begin_src emacs-lisp
@@ -540,7 +540,6 @@ Editorconfig configures IDEs per-repo through the =.editorconfig= file at the ro
     (editorconfig-mode 1))
 #+end_src
 * Keymaps
-** Plugins
 =general= simplifies key mapping
 
 #+begin_src emacs-lisp
@@ -548,13 +547,11 @@ Editorconfig configures IDEs per-repo through the =.editorconfig= file at the ro
     :after (evil)
     :config (general-evil-setup))
 #+end_src
-
 =avy= allows you to quickly jump around the code
 
 #+begin_src emacs-lisp
   (use-package avy)
 #+end_src
-
 ** Binding
 Set up the base groups
 #+begin_src emacs-lisp
@@ -608,9 +605,7 @@ Flip between flycheck errors
     "C-j" 'evil-window-down
     "C-k" 'evil-window-up)
 #+end_src
-
 *** Company completion
-
 Manually start completion.
 #+begin_src emacs-lisp
   (general-imap
@@ -648,7 +643,8 @@ Quick comment/uncomment with =evil-nerd-commenter=
   (general-nmap
     :prefix "SPC p"
     :hook 'projectile-mode-hook
-    "r" 'projectile-ripgrep)
+    "r" 'projectile-ripgrep
+    "t" 'projectile-run-vterm)
 #+end_src
 *** =avy=
 #+begin_src emacs-lisp
