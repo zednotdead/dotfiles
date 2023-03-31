@@ -1,0 +1,658 @@
+#+TITLE: Literate config
+#+AUTHOR: Zbigniew Zolnierowicz
+
+* Basic setup
+** Package management
+=use-package= is a package manager for Emacs, which simplifies installing packages
+
+#+begin_src emacs-lisp
+  (require 'package)
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/") t)
+  (package-initialize)
+  (unless package-archive-contents (package-refresh-contents))
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
+
+  (require 'use-package)
+  (setq use-package-always-ensure t)
+#+end_src
+
+** Disable unnecessary stuffs
+
+#+begin_src emacs-lisp
+  (setq inhibit-startup-message t)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (set-fringe-mode 10)
+  (menu-bar-mode -1)
+  (setq visible-bell nil)
+  (setq backup-directory-alist
+        `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
+
+#+end_src
+
+Make ESC immediate
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+#+end_src
+
+** macOS specific config
+
+#+begin_src emacs-lisp
+  (setq mac-right-option-modifier 'none)
+#+end_src
+
+** Font setup
+#+begin_src emacs-lisp
+  (defvar my-font-name)
+  (defvar my-font-size)
+  (defvar my-fontspec)
+
+  (setq my-font-name (cond
+                      ((eq system-type 'darwin) "PragmataPro Liga")
+                      (t "PragmataPro Liga")))
+
+  (setq my-font-size (cond
+                      (t 15)))
+
+  (setq my-fontspec (concat my-font-name "-" (number-to-string my-font-size)))
+  (add-to-list 'default-frame-alist `(font . ,my-fontspec))
+  (set-face-attribute 'default t :font my-font-name :height (* my-font-size 10))
+#+end_src
+*** Ligatures
+#+begin_src emacs-lisp
+  (use-package ligature
+    :config
+    (ligature-set-ligatures 't '(
+                                 "[BUG]" "[DEBUG]" "[ERR]"
+                                 "[ERROR]" "[FAIL]" "[FATAL]" "[FIXME]"
+                                 "[HACK]" "[INFO]" "[INFO ]" "[KO]"
+                                 "[MARK]" "[NOTE]" "[OK]" "[PASS]"
+                                 "[PASS ]" "[TODO]" "[TRACE]" "[VERBOSE]"
+                                 "[WARN]" "[WARN ]" "[WARNING]"
+                                 "www"
+                                 ))
+    (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
+    (ligature-set-ligatures 'prog-mode
+                            '(
+                              "!=" "!==" "!=<"
+                              "#(" "#_" "#_(" "#{" "#>" "##" "#["
+                              "$>" "%=" "&%" "&&" "&+" "&-" "&/" "&=" "&&&"
+                              "(|" "*>" "++" "+++" "+=" "+>" "++="
+                              "--" "-<" "-<<" "-=" "->" "->>" "---" "-->" "-+-"
+                              "-\\/" "-|>" "-<|" "->-" "-<-" "-|" "-||" "-|:"
+                              "- [v]" "- [x]" "- [-]"
+                              ".=" "/=" "/==" "/-\\" "/-:" "/->"
+                              "/=>" "/-<" "/=<" "/=:" "//="
+                              ":=" ":=>" ":-\\" ":|=" ":=/"
+                              ":-/" ":-|" ":=|" ":|-" ":|="
+                              "<$>" "<*" "<*>" "<+>" "<-" "<<=" "<=" "<=>"
+                              "<>" "<|>" "<<-" "<|" "<=<" "<~" "<~~" "<<~"
+                              "<$" "<+" "<!>" "<@>" "<%>" "<^>" "<&>"
+                              "<?>" "<.>" "</>" "<\\>" "<\">" "<:>" "<~>" "<**>"
+                              "<<^" "<->" "<!--" "<--" "<~<" "<==>" "<|-"
+                              "<<|" "<||" "<-<" "<-->" "<==" "<<=="
+                              "<-\\" "<-/" "<=\\" "<=/"
+                              "=<<" "==" "===" "==>" "=>" "=~" "=>>"
+                              "=|" "=||" "=|:" "=/" "=/=" "=/<"
+                              ">-" ">=" ">>-" ">>=" ">=>"
+                              ">>^" ">>|" ">!=" ">->" ">==" ">/=" ">-|"
+                              ">=|" ">-\\" ">=\\" ">-/" ">=/" ">λ="
+                              "?." "[[" "[|"
+                              "]]" "\\==" "\\/-" "\\-/" "\\-:" "\\->"
+                              "\\=>" "\\-<" "\\=<" "\\=:"
+                              "_|_" "^=" "^<<" "^>>"
+                              "|)" "|=" "|>=" "|>" "|+|" "|->" "|-->" "|=>"
+                              "|==>" "|>-" "|<<" "||>" "|>>" "|-" "||-" "||="
+                              "|-:" "|=:" "|-<" "|=<" "|--<" "|==<" "|]"
+                              "~=" "~>" "~~>" "~>>"
+                              ))
+    (global-ligature-mode t))
+#+end_src
+** No littering!
+=no-littering= makes packages store stuff in special folders, so that =~/.emacs.d= is not cluttered
+#+begin_src emacs-lisp
+  (use-package no-littering)
+#+end_src
+* Theme
+=telephone-line= is a better modeline
+
+#+begin_src emacs-lisp
+  (use-package telephone-line
+    :config
+    (telephone-line-mode 1))
+#+end_src
+
+=base16-theme= provides a bunch of standardized themes from the =base16= collection
+
+#+begin_src emacs-lisp
+  (use-package base16-theme
+    :config
+    (load-theme 'base16-woodland t))
+#+end_src
+
+* Necessary plugins
+** =which-key=
+
+=which-key= displays a list of possible key combinations
+
+#+begin_src emacs-lisp
+  (use-package which-key
+    :config (which-key-mode 1))
+#+end_src
+** =ivy=
+=ivy= is a fuzzy finder framework for many different elements of Emacs
+
+#+begin_src emacs-lisp
+  (use-package ivy-prescient)
+
+  (use-package ivy
+    :diminish
+    :requires (ivy-prescient)
+    :config
+    (ivy-mode 1)
+    (ivy-prescient-mode 1)
+    (prescient-persist-mode 1))
+#+end_src
+
+** =undo-tree=
+For better undo-redo
+
+#+begin_src emacs-lisp
+  (use-package undo-tree
+    :config (global-undo-tree-mode))
+#+end_src
+
+** =treemacs=
+Treemacs is side window file viewer
+
+#+begin_src emacs-lisp
+  (use-package treemacs
+    :defer t)
+  (use-package treemacs-evil
+    :after (treemacs evil))
+#+end_src
+** =company=
+=company= is a completion framework.
+
+#+begin_src emacs-lisp
+  (use-package company
+    :config
+    (global-company-mode))
+
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
+#+end_src
+** Integration with different system packages
+#+begin_src emacs-lisp
+  (use-package ripgrep)
+  (use-package ag)
+#+end_src
+** Icons
+#+begin_src emacs-lisp
+  (use-package all-the-icons
+    :if (display-graphic-p))
+#+end_src
+** Parentheses, delimiters and indent guides
+#+begin_src emacs-lisp
+  (use-package paren
+    :straight (:type built-in)
+    :custom
+    (show-paren-when-point-inside-paren t)
+    :custom-face
+    (show-paren-match ((t (:background nil :weight bold :foreground "white"))))
+    :hook
+    (dashboard-after-initialize . show-paren-mode))
+
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
+
+  (use-package color-identifiers-mode
+    :commands color-identifiers-mode)
+
+  (use-package rainbow-mode
+    :hook (prog-mode . rainbow-mode))
+
+  (use-package highlight-indent-guides
+    :hook '(prog-mode emacs-lisp-mode))
+#+end_src
+* Terminal
+#+begin_src emacs-lisp
+  (use-package vterm)
+#+end_src
+* Frame management
+=popper= is a handy pop-up window at the bottom, VSCode-style
+#+begin_src emacs-lisp
+  (use-package popper
+    :bind (("C-`"   . popper-toggle-latest)
+           ("C-M-`"   . popper-cycle))
+    :init
+    (setq popper-reference-buffers
+          '("\\*Messages\\*"
+            "Output\\*$"
+            "\\*Async Shell Command\\*"
+            "\\*poetry-shell\\*"
+            "\\*ripgrep-search\\*"
+            "\\*lsp-install"
+            "\\*xref\\*"
+            vterm-mode
+            help-mode
+            compilation-mode))
+    (popper-mode +1)
+    (popper-echo-mode +1))
+#+end_src
+** Tabs
+#+begin_src emacs-lisp
+(use-package centaur-tabs
+:after all-the-icons
+:demand
+:init
+(setq centaur-tabs-set-icons t)
+(setq centaur-tabs-cycle-scope "tabs")
+(setq centaur-tabs-style "wave")
+(setq centaur-tabs-height 32)
+(defun centaur-tabs-hide-tab (x)
+"Do no to show buffer X in tabs."
+(let ((name (format "%s" x)))
+(or
+;; Current window is not dedicated window.
+(window-dedicated-p (selected-window))
+
+;; Buffer name not match below blacklist.
+(string-prefix-p "*epc" name)
+(string-prefix-p "*helm" name)
+(string-prefix-p "*Helm" name)
+(string-prefix-p "*Compile-Log*" name)
+(string-prefix-p "*lsp" name)
+(string-prefix-p "*company" name)
+(string-prefix-p "*Flycheck" name)
+(string-prefix-p "*tramp" name)
+(string-prefix-p " *Mini" name)
+(string-prefix-p "*help" name)
+(string-prefix-p "*straight" name)
+(string-prefix-p " *temp" name)
+(string-prefix-p "*Help" name)
+(string-prefix-p "*mybuf" name)
+
+;; Is not magit buffer.
+(and (string-prefix-p "magit" name)
+(not (file-name-extension name)))
+)))
+:functions centaur-tabs-group-by-projectile-project
+:config
+(centaur-tabs-mode t)
+(centaur-tabs-group-by-projectile-project)
+:bind
+("C-S-h" . centaur-tabs-backward)
+("C-S-l" . centaur-tabs-forward)
+("C-S-<left>" . centaur-tabs-backward)
+("C-S-<right>" . centaur-tabs-forward))
+#+end_src
+* Dashboard
+#+begin_src emacs-lisp
+  (use-package dashboard
+    :config
+    (dashboard-setup-startup-hook)
+    (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+    (setq dashboard-content-center t)
+    (setq dashboard-startup-banner 'logo)
+    (setq dashboard-projects-backend 'projectile)
+    (setq dashboard-items '((recents  . 5)
+                            (bookmarks . 5)
+                            (projects . 5)))
+    (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name))
+#+end_src
+* Project management
+=projectile= is a project manager
+
+#+begin_src emacs-lisp
+  (use-package projectile
+    :config
+    (projectile-mode +1)
+    (treemacs-project-follow-mode +1))
+
+  (use-package treemacs-projectile
+    :after '(treemacs projectile))
+  (use-package counsel-projectile
+    :after projectile)
+#+end_src
+
+* Vim emulation
+=evil-mode= is a Vim emulation layer for Emacs (vim based)
+
+#+begin_src emacs-lisp
+  (setq evil-want-keybinding nil)
+  (setq evil-want-integration t)
+
+  (use-package evil-leader)
+
+  (use-package evil
+    :init
+    :requires (evil-leader)
+    :config
+    (evil-mode 1)
+    (evil-set-leader 'normal (kbd "SPC"))
+    (evil-set-undo-system 'undo-tree)
+    (evil-set-initial-state 'messages-buffer-mode 'normal)
+    (evil-set-initial-state 'dashboard-mode 'normal))
+#+end_src
+
+=evil-collection= is a list of convenient evil-mode mappings for existing modes
+
+#+begin_src emacs-lisp
+  (use-package evil-collection
+    :after evil
+    :ensure t
+    :config
+    (evil-collection-init))
+#+end_src
+
+=evil-surround= adds commands for working with surrounding delimiters, like parentheses
+
+#+begin_src emacs-lisp
+  (use-package evil-surround
+    :after evil
+    :config
+    (global-evil-surround-mode 1)
+    (evil--add-to-alist
+     'evil-surround-pairs-alist
+     ?\( '("(" . ")")
+     ?\[ '("[" . "]")
+     ?\{ '("{" . "}")
+     ?\) '("( " . " )")
+     ?\] '("[ " . " ]")
+     ?\} '("{ " . " }")))
+#+end_src
+
+=evil-nerd-commenter= allows for quick commenting and uncommenting of lines
+
+#+begin_src emacs-lisp
+  (use-package evil-nerd-commenter)
+#+end_src
+* Git
+
+=magit= is a Emacs interface for working with git
+
+#+begin_src emacs-lisp
+  (use-package magit
+    :commands (magit-status magit-get-current-branch)
+    :custom
+    (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+#+end_src
+
+=forge= is an interface for =magit= for working with Github, Gitlab, etc.
+
+#+begin_src emacs-lisp
+  (use-package forge
+    :init
+    (setq auth-sources '("~/.authinfo"))
+    :after magit)
+#+end_src
+
+=diff-hl= shows what changes to a file have been made in the gutter
+
+#+begin_src emacs-lisp
+  (use-package diff-hl
+    :config
+    (global-diff-hl-mode))
+#+end_src
+
+* Programming
+** =tree-sitter=
+=tree-sitter= is a way better syntax highlighter framework
+
+#+begin_src emacs-lisp
+  (use-package tree-sitter
+    :config
+    (global-tree-sitter-mode)
+    (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+  (use-package tree-sitter-langs
+    :after tree-sitter)
+#+end_src
+** Modes
+*** Nix
+#+begin_src emacs-lisp
+  (use-package nix-mode
+    :mode "\\.nix\\'")
+#+end_src
+*** Yaml
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :config
+    (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+    (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
+#+end_src
+*** Typescript and Javascript
+#+begin_src emacs-lisp
+  (use-package typescript-mode
+    :after (:all tree-sitter)
+    :config
+    (add-to-list 'tree-sitter-major-mode-language-alist '(typescriptreact-mode . tsx)))
+
+  (straight-use-package '(tsi :type git :host github :repo "orzechowskid/tsi.el"))
+  (straight-use-package '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el" :branch "emacs28"))
+
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-mode))
+#+end_src
+
+*** Svelte
+#+begin_src emacs-lisp
+  (use-package svelte-mode)
+#+end_src
+*** Lua
+#+begin_src emacs-lisp
+  (use-package lua-mode)
+#+end_src
+*** Rust
+#+begin_src emacs-lisp
+  (use-package rust-mode)
+#+end_src
+*** Dockerfile
+#+begin_src emacs-lisp
+  (use-package dockerfile-mode)
+#+end_src
+*** Elixir
+#+begin_src emacs-lisp
+  (use-package elixir-mode)
+#+end_src
+*** Python
+**** Poetry
+#+begin_src emacs-lisp
+  (use-package poetry
+    :config
+    (poetry-tracking-mode))
+#+end_src
+** Flycheck
+Flycheck checks errors in your code and displays them as fun little hints
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :init (global-flycheck-mode))
+#+end_src
+** LSP
+LSP is a modern framework for providing language features, such as formatting, in-IDE documentation and error checking
+
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :init
+    (setq lsp-keymap-prefix "C-l")
+    (setq gc-cons-threshold 100000000)
+    (setq read-process-output-max (* 1024 1024)) ;; 1mb
+    :hook ((lsp-mode . lsp-enable-which-key-integration)
+           (yaml-mode . lsp-deferred)
+           (lua-mode . lsp-deferred)
+           (javascript-mode . lsp-deferred)
+           (typescript-mode . lsp-deferred)
+           (python-mode . lsp-deferred)
+           (elixir-mode . lsp-deferred)
+           (svelte-mode . lsp-deferred)
+           (rust-mode . lsp-deferred)
+           (dockerfile-mode . lsp-deferred))
+    :commands (lsp lsp-deferred)
+    :config
+    (setq auto-mode-alist
+          (append '((".*\\.astro\\'" . js-jsx-mode))
+                  auto-mode-alist))
+    (setq auto-mode-alist
+          (append '((".*\\.svelte\\'" . svelte-mode))
+                  auto-mode-alist)))
+  (use-package lsp-ui
+    :commands lsp-ui-mode
+    :config (setq lsp-ui-doc-show-with-cursor t))
+  (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+  (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+#+end_src
+
+** DAP
+
+DAP is a modern framework for providing debugging
+
+#+begin_src emacs-lisp
+  (use-package dap-mode)
+#+end_src
+** YASnippet
+YASnippet is an engine for snippets
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :diminish yas-minor-mode
+    :bind (:map yas-minor-mode-map
+                ("C-c C-e" . yas-expand))
+    :config
+    (yas-reload-all)
+    (add-hook 'prog-mode-hook #'yas-minor-mode)
+    (yas-global-mode 1)
+    (setq yas-prompt-functions '(yas-dropdown-prompt
+                                 yas-ido-prompt
+                                 yas-completing-prompt)))
+
+  (use-package yasnippet-snippets
+    :after yasnippet)
+#+end_src
+** editorconfig
+Editorconfig configures IDEs per-repo through the =.editorconfig= file at the root of the project.
+#+begin_src emacs-lisp
+  (use-package editorconfig
+    :config
+    (editorconfig-mode 1))
+#+end_src
+* Keymaps
+** Plugins
+=general= simplifies key mapping
+
+#+begin_src emacs-lisp
+  (use-package general
+    :after (evil)
+    :config (general-evil-setup))
+#+end_src
+
+=avy= allows you to quickly jump around the code
+
+#+begin_src emacs-lisp
+  (use-package avy)
+#+end_src
+
+** Binding
+Set up the base groups
+#+begin_src emacs-lisp
+  (general-nmap
+    :prefix "SPC"
+    "e" '(:ignore t :which-key "emacs")
+    "l" '(:ignore t :which-key "lsp")
+    "p" '(:ignore t :which-key "project"))
+#+end_src
+
+*** Quick commands under =SPC=
+#+begin_src emacs-lisp
+  (general-nmap
+    :prefix "SPC"
+    "o" 'treemacs
+    "t" 'vterm
+    "g" 'magit-status
+    "x" 'kill-current-buffer)
+#+end_src
+*** Emacs commands under =SPC e=
+Quick global Emacs commands
+
+#+begin_src emacs-lisp
+  (general-nmap
+    :prefix "SPC e"
+    "c" 'calc)
+#+end_src
+
+Eval buffer bind, if you're in =emacs-lisp-mode=
+
+#+begin_src emacs-lisp
+  (general-nmap
+    :keymaps 'emacs-lisp-mode-map
+    :prefix "SPC e"
+    "x" 'eval-buffer)
+#+end_src
+
+*** Flycheck error navigation
+Flip between flycheck errors
+#+begin_src emacs-lisp
+  (general-nmap
+    "] q" '(flycheck-next-error 1 1)
+    "[ q" '(flycheck-previous-error 1 1))
+#+end_src
+
+*** Evil quick window navigation
+#+begin_src emacs-lisp
+  (general-nmap
+    "C-h" 'evil-window-left
+    "C-l" 'evil-window-right
+    "C-j" 'evil-window-down
+    "C-k" 'evil-window-up)
+#+end_src
+
+*** Company completion
+
+Manually start completion.
+#+begin_src emacs-lisp
+  (general-imap
+    :keymaps 'company-mode-map
+    "C-SPC" 'company-manual-begin
+    "C-." 'company-manual-begin)
+#+end_src
+
+Abort completion with =ESC=
+#+begin_src emacs-lisp
+  (general-imap
+    "ESC" 'company-abort)
+#+end_src
+
+*** =evil-nerd-commenter=
+Quick comment/uncomment with =evil-nerd-commenter=
+#+begin_src emacs-lisp
+  (general-vmap
+    "C-/" 'evilnc-comment-or-uncomment-region)
+#+end_src
+**** Programming
+***** Python
+#+begin_src emacs-lisp
+  (general-nmap
+    :hook 'python-mode-hook
+    :prefix "SPC l"
+    "p" 'poetry)
+#+end_src
+*** =projectile=
+#+begin_src emacs-lisp
+  (general-nmap
+    :prefix "SPC p"
+    "p" 'counsel-projectile-switch-project)
+
+  (general-nmap
+    :prefix "SPC p"
+    :hook 'projectile-mode-hook
+    "r" 'projectile-ripgrep)
+#+end_src
+*** =avy=
+#+begin_src emacs-lisp
+  (general-define-key
+   :keymaps '(normal insert emacs)
+   "C-;" 'avy-goto-char)
+#+end_src
