@@ -403,6 +403,7 @@ Treemacs is side window file viewer
 #+begin_src emacs-lisp
   (use-package diff-hl
     :config
+    (diff-hl-margin-mode)
     (global-diff-hl-mode))
 #+end_src
 
