@@ -61,7 +61,14 @@ Make ESC immediate
 
   (setq my-fontspec (concat my-font-name "-" (number-to-string my-font-size)))
   (add-to-list 'default-frame-alist `(font . ,my-fontspec))
-  (set-face-attribute 'default t :font my-font-name :height (* my-font-size 10))
+
+  (use-package mixed-pitch
+    :hook
+    (text-mode . mixed-pitch-mode)
+    :config
+    (set-face-attribute 'default t :font my-font-name :height (* my-font-size 10))
+    (set-face-attribute 'fixed-pitch nil :font my-font-name :height (* my-font-size 10))
+    (set-face-attribute 'variable-pitch nil :font "Ubuntu" :height (* my-font-size 10)))
 #+end_src
 *** Ligatures
 #+begin_src emacs-lisp
