@@ -134,12 +134,10 @@ Make ESC immediate
     (telephone-line-mode 1))
 #+end_src
 
-=base16-theme= provides a bunch of standardized themes from the =base16= collection
-
 #+begin_src emacs-lisp
-  (use-package base16-theme
+  (use-package snazzy-theme
     :config
-    (load-theme 'base16-woodland t))
+    (load-theme 'snazzy t))
 #+end_src
 
 * Necessary plugins
