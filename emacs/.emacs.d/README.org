@@ -190,7 +190,13 @@ Treemacs is side window file viewer
     (global-company-mode))
 
   (use-package company-box
+    :after company
     :hook (company-mode . company-box-mode))
+
+  (use-package company-posframe
+    :after company
+    :config
+    (company-posframe-mode 1))
 #+end_src
 ** Integration with different system packages
 #+begin_src emacs-lisp
@@ -401,9 +407,19 @@ Treemacs is side window file viewer
 =diff-hl= shows what changes to a file have been made in the gutter
 
 #+begin_src emacs-lisp
+  (let* ((height (frame-char-height))
+         (width 5)
+         (ones (1- (expt 2 width)))
+         (bits (make-vector height ones)))
+    (define-fringe-bitmap 'my-diff-hl-bitmap bits height width))
+
   (use-package diff-hl
+    :init
+    (setq diff-hl-fringe-bmp-function (lambda (type pos) 'my-diff-hl-bitmap))
     :config
-    (diff-hl-margin-mode)
+    (diff-hl-flydiff-mode)
+    (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
     (global-diff-hl-mode))
 #+end_src
 
