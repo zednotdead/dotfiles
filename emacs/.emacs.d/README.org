@@ -125,6 +125,16 @@ Make ESC immediate
 #+begin_src emacs-lisp
   (use-package no-littering)
 #+end_src
+** Set PATH correctly
+
+#+begin_src emacs-lisp
+  (use-package exec-path-from-shell
+    :config
+    (when (memq window-system '(mac ns x))
+      (exec-path-from-shell-initialize))
+    (when (daemonp)
+      (exec-path-from-shell-initialize)))
+#+end_src
 * Theme
 =telephone-line= is a better modeline
 
@@ -509,7 +519,6 @@ LSP is a modern framework for providing language features, such as formatting, i
            (lua-mode . lsp-deferred)
            (javascript-mode . lsp-deferred)
            (typescript-mode . lsp-deferred)
-           (python-mode . lsp-deferred)
            (elixir-mode . lsp-deferred)
            (svelte-mode . lsp-deferred)
            (rust-mode . lsp-deferred)
@@ -527,6 +536,15 @@ LSP is a modern framework for providing language features, such as formatting, i
     :config (setq lsp-ui-doc-show-with-cursor t))
   (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
   (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+#+end_src
+
+*** Python
+
+#+begin_src emacs-lisp
+  (use-package lsp-pyright
+    :hook (python-mode . (lambda ()
+                            (require 'lsp-pyright)
+                            (lsp-deferred))))
 #+end_src
 
 ** DAP
