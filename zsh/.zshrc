@@ -233,3 +233,5 @@ alias gpu="git push"
 alias gpl="git pull"
 alias "1f"="onefetch --include-hidden"
 alias "cls"="clear"
+
+ulimit -n 65536 65536
