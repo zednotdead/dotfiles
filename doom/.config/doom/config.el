@@ -74,3 +74,8 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(use-package! tsx-mode
+  :config
+  (setq auto-mode-alist (delete '("\\.tsx\\'" . typescript-tsx-mode) auto-mode-alist))
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-mode)))

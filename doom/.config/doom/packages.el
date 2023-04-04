@@ -48,3 +48,9 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+;
+;; Set up tsx-mode
+(package! tsi :recipe (:host github :repo "orzechowskid/tsi.el" :branch "main"))
+(package! coverlay)
+(package! origami)
+(package! tsx-mode :recipe (:host github :repo "orzechowskid/tsx-mode.el" :branch "master"))
