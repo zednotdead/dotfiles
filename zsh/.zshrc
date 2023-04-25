@@ -1,51 +1,14 @@
 #!/usr/bin/env zsh
 
-fpath=($HOME/.zfunc $fpath)
 
+# Environment variables
 export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$HOME/go/bin:$PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
 export SOPS_AGE_KEY_FILE=$HOME/.config/sops/age/keys.txt
+fpath=($HOME/.zfunc $fpath)
 
-zstyle ':completion:*' completer _expand _complete _ignored _approximate
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '' 'l:|=* r:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-# set descriptions format to enable group support
-zstyle ':completion:*:descriptions' format '[%d]'
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle :compinstall filename '$HOME/.zshrc'
-
-source ${ZDOTDIR:-~}/.antidote/antidote.zsh
-antidote load
-
-autoload -U +X bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
-complete -o nospace -C /usr/bin/terraform terraform
-
-if (( $+commands[flux] )) then
-	. <(flux completion zsh)
-fi
-if (( $+commands[direnv] )) then
-	. <(direnv hook zsh)
-fi
-if (( $+commands[kubectl] )) then
-	source <(kubectl completion zsh)
-fi
-if (( $+commands[helm] )) then
-	source <(helm completion zsh)
-fi
-if (( $+commands[zoxide] )) then
-	eval "$(zoxide init zsh)"
-fi
+# Config
 
 HISTFILE=~/.cache/zsh/.histfile
 HISTSIZE=2000
@@ -98,21 +61,41 @@ bindkey "^[[3~" delete-char
 bindkey "^[[3;5~" kill-word
 bindkey "^H" backward-kill-word
 
-if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
-	. $HOME/.asdf/asdf.sh
-fi
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle :compinstall filename '$HOME/.zshrc'
 
-if (( $+commands[flux] )) then
-	if [[ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]]; then
-		. $(brew --prefix asdf)/libexec/asdf.sh
-	fi
-fi
+autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+
+# Completions
 
 if (( $+commands[flux] )) then
 	. <(flux completion zsh)
 fi
 
-alias em="emacsclient -c"
+if (( $+commands[kubectl] )) then
+	source <(kubectl completion zsh)
+fi
+
+if (( $+commands[helm] )) then
+	source <(helm completion zsh)
+fi
+
+if [ -f '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 if (( $+commands[fnm] )) then
 	if [[ ! -f "$HOME/.zfunc/_fnm" ]] then
@@ -128,42 +111,24 @@ if (( $+commands[diffsitter] )) then
 	fi
 fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
 if (( $+commands[rtx] )) then
-	eval "$(rtx activate zsh)"
 	if [[ ! -f "$HOME/.zfunc/_rtx" ]] then
 		echo "rtx completion file not found, generating..."
 		rtx complete --shell zsh > $HOME/.zfunc/_rtx
 	fi
 fi
 
-if (( $+commands[starship] )) then
-	eval "$(starship init zsh)"
-fi
-
-if (( $+commands[flux] )) then
-	. <(flux completion zsh)
-fi
-
-if [[ -f "/opt/homebrew/bin/brew" ]]; then
-	eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-if [[ -f "/usr/local/bin/talosctl" ]]; then
+if (( $+commands[talosctl] )) then
 	. <(talosctl completion zsh)
 fi
 
-if [[ -f "/usr/local/bin/cilium" ]]; then
+if (( $+commands[cilium] )) then
 	. <(cilium completion zsh)
 fi
 
 if (( $+commands[cargo] )) then
 	if [[ ! -f "$HOME/.zfunc/_cargo" ]]; then
+		echo "cargo completion file not found, generating..."
 		rustup completions zsh cargo > $HOME/.zfunc/_cargo
 	fi
 fi
@@ -185,8 +150,54 @@ if (( $+commands[gpg-tui] )) then
 	fi
 fi
 
+if (( $+commands[poetry] )) then
+	if [[ ! -f "$HOME/.zfunc/_poetry" ]]; then
+		echo "poetry completion file not found, generating..."
+		poetry completions zsh > $HOME/.zfunc/_poetry
+	fi
+fi
+
+# Hooks
+
+if (( $+commands[zoxide] )) then
+	eval "$(zoxide init zsh)"
+fi
+
+if (( $+commands[direnv] )) then
+	. <(direnv hook zsh)
+fi
+if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
+	. $HOME/.asdf/asdf.sh
+fi
+
+
+if [ -f '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+if (( $+commands[rtx] )) then
+	eval "$(rtx activate zsh)"
+fi
+
+if (( $+commands[starship] )) then
+	eval "$(starship init zsh)"
+fi
+
+
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Loading Antidote
+
+# source antidote
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+
+# initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
+antidote load
+
 # Fuzzy git checkout
 # by: https://polothy.github.io/post/2019-08-19-fzf-git-checkout/
+
+# Custom aliases
 
 fzf-git-branch() {
     git rev-parse HEAD > /dev/null 2>&1 || return
@@ -232,3 +243,5 @@ alias gpu="git push"
 alias gpl="git pull"
 alias "1f"="onefetch --include-hidden"
 alias "cls"="clear"
+
+ulimit -n 65536 65536

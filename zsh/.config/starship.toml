@@ -1,13 +1,9 @@
 format = """
-[ ](bg:#3c3836)\
 $os\
 $username\
-[](bg:#504945 fg:#3c3836)\
 $directory\
-[](fg:#504945 bg:#665c54)\
 $git_branch\
 $git_status\
-[](fg:#665c54 bg:#7C6F64)\
 $c\
 $elixir\
 $elm\
@@ -20,7 +16,7 @@ $nodejs\
 $nim\
 $rust\
 $scala\
-[ ](fg:#7C6F64)\
+[\n](fg:#7C6F64)\
 $character
 """
 
@@ -31,24 +27,18 @@ $character
 # and use the os module below
 [username]
 show_always = true
-style_user = "bg:#3c3836"
-style_root = "bg:#3c3836"
+style_user = "fg:green"
+style_root = "fg:red"
 format = '[$user ]($style)'
 disabled = false
 
-# An alternative to the username module which displays a symbol that
-# represents the current operating system
-[os]
-style = "bg:#3c3836"
-disabled = true # Disabled by default
-
 [character]
 format = "$symbol"
-success_symbol = '[🢖 ](bold green)'
-error_symbol = '[🢖 ](bold red)'
+success_symbol = '[🯁🯂🯃 ](bold green)'
+error_symbol = '[🯁🯂🯃 ](bold red)'
 
 [directory]
-style = "bg:#504945"
+style = "fg:gray"
 format = "[ $path ]($style)"
 truncation_length = 10
 truncation_symbol = "…/"
@@ -56,79 +46,87 @@ truncate_to_repo = true
 
 [c]
 symbol = " "
-style = "bg:#7C6F64"
-format = '[ $symbol ($version) ]($style)'
+style = "fg:blue"
+format = '[$symbol($version)]($style)'
 
 [docker_context]
 symbol = ""
-style = "bg:#33658A"
-format = '[ $symbol $context ]($style)'
+style = "fg:white"
+format = '[$symbol $context]($style)'
 
 [elixir]
 symbol = " "
-style = "bg:#7C6F64"
-format = '[ $symbol ($version) ]($style)'
+style = "fg:white"
+format = '[$symbol ($version)]($style)'
 
 [elm]
 symbol = " "
-style = "bg:#7C6F64"
-format = '[ $symbol ($version) ]($style)'
+style = "fg:white"
+format = '[$symbol ($version)]($style)'
 
 [git_branch]
 symbol = ""
-style = "bg:#665c54"
-format = '[ $symbol $branch ]($style)'
+style = "fg:white"
+format = '[$symbol $branch]($style)'
 
 [git_status]
-style = "bg:#665c54"
+style = "fg:yellow"
+modified = "  ×${count}"
+ahead = " ⇑ ×${count}"
+behind = " ⇓ ×${count}"
+diverged = " ⇑ ×${ahead_count} ⇓ ×${behind_count}"
+staged = "  ×${count}"
+untracked = "  ×${count}"
+stashed = ""
+deleted = "  ×${count}"
 format = '[$all_status$ahead_behind ]($style)'
 
 [golang]
 symbol = " "
-style = "bg:#7C6F64"
-format = '[ $symbol ($version) ]($style)'
+style = "fg:white"
+format = '[$symbol ($version)]($style)'
 
 [gradle]
-style = "bg:#7C6F64"
-format = '[ $symbol ($version) ]($style)'
+style = "fg:white"
+format = '[$symbol ($version)]($style)'
 
 [haskell]
 symbol = " "
-style = "bg:#7C6F64"
-format = '[ $symbol ($version) ]($style)'
+style = "fg:purple"
+format = '[$symbol ($version)]($style)'
 
 [java]
 symbol = " "
-style = "bg:#7C6F64"
-format = '[ $symbol ($version) ]($style)'
+style = "fg:red"
+format = '[$symbol ($version)]($style)'
 
 [julia]
 symbol = " "
-style = "bg:#7C6F64"
-format = '[ $symbol ($version) ]($style)'
+style = "fg:red"
+format = '[$symbol ($version)]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:#7C6F64"
-format = '[ $symbol ($version) ]($style)'
+style = "fg:green"
+format = '[$symbol ($version)]($style)'
 
 [nim]
 symbol = " "
-style = "bg:#7C6F64"
-format = '[ $symbol ($version) ]($style)'
+style = "fg:yellow"
+format = '[$symbol ($version)]($style)'
 
 [rust]
 symbol = ""
-style = "bg:#7C6F64"
-format = '[ $symbol ($version) ]($style)'
+style = "fg:orange"
+format = '[$symbol ($version)]($style)'
 
 [scala]
 symbol = " "
-style = "bg:#7C6F64"
-format = '[ $symbol ($version) ]($style)'
+style = "fg:red"
+format = '[$symbol ($version)]($style)'
 
 [time]
 disabled = true
 time_format = "%R" # Hour:Minute Format
-style = "bg:#33658A"
+style = "fg:white"
 format = '[ ♥ $time ]($style)'

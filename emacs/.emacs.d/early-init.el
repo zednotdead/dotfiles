@@ -3,6 +3,7 @@
 
 ;;; Code:
 
+(setq vc-follow-symlinks nil)
 (setq use-package-always-ensure t)
 (defvar bootstrap-version)
 (let ((bootstrap-file

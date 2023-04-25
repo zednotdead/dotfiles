@@ -1,15 +1,19 @@
 PATH=$PATH:$HOME/.local/bin
+PYTHON_PATH=/Library/Frameworks/Python.framework/Versions/3.11/bin
+if [[ -d $PYTHON_PATH ]]; then
+	PATH=$PATH:$PYTHON_PATH
+fi
 
 if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 if [[ -f "$HOME/.cargo/env" ]]; then
-    . $HOME/.cargo/env
+	. $HOME/.cargo/env
 fi
 
 if [[ -f "$HOME/.cargo/bin/rtx" ]]; then
-    . <(rtx env)
+	. <(rtx env)
 fi
 
 #if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
@@ -17,7 +21,7 @@ fi
 #fi
 
 if (( $+commands[podman] )) then
-    export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
+	export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 fi
 
 if (( $+commands[sccache] )) then

@@ -3,3 +3,7 @@ zsh-users/zsh-history-substring-search
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-autosuggestions
 joshskidmore/zsh-fzf-history-search
+
+ohmyzsh/ohmyzsh path:lib
+ohmyzsh/ohmyzsh path:plugins/docker
+ohmyzsh/ohmyzsh path:plugins/docker-compose
