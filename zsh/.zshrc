@@ -175,6 +175,16 @@ if (( $+commands[rustup] )) then
 	fi
 fi
 
+if (( $+commands[gpg-tui] )) then
+	if [[ ! -f "$HOME/.zfunc/_gpg-tui" ]]; then
+		echo "gpg-tui completion file not found, generating..."
+		local out_dir
+		out_dir="$(mktemp -d)"
+		OUT_DIR="$out_dir" gpg-tui-completions
+		cp "$out_dir/_gpg-tui" "$HOME/.zfunc/_gpg-tui"
+	fi
+fi
+
 # Fuzzy git checkout
 # by: https://polothy.github.io/post/2019-08-19-fzf-git-checkout/
 
