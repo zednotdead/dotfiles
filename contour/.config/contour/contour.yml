@@ -309,7 +309,7 @@ profiles:
             regular:
                 # Font family defines the font family name, such as:
                 # Fira Code", "Courier New", or "monospace" (default).
-                family: "PragmataPro Liga"
+                family: "PragmataPro Mono Liga"
 
                 # Font weight can be one of:
                 #   thin, extra_light, light, demilight, book, normal,
@@ -400,7 +400,7 @@ profiles:
             blur: false
 
         # Specifies a colorscheme to use (alternatively the colors can be inlined).
-        colors: "catppuccin_macchiato"
+        colors: "catppuccin_frappe"
 
         # Hyperlinks (via OSC-8) can be stylized and colorized on hover.
         hyperlink_decoration:

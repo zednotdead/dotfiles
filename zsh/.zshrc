@@ -4,6 +4,7 @@
 # Environment variables
 export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$HOME/go/bin:$PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="$HOME/.evm/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
 export SOPS_AGE_KEY_FILE=$HOME/.config/sops/age/keys.txt
 fpath=($HOME/.zfunc $fpath)
@@ -186,6 +187,10 @@ if [[ -f "/opt/homebrew/bin/brew" ]]; then
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+if (($+commands[velero])) then
+	source <(velero completion zsh)
+fi
+
 # Loading Antidote
 
 # source antidote
@@ -245,3 +250,4 @@ alias "1f"="onefetch --include-hidden"
 alias "cls"="clear"
 
 ulimit -n 65536 65536
+ulimit -f unlimited

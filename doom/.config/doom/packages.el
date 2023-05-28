@@ -54,3 +54,4 @@
 (package! coverlay)
 (package! origami)
 (package! tsx-mode :recipe (:host github :repo "orzechowskid/tsx-mode.el" :branch "master"))
+(package! catppuccin-theme)

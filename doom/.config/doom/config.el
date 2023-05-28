@@ -3,7 +3,6 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "John Doe"
@@ -79,3 +78,6 @@
   :config
   (setq auto-mode-alist (delete '("\\.tsx\\'" . typescript-tsx-mode) auto-mode-alist))
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-mode)))
+
+(setq catppuccin-flavor 'frappe)
+(setq doom-theme 'catppuccin)
