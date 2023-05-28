@@ -150,7 +150,7 @@ return {
               silent = true,
               buffer = bufnr
             }
-            vim.keymap.set('n', '<leader><leader>rr',
+            vim.keymap.set('n', '<leader>rr',
               "<Cmd>RustRunnables<CR>", bufopts)
             vim.keymap.set('n', 'K', "<Cmd>RustHoverActions<CR>",
               bufopts)
