@@ -22,6 +22,7 @@ return {
       wk.register({
         ["<leader>l"] = { name = "lsp" },
         ["<leader>g"] = { name = "git" },
+        ["<leader>f"] = { name = "find" },
       })
     end
   },
@@ -30,12 +31,4 @@ return {
     "nvim-tree/nvim-web-devicons",
     version = "nerd-v2-compat",
   },
-  {
-    'nvim-telescope/telescope.nvim',
-    tag = '0.1.1',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      require('telescope').load_extension('projects')
-    end
-  }
 }

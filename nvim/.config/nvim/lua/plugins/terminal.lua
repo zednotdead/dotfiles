@@ -30,7 +30,7 @@ return {
           desc = "toggle htop"
         })
 
-      vim.api.nvim_set_keymap("n", "<leader>gg",
+      vim.api.nvim_set_keymap("n", "<leader>tg",
         "<cmd>lua Lazygit_toggle()<CR>",
         {
           noremap = true,
