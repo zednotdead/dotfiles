@@ -77,5 +77,27 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     config = true
-  }
+  },
+  {
+    'gorbit99/codewindow.nvim',
+    config = function()
+      local codewindow = require('codewindow')
+      codewindow.setup()
+      codewindow.apply_default_keybinds()
+    end,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    opts = {
+      space_char_blankline = " ",
+      show_current_context = true,
+      show_current_context_start = true,
+      show_trailing_blankline = true,
+    },
+    config = function(_, opts)
+      vim.opt.termguicolors = true
+
+      require('indent_blankline').setup(opts)
+    end
+  },
 }

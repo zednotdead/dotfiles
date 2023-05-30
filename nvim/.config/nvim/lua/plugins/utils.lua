@@ -23,6 +23,7 @@ return {
         ["<leader>l"] = { name = "lsp" },
         ["<leader>g"] = { name = "git" },
         ["<leader>f"] = { name = "find" },
+        ["<leader>m"] = { name = "minimap" },
       })
     end
   },

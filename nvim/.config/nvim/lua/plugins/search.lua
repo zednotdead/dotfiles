@@ -17,14 +17,30 @@ return {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.1',
     dependencies = { 'nvim-lua/plenary.nvim', 'ahmedkhalf/project.nvim' },
-    config = function()
+    cmd = { 'Telescope' },
+    keys = {
+      {
+        "<leader>ff",
+        function() require("telescope.builtin").live_grep { display_type = "minimal" } end,
+        desc = "Find in files",
+      },
+      {
+        "<leader>pp",
+        function() require('custom_telescope.project').projects {} end,
+        desc = "Projects",
+      },
+      {
+        "<leader>pf",
+        function() require("telescope.builtin").git_files() end,
+        desc = "Projects",
+      },
+    },
+    config = function(_, opts)
       local ts = require('telescope')
 
-      ts.load_extension('projects')
       ts.load_extension('emoji')
 
-      vim.keymap.set('n', '<leader>ff', "<Cmd>Telescope live_grep<CR>", { desc = 'Find in files' })
-      vim.keymap.set('n', '<leader>pp', "<Cmd>Telescope projects<CR>", { desc = 'Search projects' })
+      ts.setup(opts)
     end
   }
 }
