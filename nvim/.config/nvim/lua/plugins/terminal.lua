@@ -13,19 +13,37 @@ return {
         direction = "float"
       })
 
-      -- NOTE: This is a global function so it can be called from the below mapping.
-      function Htop_toggle() htop:toggle() end
-
-      vim.api.nvim_set_keymap("n", "<leader>th",
-      "<cmd>lua Htop_toggle()<CR>", {
-        noremap = true,
-        silent = true,
-        desc = "toggle htop"
+      local lazygit = Terminal:new({
+        cmd = "lazygit",
+        hidden = true,
+        direction = "float"
       })
 
-      vim.keymap.set("n", "<leader>tf",
-      "<Cmd>ToggleTerm direction=float<CR>",
-      { desc = "toggle floating terminal" })
+      function Htop_toggle() htop:toggle() end
+
+      function Lazygit_toggle() lazygit:toggle() end
+
+      vim.api.nvim_set_keymap("n", "<leader>th",
+        "<cmd>lua Htop_toggle()<CR>", {
+          noremap = true,
+          silent = true,
+          desc = "toggle htop"
+        })
+
+      vim.api.nvim_set_keymap("n", "<leader>gg",
+        "<cmd>lua Lazygit_toggle()<CR>",
+        {
+          noremap = true,
+          silent = true,
+          desc = "toggle lazygit"
+        })
+
+      vim.keymap.set(
+        "n",
+        "<leader>tf",
+        "<Cmd>ToggleTerm direction=float<CR>",
+        { desc = "toggle floating terminal" }
+      )
     end
   }
 }

@@ -51,11 +51,15 @@ return function(client, bufnr)
   vim.keymap.set('n', 'gd', buf_doc_sym, buf_doc_sym_opts)
   vim.keymap.set('n', 'gh', buf_sig_help, buf_sig_help_opts)
   vim.keymap.set('n', 'gi', buf_impl, buf_impl_opts)
-  vim.keymap.set('n', 'gn', buf_rename, buf_rename_opts)
+  vim.keymap.set('n', 'gr', buf_rename, buf_rename_opts)
   vim.keymap.set('n', 'gp', buf_project, buf_project_opts)
   vim.keymap.set('n', 'gD', buf_ref, buf_ref_opts)
   vim.keymap.set('n', 'gs', buf_sym, buf_sym_opts)
   vim.keymap.set('n', 'gy', buf_type, buf_type_opts)
+
+  -- Alternative bindings
+  vim.keymap.set('n', '<leader>lr', buf_rename, buf_rename_opts)
+  vim.keymap.set('n', '<leader>la', buf_code_action, buf_code_action_opts)
 
   if client.supports_method("textDocument/formatting") then
     vim.api.nvim_create_autocmd({ "BufWritePre" }, {

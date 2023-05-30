@@ -8,3 +8,9 @@ function _G.set_terminal_keymaps()
 end
 
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+
+map('n', 'gT', '<Cmd>BufferPrevious<CR>', opts)
+map('n', 'gt', '<Cmd>BufferNext<CR>', opts)

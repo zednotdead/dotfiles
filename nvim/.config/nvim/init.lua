@@ -8,6 +8,10 @@ vim.g.mapleader = " "
 vim.o.expandtab = true
 vim.o.shiftwidth = 4
 
+-- Set up line numbers
+vim.o.number = true
+vim.o.relativenumber = true
+
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
