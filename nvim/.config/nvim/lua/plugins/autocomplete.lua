@@ -56,14 +56,14 @@ return {
   dependencies = { "saadparwaiz1/cmp_luasnip" },
   keys = {
     {
-      "<leader>.",
+      "<C-.>",
       function() require("luasnip").jump(1) end,
       desc = "Jump forward a snippet placement",
       mode = "i",
       noremap = true,
       silent = true
     }, {
-    "<leader>,",
+    "<C-,>",
     function() require("luasnip").jump(-1) end,
     desc = "Jump backward a snippet placement",
     mode = "i",
