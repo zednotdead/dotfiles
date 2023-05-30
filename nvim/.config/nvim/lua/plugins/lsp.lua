@@ -8,8 +8,21 @@ return {
     -- LSP
     "neovim/nvim-lspconfig",
     config = function()
+      local lspconfig = require('lspconfig')
+      -- PYTHON LSP
+      lspconfig.pylsp.setup {
+        settings = {
+          pylsp = {
+            plugins = {
+              ruff = {
+                enabled = true,
+              },
+            }
+          }
+        }
+      }
       -- LUA LSP
-      require('lspconfig').lua_ls.setup {
+      lspconfig.lua_ls.setup {
         settings = {
           Lua = {
             runtime = {
@@ -31,7 +44,7 @@ return {
         },
       }
       -- GOLANG LSP
-      require("lspconfig").gopls.setup({
+      lspconfig.gopls.setup({
         on_attach = function(client, bufnr)
           require("shared/lsp")(client, bufnr)
           require("lsp-inlayhints").setup({
@@ -332,5 +345,55 @@ return {
         }
       })
     end
+  },
+  {
+    'jiangmiao/auto-pairs'
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      keywords = {
+        FIX = {
+          alt = {
+            "FIXME", "BUG", "[FIXME]", "[BUG]"
+          },
+        },
+        TODO = {
+          icon = " ",
+          color = "info",
+          alt = {
+            "[TODO]"
+          }
+        },
+        HACK = {
+          alt = {
+            "[HACK]"
+          }
+        },
+        WARN = {
+          alt = {
+            "[WARN]", "[WARNING]", "WARNING", "XXX",
+          }
+        },
+        NOTE = {
+          icon = " ",
+          color = "hint",
+          alt = {
+            "[NOTE]", "INFO", "[INFO]"
+          }
+        },
+      },
+    },
+  },
+  {
+    'kevinhwang91/nvim-bqf',
+    ft = 'qf',
+    opts = {
+      auto_enable = true,
+      preview = {
+        auto_preview = true,
+      },
+    }
   }
 }
