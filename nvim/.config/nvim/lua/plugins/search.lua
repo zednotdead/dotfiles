@@ -16,7 +16,7 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.1',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = { 'nvim-lua/plenary.nvim', 'ahmedkhalf/project.nvim' },
     config = function()
       local ts = require('telescope')
 
@@ -24,6 +24,7 @@ return {
       ts.load_extension('emoji')
 
       vim.keymap.set('n', '<leader>ff', "<Cmd>Telescope live_grep<CR>", { desc = 'Find in files' })
+      vim.keymap.set('n', '<leader>pp', "<Cmd>Telescope projects<CR>", { desc = 'Search projects' })
     end
   }
 }
