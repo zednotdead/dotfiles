@@ -103,4 +103,13 @@ return {
       require('indent_blankline').setup(opts)
     end
   },
+  {
+    "b0o/incline.nvim",
+    config = function(_, opts)
+      vim.o.laststatus = 3
+
+      require('incline').setup(opts)
+    end,
+    opts = {}
+  }
 }

@@ -5,10 +5,25 @@ return {
     dependencies = { "nvim-treesitter" }
   },
   {
+    "petobens/poet-v",
+    dependencies = { "neovim/nvim-lspconfig" },
+    cmd = {
+      "PoetvActivate",
+      "PoetvDeactivate"
+    },
+    config = function()
+      vim.g.poetv_auto_activate = 1
+    end
+  },
+  {
     -- LSP
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "folke/neodev.nvim"
+    },
     config = function()
       local lspconfig = require('lspconfig')
+
       -- PYTHON LSP
       lspconfig.pylsp.setup {
         settings = {
@@ -17,6 +32,8 @@ return {
               ruff = {
                 enabled = true,
               },
+              jedi_completion = { fuzzy = true },
+              pylsp_mypy = { enabled = true },
             }
           }
         }
@@ -407,5 +424,5 @@ return {
         desc = "Rename LSP symbol",
       },
     }
-  }
+  },
 }

@@ -6,6 +6,18 @@ return {
     event = "VimEnter",
     config = function()
       local theme = require("alpha.themes.dashboard")
+
+      theme.section.header.val = {
+        [[　　　 　　/＾>》, -―‐‐＜＾}]],
+        [[　　　 　./:::/,≠´::::::ヽ.]],
+        [[　　　　/::::〃::::／}::丿ハ]],
+        [[　　　./:::::i{l|／　ﾉ／ }::}]],
+        [[　　 /:::::::瓜イ＞　´＜ ,:ﾉ]],
+        [[　 ./::::::|ﾉﾍ.{､　(_ﾌ_ノﾉイ＿]],
+        [[　 |:::::::|／}｀ｽ /          /]],
+        [[.　|::::::|(_:::つ/ ThinkPad /　neovim!]],
+        [[.￣￣￣￣￣￣￣＼/＿＿＿＿＿/￣￣￣￣￣]],
+      }
       theme.section.buttons.val = {
         theme.button(
           "f",
@@ -23,7 +35,7 @@ return {
 
         theme.button(
           "q",
-          "ﰌ  Quit",
+          "  Quit",
           ":qa<CR>",
           {}
         ),
