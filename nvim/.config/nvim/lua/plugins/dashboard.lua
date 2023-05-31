@@ -1,20 +1,34 @@
 return {
   {
-    'glepnir/dashboard-nvim',
-    event = 'VimEnter',
+    "goolord/alpha-nvim",
+    enabled = true,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    event = "VimEnter",
     config = function()
-      require('dashboard').setup {
-        config = {
-          project = {
-            enable = true,
-            limit = 8,
-            label = 'Projects',
-            action = 'Telescope git_files prompt_prefix=🔍 cwd='
-          },
-          packages = { enable = true }
-        },
+      local theme = require("alpha.themes.dashboard")
+      theme.section.buttons.val = {
+        theme.button(
+          "f",
+          "  Find project",
+          ":lua require'custom_telescope.project'.projects {}<CR>",
+          {}
+        ),
+
+        theme.button(
+          "r",
+          "  Recent files",
+          ":lua require'telescope.builtin'.oldfiles{}<CR>",
+          {}
+        ),
+
+        theme.button(
+          "q",
+          "ﰌ  Quit",
+          ":qa<CR>",
+          {}
+        ),
       }
-    end,
-    dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+      require("alpha").setup(theme.config)
+    end
   }
 }

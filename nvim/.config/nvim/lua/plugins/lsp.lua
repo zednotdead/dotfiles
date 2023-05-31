@@ -395,5 +395,17 @@ return {
         auto_preview = true,
       },
     }
+  },
+  {
+    "smjonas/inc-rename.nvim",
+    config = true,
+    cmd = { "IncRename" },
+    keys = {
+      {
+        "<leader>lr",
+        ":IncRename ",
+        desc = "Rename LSP symbol",
+      },
+    }
   }
 }

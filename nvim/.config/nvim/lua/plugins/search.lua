@@ -25,6 +25,11 @@ return {
         desc = "Find in files",
       },
       {
+        "<leader>fb",
+        function() require("telescope.builtin").buffers { display_type = "minimal" } end,
+        desc = "Find in files",
+      },
+      {
         "<leader>pp",
         function() require('custom_telescope.project').projects {} end,
         desc = "Projects",
@@ -35,12 +40,24 @@ return {
         desc = "Projects",
       },
     },
-    config = function(_, opts)
+    config = function()
       local ts = require('telescope')
 
       ts.load_extension('emoji')
 
-      ts.setup(opts)
+      ts.setup({
+        defaults = {
+          mappings = {
+            n = {
+              ['<c-d>'] = require('telescope.actions').delete_buffer
+            },
+            i = {
+              ['<C-h>'] = "which_key",
+              ['<C-d>'] = require('telescope.actions').delete_buffer
+            }
+          }
+        }
+      })
     end
   }
 }
