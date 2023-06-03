@@ -11,4 +11,4 @@ if [[ -f "$HOME/.cargo/bin/rtx" ]]; then
     . <($HOME/.cargo/bin/rtx env)
 fi
 
-export PATH
+

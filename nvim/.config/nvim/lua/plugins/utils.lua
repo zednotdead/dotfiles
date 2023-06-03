@@ -14,7 +14,19 @@ return {
     end
   },
   { "RRethy/vim-illuminate" },
-  { "folke/which-key.nvim", config = true },
+  {
+    "folke/which-key.nvim",
+    config = function()
+      local wk = require("which-key")
+
+      wk.register({
+        ["<leader>l"] = { name = "lsp" },
+        ["<leader>g"] = { name = "git" },
+        ["<leader>f"] = { name = "find" },
+        ["<leader>m"] = { name = "minimap" },
+      })
+    end
+  },
   { "folke/neodev.nvim" },
   {
     "nvim-tree/nvim-web-devicons",

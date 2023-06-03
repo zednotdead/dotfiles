@@ -51,10 +51,10 @@ return {
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = "gnn",  -- start treesitter selection process
+            init_selection = "gnn",    -- start treesitter selection process
             scope_incremental = "gnm", -- increment selection to surrounding scope
-            node_incremental = ";",  -- increment selection to next 'node'
-            node_decremental = ","   -- decrement selection to prev 'node'
+            node_incremental = ";",    -- increment selection to next 'node'
+            node_decremental = ","     -- decrement selection to prev 'node'
           }
         },
         indent = { enable = true },

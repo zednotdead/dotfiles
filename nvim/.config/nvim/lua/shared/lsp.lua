@@ -22,8 +22,8 @@ return function(client, bufnr)
   local buf_project_opts = merge({ desc = "Search project-wide symbols" }, opts)
   local buf_ref = "<Cmd>lua vim.lsp.buf.references()<CR>"
   local buf_ref_opts = merge({ desc = "List all references" }, opts)
-  local buf_rename = "<Cmd>lua vim.lsp.buf.rename()<CR>"
-  local buf_rename_opts = merge({ desc = "Rename symbol" }, opts)
+  -- local buf_rename = "<Cmd>lua vim.lsp.buf.rename()<CR>"
+  -- local buf_rename_opts = merge({ desc = "Rename symbol" }, opts)
   local buf_sig_help = "<Cmd>lua vim.lsp.buf.signature_help()<CR>"
   local buf_sig_help_opts = merge({ desc = "Sig help (cursor over arg)" }, opts)
   local buf_sym = "<Cmd>SymbolsOutline<CR>"
@@ -51,11 +51,16 @@ return function(client, bufnr)
   vim.keymap.set('n', 'gd', buf_doc_sym, buf_doc_sym_opts)
   vim.keymap.set('n', 'gh', buf_sig_help, buf_sig_help_opts)
   vim.keymap.set('n', 'gi', buf_impl, buf_impl_opts)
-  vim.keymap.set('n', 'gn', buf_rename, buf_rename_opts)
+  -- vim.keymap.set('n', 'gr', buf_rename, buf_rename_opts)
   vim.keymap.set('n', 'gp', buf_project, buf_project_opts)
   vim.keymap.set('n', 'gD', buf_ref, buf_ref_opts)
   vim.keymap.set('n', 'gs', buf_sym, buf_sym_opts)
   vim.keymap.set('n', 'gy', buf_type, buf_type_opts)
+
+  -- Alternative bindings
+  -- NOTE: Moved to `plugins/lsp.lua`, in the inc-rename configuration
+  -- vim.keymap.set('n', '<leader>lr', buf_rename, buf_rename_opts)
+  vim.keymap.set('n', '<leader>la', buf_code_action, buf_code_action_opts)
 
   if client.supports_method("textDocument/formatting") then
     vim.api.nvim_create_autocmd({ "BufWritePre" }, {
