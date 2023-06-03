@@ -8,6 +8,12 @@ return {
     -- LSP
     "neovim/nvim-lspconfig",
     config = function()
+      local util = require 'lspconfig.util'
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+      -- RUBY LSP
+      require 'lspconfig'.ruby_ls.setup {}
+
       -- LUA LSP
       require('lspconfig').lua_ls.setup {
         settings = {

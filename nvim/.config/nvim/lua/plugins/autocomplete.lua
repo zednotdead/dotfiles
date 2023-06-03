@@ -56,20 +56,21 @@ return {
   dependencies = { "saadparwaiz1/cmp_luasnip" },
   keys = {
     {
-      "<leader>.",
+      "<C-.>",
       function() require("luasnip").jump(1) end,
       desc = "Jump forward a snippet placement",
       mode = "i",
       noremap = true,
       silent = true
-    }, {
-    "<leader>,",
-    function() require("luasnip").jump(-1) end,
-    desc = "Jump backward a snippet placement",
-    mode = "i",
-    noremap = true,
-    silent = true
-  }
+    },
+    {
+      "<C-.>",
+      function() require("luasnip").jump(-1) end,
+      desc = "Jump backward a snippet placement",
+      mode = "i",
+      noremap = true,
+      silent = true
+    }
   },
   config = function()
     require("luasnip.loaders.from_lua").load({ paths = "~/.snippets" })
