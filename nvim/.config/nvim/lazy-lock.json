@@ -66,6 +66,7 @@
   "toggleterm.nvim": { "branch": "main", "commit": "026dff5e2b504941cf172691561a67ea362596aa" },
   "treesitter-terraform-doc.nvim": { "branch": "main", "commit": "b51acfe94080c6412e4c379b876606173399657e" },
   "trouble.nvim": { "branch": "main", "commit": "324c977cfeacb8498ca9ba1c74cc35bd18858a8d" },
+  "venv-selector.nvim": { "branch": "main", "commit": "6f1865aba002ff8aa0d552491a4f24a3d191c830" },
   "vim-illuminate": { "branch": "master", "commit": "a2907275a6899c570d16e95b9db5fd921c167502" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "which-key.nvim": { "branch": "main", "commit": "e271c28118998c93a14d189af3395812a1aa646c" }

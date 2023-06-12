@@ -1,3 +1,32 @@
+local _icons = {
+  File          = "󰈙 ",
+  Module        = " ",
+  Namespace     = "󰌗 ",
+  Package       = " ",
+  Class         = "󰌗 ",
+  Method        = "󰆧 ",
+  Property      = " ",
+  Field         = " ",
+  Constructor   = " ",
+  Enum          = "󰕘",
+  Interface     = "󰕘",
+  Function      = "󰊕 ",
+  Variable      = "󰆧 ",
+  Constant      = "󰏿 ",
+  String        = "󰀬 ",
+  Number        = "󰎠 ",
+  Boolean       = "◩ ",
+  Array         = "󰅪 ",
+  Object        = "󰅩 ",
+  Key           = "󰌋 ",
+  Null          = "󰟢 ",
+  EnumMember    = " ",
+  Struct        = "󰌗 ",
+  Event         = " ",
+  Operator      = "󰆕 ",
+  TypeParameter = "󰊄 ",
+}
+
 return {
   {
     "nvim-lualine/lualine.nvim",
@@ -58,8 +87,8 @@ return {
     },
     config = function()
       require("barbecue").setup({
-        attach_navic = false -- prevent barbecue from automatically attaching nvim-navic
-        -- this is so shared LSP attach handler can handle attaching only when LSP running
+        attach_navic = false,
+        kinds = _icons,
       })
     end
   },
@@ -111,5 +140,17 @@ return {
       require('incline').setup(opts)
     end,
     opts = {}
+  },
+  {
+    "SmiteshP/nvim-navic",
+    opts = {
+      icons = _icons,
+      lsp = {
+        auto_attach = false,
+        preference = nil,
+      },
+      separator = " > ",
+    },
+    config = true
   }
 }

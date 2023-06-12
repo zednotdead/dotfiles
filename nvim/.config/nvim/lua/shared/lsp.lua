@@ -67,7 +67,12 @@ return function(client, bufnr)
       group = vim.api.nvim_create_augroup("SharedLspFormatting",
         { clear = true }),
       pattern = "*",
-      command = "lua vim.lsp.buf.format()"
+      -- command = "lua vim.lsp.buf.format()"
+      command = function()
+        vim.lsp.buf.format {
+          filter = function(client) return client.name ~= "tsserver" end
+        }
+      end
     })
   end
 

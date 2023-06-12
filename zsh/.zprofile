@@ -36,6 +36,10 @@ if (( $+commands[nvim] )) then
 	export EDITOR=`which nvim`
 fi
 
+if (( $+commands[rbenv] )) then
+  eval "$(rbenv init - zsh)"
+fi
+
 # Wasmer
 export WASMER_DIR="/home/zed/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"

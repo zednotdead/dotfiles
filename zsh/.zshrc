@@ -252,4 +252,6 @@ alias "cls"="clear"
 ulimit -n 65536 65536
 ulimit -f unlimited
 
-eval "$(rbenv init - zsh)"
+if (( $+commands[paru] )) then
+    alias yay="paru"
+fi

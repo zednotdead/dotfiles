@@ -11,7 +11,7 @@ return {
       "PoetvActivate",
       "PoetvDeactivate"
     },
-    config = function()
+    init = function()
       vim.g.poetv_auto_activate = 1
     end
   },
@@ -22,13 +22,45 @@ return {
       "folke/neodev.nvim"
     },
     config = function()
-      local util = require 'lspconfig.util'
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
+      local lspconfig = require 'lspconfig'
+      -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      --
       -- RUBY LSP
-      require 'lspconfig'.ruby_ls.setup {}
+      lspconfig.solargraph.setup {}
+
+      -- JS/TS/Astro LSP
+      require 'lspconfig'.astro.setup {}
+      require 'lspconfig'.tsserver.setup {
+        format = false
+      }
+      require 'lspconfig'.eslint.setup {}
+
       -- PYTHON LSP
+      local util = require('lspconfig/util')
+      local path = util.path
+      local function get_python_path(workspace)
+        -- Use activated virtualenv.
+        if vim.env.VIRTUAL_ENV then
+          return path.join(vim.env.VIRTUAL_ENV, 'bin', 'python')
+        end
+
+        -- Find and use virtualenv in workspace directory.
+        for _, pattern in ipairs({ '*', '.*' }) do
+          local match = vim.fn.glob(path.join(workspace, 'poetry.lock'))
+          if match ~= '' then
+            local venv = vim.fn.trim(vim.fn.system('poetry env info -p'))
+            return path.join(venv, 'bin', 'python')
+          end
+        end
+
+        -- Fallback to system Python.
+        return exepath('python3') or exepath('python') or 'python'
+      end
+
       lspconfig.pylsp.setup {
+        before_init = function(_, config)
+          config.settings.pylsp.pythonPath = get_python_path(config.root_dir)
+        end,
         settings = {
           pylsp = {
             plugins = {
@@ -428,4 +460,30 @@ return {
       },
     }
   },
+  {
+    "linux-cultist/venv-selector.nvim",
+    dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim" },
+    event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+    keys = {
+      {
+        "<leader>vs", "<cmd>:VenvSelectCached<cr>"
+      }
+    },
+    config = function()
+      vim.api.nvim_create_autocmd("VimEnter", {
+        desc = "Auto select virtualenv Nvim open",
+        pattern = "*",
+        callback = function()
+          local venv = vim.fn.findfile("pyproject.toml", vim.fn.getcwd() .. ";")
+          if venv ~= "" then
+            require("venv-selector").retrieve_from_cache()
+          end
+        end,
+        once = true,
+      })
+      require("venv-selector").setup({
+        poetry_path = "/home/zed/.cache/pypoetry/virtualenvs",
+      })
+    end,
+  }
 }
