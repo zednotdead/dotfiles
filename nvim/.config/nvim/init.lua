@@ -36,6 +36,12 @@ vim.lsp.buf.format {
   filter = function(client) return client.name ~= "tsserver" end
 }
 
+vim.opt.undofile = true
+local undodir = vim.fn.stdpath("data") .. "/undodir"
+if not vim.fn.isdirectory(undodir) then
+  vim.call(vim.fn.mkdir(vim.fn.expand(undodir), "p"))
+end
+vim.opt.undodir = undodir
 
 require("lazy").setup("plugins")
 require("mappings")

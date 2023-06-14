@@ -70,7 +70,8 @@ return function(client, bufnr)
       -- command = "lua vim.lsp.buf.format()"
       command = function()
         vim.lsp.buf.format {
-          filter = function(client) return client.name ~= "tsserver" end
+          filter = function(curr_client)
+            return curr_client.name ~= "tsserver" or curr_client ~= "tsserver" end
         }
       end
     })
