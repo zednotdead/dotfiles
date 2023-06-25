@@ -15,16 +15,17 @@ return {
       vim.g.poetv_auto_activate = 1
     end
   },
+  { "b0o/schemastore.nvim" },
   {
     -- LSP
     "neovim/nvim-lspconfig",
     dependencies = {
-      "folke/neodev.nvim"
+      "folke/neodev.nvim",
+      "b0o/schemastore.nvim"
     },
     config = function()
       local lspconfig = require 'lspconfig'
       -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      --
       -- RUBY LSP
       lspconfig.solargraph.setup {}
 
@@ -45,7 +46,7 @@ return {
         end
 
         -- Find and use virtualenv in workspace directory.
-        for _, pattern in ipairs({ '*', '.*' }) do
+        for _, _ in ipairs({ '*', '.*' }) do
           local match = vim.fn.glob(path.join(workspace, 'poetry.lock'))
           if match ~= '' then
             local venv = vim.fn.trim(vim.fn.system('poetry env info -p'))
@@ -54,7 +55,7 @@ return {
         end
 
         -- Fallback to system Python.
-        return exepath('python3') or exepath('python') or 'python'
+        return vim.fn.exepath('python3') or vim.fn.exepath('python') or 'python'
       end
 
       lspconfig.pylsp.setup {
@@ -220,8 +221,7 @@ return {
             vim.keymap.set('n', 'K', "<Cmd>RustHoverActions<CR>",
               bufopts)
           end,
-          ["rust-analyzer"] = {
-            assist = {
+          ["rust-analyzer"] = { assist = {
               importEnforceGranularity = true,
               importPrefix = "create"
             },
@@ -285,10 +285,21 @@ return {
                 end,
                 settings = {
                   yaml = {
+                    schemaStore = { enable = false },
+                    schemas = require('schemastore').yaml.schemas(),
                     keyOrdering = false -- Disable alphabetical ordering of keys
                   }
                 }
               })
+            elseif server_name == "jsonls" then
+              require('lspconfig')[server_name].setup {
+                settings = {
+                  json = {
+                    schemas = require('schemastore').json.schemas(),
+                    validate = { enable = true }
+                  }
+                }
+              }
             else
               require("lspconfig")[server_name].setup({
                 on_attach = function(client, bufnr)
@@ -364,7 +375,7 @@ return {
     -- CODE ACTIONS POPUP
     "weilbith/nvim-code-action-menu",
     config = function()
-      vim.keymap.set("n", "<leader><leader>la", "<Cmd>CodeActionMenu<CR>",
+      vim.keymap.set("n", "<leader>la", "<Cmd>CodeActionMenu<CR>",
         { noremap = true, desc = "code action menu" })
       vim.g.code_action_menu_window_border = "single"
     end

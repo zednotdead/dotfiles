@@ -58,6 +58,7 @@
   "poet-v": { "branch": "master", "commit": "85a5dd44d89602cc3dccd2489924e9c7caab0044" },
   "project.nvim": { "branch": "main", "commit": "8c6bad7d22eef1b71144b401c9f74ed01526a4fb" },
   "rust-tools.nvim": { "branch": "master", "commit": "71d2cf67b5ed120a0e31b2c8adb210dd2834242f" },
+  "schemastore.nvim": { "branch": "main", "commit": "7322390c9abff6f137774d9e04bddb3cd725afd1" },
   "spellsitter.nvim": { "branch": "master", "commit": "4af8640d9d706447e78c13150ef7475ea2c16b30" },
   "telescope-emoji.nvim": { "branch": "master", "commit": "86248d97be84a1ce83f0541500ef9edc99ea2aa1" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "9bc8237565ded606e6c366a71c64c0af25cd7a50" },

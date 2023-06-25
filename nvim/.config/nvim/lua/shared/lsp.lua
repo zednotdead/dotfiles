@@ -7,7 +7,7 @@ end
 return function(client, bufnr)
   local opts = { noremap = true, silent = true, buffer = bufnr }
 
-  local buf_code_action = "<Cmd>lua vim.lsp.buf.code_action()<CR>"
+  local buf_code_action = "<Cmd>CodeActionMenu<CR>"
   local buf_code_action_opts = merge({ desc = "View code actions" }, opts)
   local buf_def = "<Cmd>lua vim.lsp.buf.definition()<CR>"
   local buf_def_split = "<Cmd>vsp | lua vim.lsp.buf.definition()<CR>"
@@ -60,7 +60,6 @@ return function(client, bufnr)
   -- Alternative bindings
   -- NOTE: Moved to `plugins/lsp.lua`, in the inc-rename configuration
   -- vim.keymap.set('n', '<leader>lr', buf_rename, buf_rename_opts)
-  vim.keymap.set('n', '<leader>la', buf_code_action, buf_code_action_opts)
 
   if client.supports_method("textDocument/formatting") then
     vim.api.nvim_create_autocmd({ "BufWritePre" }, {
