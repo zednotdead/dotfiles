@@ -20,6 +20,8 @@ return {
           ["<Down>"] = cmp.mapping.select_next_item(),
           ["<Left>"] = cmp.mapping.select_prev_item(),
           ["<Right>"] = cmp.mapping.select_next_item(),
+          ["<s-Tab>"] = cmp.mapping.select_prev_item(),
+          ["<Tab>"] = cmp.mapping.select_next_item(),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(),
@@ -62,14 +64,15 @@ return {
       mode = "i",
       noremap = true,
       silent = true
-    }, {
-    "<C-,>",
-    function() require("luasnip").jump(-1) end,
-    desc = "Jump backward a snippet placement",
-    mode = "i",
-    noremap = true,
-    silent = true
-  }
+    },
+    {
+      "<C-.>",
+      function() require("luasnip").jump(-1) end,
+      desc = "Jump backward a snippet placement",
+      mode = "i",
+      noremap = true,
+      silent = true
+    }
   },
   config = function()
     require("luasnip.loaders.from_lua").load({ paths = "~/.snippets" })

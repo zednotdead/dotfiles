@@ -2,7 +2,7 @@
 
 
 # Environment variables
-export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$HOME/go/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$HOME/go/bin:$HOME/bin:$PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="$HOME/.evm/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
@@ -251,3 +251,7 @@ alias "cls"="clear"
 
 ulimit -n 65536 65536
 ulimit -f unlimited
+
+if (( $+commands[paru] )) then
+    alias yay="paru"
+fi
