@@ -38,6 +38,8 @@ return function(client, bufnr)
   local diag_prev_opts = merge({ desc = "Go to prev diagnostic" }, opts)
   local diag_show = "<Cmd>lua vim.diagnostic.show()<CR>"
   local diag_show_opts = merge({ desc = "Show project diagnostics" }, opts)
+  local buf_format = "<Cmd>lua vim.lsp.buf.format()<CR>"
+  local buf_format_opts = merge({ desc = "Format current buffer" }, opts)
 
   vim.keymap.set('n', '<c-\\>', buf_def_split, opts)
   vim.keymap.set('n', 'gd', buf_def, opts)
@@ -56,6 +58,8 @@ return function(client, bufnr)
   vim.keymap.set('n', 'gD', buf_ref, buf_ref_opts)
   vim.keymap.set('n', 'gs', buf_sym, buf_sym_opts)
   vim.keymap.set('n', 'gy', buf_type, buf_type_opts)
+
+  vim.keymap.set('n', '<leader>lf', buf_format, buf_format_opts)
 
   -- Alternative bindings
   -- NOTE: Moved to `plugins/lsp.lua`, in the inc-rename configuration

@@ -158,6 +158,10 @@ if (( $+commands[poetry] )) then
 	fi
 fi
 
+if (( $+commands[packwiz] )) then
+    source <(packwiz completion zsh)
+fi
+
 # Hooks
 
 if (( $+commands[zoxide] )) then
