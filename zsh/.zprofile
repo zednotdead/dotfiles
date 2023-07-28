@@ -50,3 +50,5 @@ export PATH="$WASMTIME_HOME/bin:$PATH"
 
 export PATH
 export WLR_NO_HARDWARE_CURSORS=1
+
+export NEOVIDE_MULTIGRID=1
