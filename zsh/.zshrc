@@ -9,6 +9,10 @@ export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
 export SOPS_AGE_KEY_FILE=$HOME/.config/sops/age/keys.txt
 fpath=($HOME/.zfunc $fpath)
 
+if (( $+commands[nvim] )) then
+    export EDITOR=nvim
+fi
+
 # Config
 
 HISTFILE=~/.cache/zsh/.histfile
