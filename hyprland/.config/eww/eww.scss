@@ -103,8 +103,8 @@ $boxborder: 5px solid $crust;
   min-width: 10px;
   min-height: 10px;
 
-  border-radius: 100%;
-  padding: 0 1px;
+  border-radius: 5px;
+  padding: 0 3px;
 
   background: $crust;
 
@@ -118,5 +118,18 @@ $boxborder: 5px solid $crust;
 
   &.empty {
     all: unset;
+  }
+}
+
+.tray {
+  // center icons
+  padding-left: 8px;
+  padding-top: 4px;
+}
+
+menuitem {
+  background: $boxbg;
+  &:hover {
+    background: $surface0;
   }
 }

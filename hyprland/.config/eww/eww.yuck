@@ -33,6 +33,10 @@
     (workspaces)
     ))
 
+(defwidget tray []
+  (box :class "tray"
+    (systray :pack-direction "ttb")))
+
 (defwidget right []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
     (metric :label "🔊"
@@ -47,9 +51,8 @@
             :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
             :onlabelclick ""
             :onchange "")
-    time))
-
-
+    time
+    (tray)))
 
 (defwidget metric [label value onchange onlabelclick]
   (box :orientation "h"
@@ -76,7 +79,7 @@
 
 (defwidget windowtitle []
   (box
-    :class "window-title ${window != "" ? "" : "empty"}"
+    :class "window-title ${window != "" || window == "null" ? "" : "empty"}"
     (label :text "${window}")
   )
 )
