@@ -1,0 +1,38 @@
+#window {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+box#main {
+  border: 5px solid rgb(245, 194, 231);
+  border-radius: 20px;
+  background-color: rgba(30, 30, 46, 1);
+  padding: 10px;
+}
+
+list#main {
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 10px;
+}
+
+list#plugin {
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(205, 214, 244);
+}
+
+label#match-desc {
+  font-size: 10px;
+  color: rgb(205, 214, 244);
+}
+
+label#plugin {
+  font-size: 14px;
+  color: rgb(205, 214, 244);
+}
+
+entry {
+  background: rgb(30, 30, 46);
+  color: rgb(205, 214, 244);
+  border: none;
+}
+
+
