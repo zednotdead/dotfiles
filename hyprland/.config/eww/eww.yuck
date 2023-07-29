@@ -1,0 +1,101 @@
+
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+
+(defwidget workspaces []
+  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+    (box
+      :class "workspaces"
+      :space-evenly true
+      :orientation "h"
+      :halign "start"
+      :spacing 10
+
+      (label :text "${workspaces}${current_workspace}" :visible false)
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${workspace.id}")
+            )
+          )
+        )
+      )
+    )
+  )
+
+(defwidget left []
+  (box
+    :class "left"
+    :orientation "h"
+    :space-evenly false
+    :halign "start"
+    (workspaces)
+    ))
+
+(defwidget right []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+    (metric :label "🔊"
+            :value volume
+            :onlabelclick "pamixer -t"
+            :onchange "pamixer --set-volume {}")
+    (metric :label ""
+            :value {EWW_RAM.used_mem_perc}
+            :onlabelclick ""
+            :onchange "")
+    (metric :label "💾"
+            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+            :onlabelclick ""
+            :onchange "")
+    time))
+
+
+
+(defwidget metric [label value onchange onlabelclick]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (eventbox
+      :onclick onlabelclick
+      (box
+         :class "label"
+         label))
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+(defpoll volume :interval "1s"
+  "scripts/getvol")
+
+(defpoll time :interval "10s"
+  "date '+%H:%M %b %d, %Y'")
+
+(deflisten window :initial "..." "bash ~/.config/eww/scripts/get-window-title")
+
+(defwidget windowtitle []
+  (box
+    :class "window-title ${window != "" ? "" : "empty"}"
+    (label :text "${window}")
+  )
+)
+
+(defwidget center [] (windowtitle))
+
+(defwidget bar []
+  (centerbox :orientation "h"
+    (left)
+    (windowtitle)
+    (right)))
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+  :y "5px"
+  :width "50%"
+  :height "20px"
+  :anchor "top center")
+  :exclusive true
+  (bar))

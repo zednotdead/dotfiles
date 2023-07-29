@@ -499,5 +499,8 @@ return {
   },
   {
     "vim-crystal/vim-crystal"
+  },
+  {
+    "elkowar/yuck.vim"
   }
 }
