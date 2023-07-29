@@ -263,7 +263,6 @@ ulimit -f unlimited
 if (( $+commands[paru] )) then
     alias yay="paru"
 fi
-
 if (( $+commands[paru] )) then
     alias gitui="gitui -t mocha.ron"
 fi
