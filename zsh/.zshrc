@@ -82,6 +82,7 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle :compinstall filename '$HOME/.zshrc'
+zstyle :omz:plugins:ssh-agent quiet yes
 
 autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
