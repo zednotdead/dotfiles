@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 PATH=$PATH:$HOME/.local/bin
 PYTHON_PATH=/Library/Frameworks/Python.framework/Versions/3.11/bin
 if [[ -d $PYTHON_PATH ]]; then
