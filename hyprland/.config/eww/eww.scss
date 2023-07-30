@@ -59,14 +59,14 @@ $boxborder: 5px solid $crust;
 
 .metric scale trough highlight {
   all: unset;
-  background-color: #D35D6E;
+  background-color: $rosewater;
   color: #000000;
   border-radius: 10px;
 }
 
 .metric scale trough {
   all: unset;
-  background-color: #4e4e4e;
+  background-color: $surface0;
   border-radius: 50px;
   min-height: 3px;
   min-width: 50px;
@@ -75,7 +75,7 @@ $boxborder: 5px solid $crust;
 }
 .metric scale trough highlight {
   all: unset;
-  background-color: #D35D6E;
+  background-color: $rosewater;
   color: #000000;
   border-radius: 10px;
 }
@@ -100,16 +100,20 @@ $boxborder: 5px solid $crust;
 }
 
 .workspaces .workspace-entry {
-  min-width: 10px;
-  min-height: 10px;
-
   border-radius: 5px;
   padding: 0 3px;
 
   background: $crust;
+  color: $crust;
+
+  &.occupied {
+    background: $overlay0;
+    color: $overlay0;
+  }
 
   &.current {
-    background: $surface0;
+    background: $rosewater;
+    color: $rosewater;
   }
 }
 

@@ -7,7 +7,7 @@
   (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
     (box
       :class "workspaces"
-      :space-evenly true
+      :space-evenly false
       :orientation "h"
       :halign "start"
       :spacing 10
@@ -16,7 +16,8 @@
       (for workspace in workspaces
         (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
           (box :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
-            (label :text "${workspace.id}")
+            (label
+              :width {workspace.id == current_workspace ? 40 : 30})
             )
           )
         )
