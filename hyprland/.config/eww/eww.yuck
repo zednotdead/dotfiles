@@ -17,7 +17,7 @@
         (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
           (box :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
             (label
-              :width {workspace.id == current_workspace ? 40 : 30})
+              :width {workspace.id == current_workspace ? 40 : 16})
             )
           )
         )
@@ -36,11 +36,11 @@
 
 (defwidget tray []
   (box :class "tray"
-    (systray :pack-direction "ttb")))
+    (systray :pack-direction "ltr")))
 
 (defwidget right []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
-    (metric :label "🔊"
+    (metric :label "${mute == "false" ? "🔊" : "🔇"}"
             :value volume
             :onlabelclick "pamixer -t"
             :onchange "pamixer --set-volume {}")
@@ -70,8 +70,8 @@
            :value value
            :onchange onchange)))
 
-(defpoll volume :interval "1s"
-  "scripts/getvol")
+(defpoll volume :interval "1s" "scripts/getvol")
+(defpoll mute :interval "100ms" "scripts/getmut")
 
 (defpoll time :interval "10s"
   "date '+%H:%M %b %d, %Y'")
