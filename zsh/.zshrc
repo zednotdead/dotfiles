@@ -64,22 +64,22 @@ compinit
 
 # Completions
 
-if (( $+commands[rustup] )) then
-    if [[ ! -f "$HOME/.zfunc/_rustup" ]]; then
-        echo "rustup completion file not found, generating..."
-        rustup completions zsh > $HOME/.zfunc/_rustup
-    fi
-    if (( $+commands[cargo] )) then
-        if [[ ! -f "$HOME/.zfunc/_cargo" ]]; then
-            echo "cargo completion file not found, generating..."
-            rustup completions zsh cargo > $HOME/.zfunc/_cargo
+generate-completion() {
+    if (( $+commands[$1] )) then
+        if [[ ! -f "$HOME/.zfunc/_$1" ]]; then
+            echo "$1 completion file not found, generating..."
+            eval "$2" > "$HOME/.zfunc/_$1"
+            echo "Completion generated! Reloading compinit..."
+            compinit
         fi
     fi
-fi
+}
 
-if (( $+commands[docker] )) then
-    . <(docker completion zsh)
-fi
+generate-completion "rustup" "rustup completions zsh"
+generate-completion "cargo" "rustup completions zsh cargo"
+generate-completion "rtx" "rtx complete --shell zsh"
+generate-completion "docker" "docker completion zsh"
+generate-completion "sqlx" "sqlx completions zsh"
 
 # Hooks
 
@@ -163,4 +163,3 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
 # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
 antidote load
-
