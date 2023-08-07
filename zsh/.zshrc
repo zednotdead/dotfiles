@@ -1,13 +1,11 @@
 #!/usr/bin/env zsh
 
-
 # Environment variables
 export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$HOME/go/bin:$HOME/bin:$PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="$HOME/.evm/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
 export SOPS_AGE_KEY_FILE=$HOME/.config/sops/age/keys.txt
-fpath=($HOME/.zfunc $fpath)
 
 if (( $+commands[nvim] )) then
     export EDITOR=nvim
@@ -15,16 +13,15 @@ fi
 
 # Config
 
-HISTFILE=~/.cache/zsh/.histfile
-HISTSIZE=2000
-SAVEHIST=100000
-bindkey -e
+HISTFILE=$HOME/.cache/zsh/.histfile
+HISTSIZE=1000
+SAVEHIST=10000
+fpath=(~/.zfunc $fpath)
 
 # no c-s/c-q output freezing
 setopt noflowcontrol
 # allow expansion in prompts
-setopt prompt_subst
-# this is default, but set for share_history
+setopt prompt_subst # this is default, but set for share_history
 setopt append_history
 # save each command's beginning timestamp and the duration to the history file
 setopt extended_history
@@ -43,18 +40,10 @@ setopt completeinword
 setopt noshwordsplit
 # allow use of comments in interactive code
 setopt interactivecomments
+# disable beeping
+unsetopt beep
 
-# import new commands from the history file also in other zsh-session
-setopt share_history
-# If a new command line being added to the history list duplicates an older
-# one, the older command is removed from the list
-setopt histignorealldups
-# remove command lines from the history list when the first character on the
-# line is a space
-setopt histignorespace
-
-# avoid "beep"ing
-setopt nobeep
+bindkey -e
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -67,104 +56,29 @@ bindkey "^[[3;5~" kill-word
 bindkey "^H" backward-kill-word
 
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '' 'l:|=* r:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-# set descriptions format to enable group support
-zstyle ':completion:*:descriptions' format '[%d]'
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle :compinstall filename '$HOME/.zshrc'
-zstyle :omz:plugins:ssh-agent quiet yes
+zstyle :omz:plyugins:ssh-agent quiet yes
 
-autoload -U +X bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+compinit
 
 # Completions
 
-if (( $+commands[flux] )) then
-	. <(flux completion zsh)
-fi
-
-if (( $+commands[kubectl] )) then
-	source <(kubectl completion zsh)
-fi
-
-if (( $+commands[helm] )) then
-	source <(helm completion zsh)
-fi
-
-if [ -f '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/zed/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
-if (( $+commands[fnm] )) then
-	if [[ ! -f "$HOME/.zfunc/_fnm" ]] then
-		echo "fnm completion file not found, generating..."
-		fnm completions > $HOME/.zfunc/_fnm
-	fi
-fi
-
-if (( $+commands[diffsitter] )) then
-	if [[ ! -f "$HOME/.zfunc/_diffsitter" ]] then
-		echo "diffsitter completion file not found, generating..."
-		diffsitter gen-completion zsh > $HOME/.zfunc/_diffsitter
-	fi
-fi
-
-if (( $+commands[rtx] )) then
-	if [[ ! -f "$HOME/.zfunc/_rtx" ]] then
-		echo "rtx completion file not found, generating..."
-		rtx complete --shell zsh > $HOME/.zfunc/_rtx
-	fi
-fi
-
-if (( $+commands[talosctl] )) then
-	. <(talosctl completion zsh)
-fi
-
-if (( $+commands[cilium] )) then
-	. <(cilium completion zsh)
-fi
-
-if (( $+commands[cargo] )) then
-	if [[ ! -f "$HOME/.zfunc/_cargo" ]]; then
-		echo "cargo completion file not found, generating..."
-		rustup completions zsh cargo > $HOME/.zfunc/_cargo
-	fi
-fi
-
 if (( $+commands[rustup] )) then
-	if [[ ! -f "$HOME/.zfunc/_rustup" ]]; then
-		echo "rustup completion file not found, generating..."
-		rustup completions zsh > $HOME/.zfunc/_rustup
-	fi
+    if [[ ! -f "$HOME/.zfunc/_rustup" ]]; then
+        echo "rustup completion file not found, generating..."
+        rustup completions zsh > $HOME/.zfunc/_rustup
+    fi
+    if (( $+commands[cargo] )) then
+        if [[ ! -f "$HOME/.zfunc/_cargo" ]]; then
+            echo "cargo completion file not found, generating..."
+            rustup completions zsh cargo > $HOME/.zfunc/_cargo
+        fi
+    fi
 fi
 
-if (( $+commands[gpg-tui] )) then
-	if [[ ! -f "$HOME/.zfunc/_gpg-tui" ]]; then
-		echo "gpg-tui completion file not found, generating..."
-		local out_dir
-		out_dir="$(mktemp -d)"
-		OUT_DIR="$out_dir" gpg-tui-completions
-		cp "$out_dir/_gpg-tui" "$HOME/.zfunc/_gpg-tui"
-	fi
-fi
-
-if (( $+commands[poetry] )) then
-	if [[ ! -f "$HOME/.zfunc/_poetry" ]]; then
-		echo "poetry completion file not found, generating..."
-		poetry completions zsh > $HOME/.zfunc/_poetry
-	fi
-fi
-
-if (( $+commands[packwiz] )) then
-    source <(packwiz completion zsh)
+if (( $+commands[docker] )) then
+    . <(docker completion zsh)
 fi
 
 # Hooks
@@ -173,16 +87,6 @@ if (( $+commands[zoxide] )) then
 	eval "$(zoxide init zsh)"
 fi
 
-if (( $+commands[direnv] )) then
-	. <(direnv hook zsh)
-fi
-if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
-	. $HOME/.asdf/asdf.sh
-fi
-
-
-if [ -f '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/zed/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
 if (( $+commands[rtx] )) then
 	eval "$(rtx activate zsh)"
 fi
@@ -190,23 +94,6 @@ fi
 if (( $+commands[starship] )) then
 	eval "$(starship init zsh)"
 fi
-
-
-if [[ -f "/opt/homebrew/bin/brew" ]]; then
-	eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-if (($+commands[velero])) then
-	source <(velero completion zsh)
-fi
-
-# Loading Antidote
-
-# source antidote
-source ${ZDOTDIR:-~}/.antidote/antidote.zsh
-
-# initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
-antidote load
 
 # Fuzzy git checkout
 # by: https://polothy.github.io/post/2019-08-19-fzf-git-checkout/
@@ -264,6 +151,16 @@ ulimit -f unlimited
 if (( $+commands[paru] )) then
     alias yay="paru"
 fi
+
 if (( $+commands[paru] )) then
     alias gitui="gitui -t mocha.ron"
 fi
+
+# Loading Antidote
+
+# source antidote
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+
+# initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
+antidote load
+
