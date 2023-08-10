@@ -153,7 +153,7 @@ if (( $+commands[paru] )) then
     alias yay="paru"
 fi
 
-if (( $+commands[paru] )) then
+if (( $+commands[gitui] )) then
     alias gitui="gitui -t mocha.ron"
 fi
 
