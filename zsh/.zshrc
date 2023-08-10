@@ -57,7 +57,7 @@ bindkey "^H" backward-kill-word
 
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle :compinstall filename '$HOME/.zshrc'
-zstyle :omz:plyugins:ssh-agent quiet yes
+zstyle :omz:plugins:ssh-agent quiet yes
 
 autoload -Uz compinit
 compinit
