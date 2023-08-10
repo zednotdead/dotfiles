@@ -80,6 +80,7 @@ generate-completion "cargo" "rustup completions zsh cargo"
 generate-completion "rtx" "rtx complete --shell zsh"
 generate-completion "docker" "docker completion zsh"
 generate-completion "sqlx" "sqlx completions zsh"
+generate-completion "gh" "gh completion -s zsh"
 
 # Hooks
 
