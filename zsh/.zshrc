@@ -81,6 +81,7 @@ generate-completion "rtx" "rtx complete --shell zsh"
 generate-completion "docker" "docker completion zsh"
 generate-completion "sqlx" "sqlx completions zsh"
 generate-completion "gh" "gh completion -s zsh"
+generate-completion "op" "op completion zsh"
 
 # Hooks
 
