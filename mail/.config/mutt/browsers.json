@@ -1,0 +1,4 @@
+[
+    {"display": "Lynx", "command": "lynx -force_html"},
+    {"display": "Firefox", "command": "firefox"}
+]
