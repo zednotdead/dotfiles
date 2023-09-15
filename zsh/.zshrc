@@ -9,6 +9,10 @@ export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
 export SOPS_AGE_KEY_FILE=$HOME/.config/sops/age/keys.txt
 fpath=($HOME/.zfunc $fpath)
 
+if [ -d "/opt/homebrew" ]; then
+    export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+fi
+
 # Config
 
 HISTFILE=~/.cache/zsh/.histfile
@@ -255,3 +259,4 @@ ulimit -f unlimited
 if (( $+commands[paru] )) then
     alias yay="paru"
 fi
+alias zel="zellij"
