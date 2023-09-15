@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 PATH=$PATH:$HOME/.local/bin
 PYTHON_PATH=/Library/Frameworks/Python.framework/Versions/3.11/bin
 if [[ -d $PYTHON_PATH ]]; then
@@ -6,6 +8,10 @@ fi
 
 if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
 	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 if [[ -f "$HOME/.cargo/env" ]]; then
@@ -50,3 +56,5 @@ export PATH="$WASMTIME_HOME/bin:$PATH"
 
 export PATH
 export WLR_NO_HARDWARE_CURSORS=1
+
+export NEOVIDE_MULTIGRID=1

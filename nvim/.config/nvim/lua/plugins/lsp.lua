@@ -27,7 +27,13 @@ return {
       local lspconfig = require 'lspconfig'
       -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
       -- RUBY LSP
-      lspconfig.solargraph.setup {}
+      lspconfig.solargraph.setup {
+        settings = {
+          Solargraph = {
+            root_dir = lspconfig.util.root_pattern("Gemfile", ".git") or vim.fn.getcwd()
+          }
+        }
+      }
 
       -- JS/TS/Astro LSP
       require 'lspconfig'.astro.setup {}
@@ -263,13 +269,7 @@ return {
 
       -- NOTE: sumneko_lua -> lua_ls
       -- https://github.com/williamboman/mason-lspconfig.nvim/pull/148
-      mason_lspconfig.setup({
-        ensure_installed = {
-          "bashls", "eslint", "gopls", "jsonls", "marksman", "pylsp",
-          "rust_analyzer", "lua_ls", "terraformls", "tflint",
-          "tsserver", "yamlls"
-        }
-      })
+      mason_lspconfig.setup()
 
       mason_lspconfig.setup_handlers({
         function(server_name)
@@ -496,5 +496,11 @@ return {
         poetry_path = "/home/zed/.cache/pypoetry/virtualenvs",
       })
     end,
+  },
+  {
+    "vim-crystal/vim-crystal"
+  },
+  {
+    "elkowar/yuck.vim"
   }
 }

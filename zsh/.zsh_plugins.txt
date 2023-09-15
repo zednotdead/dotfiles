@@ -5,5 +5,6 @@ zsh-users/zsh-autosuggestions
 joshskidmore/zsh-fzf-history-search
 
 ohmyzsh/ohmyzsh path:lib
-ohmyzsh/ohmyzsh path:plugins/docker
-ohmyzsh/ohmyzsh path:plugins/docker-compose
+ohmyzsh/ohmyzsh path:plugins/ssh-agent
+
+bigH/git-fuzzy path:bin kind:path
