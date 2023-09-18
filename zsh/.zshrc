@@ -16,6 +16,10 @@ if (( $+commands[nvim] )) then
     export EDITOR=nvim
 fi
 
+if [ -d "/opt/homebrew" ]; then
+    export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+fi
+
 # Config
 
 HISTFILE=$HOME/.cache/zsh/.histfile
@@ -178,8 +182,14 @@ if (( $+commands[paru] )) then
     alias yay="paru"
 fi
 
+alias zel="zellij"
+
 if (( $+commands[gitui] )) then
     alias gitui="gitui -t mocha.ron"
+fi
+
+if (( $+commands[evcxr] )) then
+    alias irust="evcxr"
 fi
 
 # Loading Antidote

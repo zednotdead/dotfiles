@@ -6,3 +6,5 @@ joshskidmore/zsh-fzf-history-search
 
 ohmyzsh/ohmyzsh path:lib
 ohmyzsh/ohmyzsh path:plugins/ssh-agent
+
+bigH/git-fuzzy path:bin kind:path
