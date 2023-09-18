@@ -146,6 +146,14 @@ grev() {
 	git revert $(fzf-git-get-hash)
 }
 
+gpuu() {
+     git push -u origin $(git branch --show-current)
+}
+
+getticketnr() {
+    git branch --show-current | perl -lane 'print m/([A-Z]{2,}-\d+)/'
+}
+
 alias ls="exa --icons"
 alias gpu="git push"
 alias gpl="git pull"

@@ -1,2 +1,4 @@
 zsh/.zfunc/_*
 *#*#*
+term/.local/bin/ghcaf
+term/.local/bin/ghcai
