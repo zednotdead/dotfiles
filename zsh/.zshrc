@@ -154,6 +154,17 @@ getticketnr() {
     git branch --show-current | perl -lane 'print m/([A-Z]{2,}-\d+)/'
 }
 
+clearnode() {
+    if [ -d "node_modules" ]; then
+        echo "\e[30;44m[INFO]\e[0m node_modules exists. Deleting..."
+        rm -rf "./node_modules"
+    fi
+    if [ -f "package-lock.json" ]; then
+        echo "\e[30;44m[INFO]\e[0m package-lock.json exists. Deleting..."
+        rm -rf "./package-lock.json"
+    fi
+}
+
 alias ls="exa --icons"
 alias gpu="git push"
 alias gpl="git pull"
