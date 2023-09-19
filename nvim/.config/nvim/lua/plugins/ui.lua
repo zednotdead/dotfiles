@@ -14,35 +14,19 @@ return {
     opts = {},
   },
   {
-    "gennaro-tedesco/nvim-possession",
-    dependencies = {
-      "ibhagwan/fzf-lua",
-    },
-    opts = {
-      autoswitch = {
-        enable = true,
-        exclude_ft = { "term" },
-      },
-    },
-    config = true,
-    init = function()
-      if vim.fn.isdirectory(vim.fn.stdpath("data") .. "/sessions/") == 0 then
-        vim.fn.mkdir(vim.fn.stdpath("data") .. "/sessions/")
-      end
+    "Shatur/neovim-session-manager",
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local config = require('session_manager.config')
 
-      local possession = require("nvim-possession")
-      vim.keymap.set("n", "<leader>sl", function()
-        possession.list()
-      end, { desc = "List sessions" })
-      vim.keymap.set("n", "<leader>sn", function()
-        possession.new()
-      end, { desc = "Save session" })
-      vim.keymap.set("n", "<leader>su", function()
-        possession.update()
-      end, { desc = "Update session" })
-      vim.keymap.set("n", "<leader>sd", function()
-        possession.delete()
-      end, { desc = "Update session" })
+      require('session_manager').setup({
+        autoload_mode = config.AutoloadMode.CurrentDir,
+        autosave_ignore_filetypes = {
+          'gitcommit',
+          'gitrebase',
+          'alpha',
+        },
+      })
     end,
   },
   {
