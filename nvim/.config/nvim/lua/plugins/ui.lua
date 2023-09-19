@@ -1,6 +1,9 @@
 return {
   "lukas-reineke/indent-blankline.nvim",
   {
+    'stevearc/dressing.nvim',
+  },
+  {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.3',
     dependencies = { 'nvim-lua/plenary.nvim' },
@@ -11,29 +14,20 @@ return {
     opts = {},
   },
   {
-    "olimorris/persisted.nvim",
-    opts = {
-      autosave = true,
-      autoload = true,
-      follow_cwd = true,
-      should_autosave = function()
-        -- do not autosave if the alpha dashboard is the current filetype
-        if vim.bo.filetype == "alpha" then
-          return false
-        end
-        return true
-      end,
-      on_autoload_no_session = function()
-        vim.notify("No existing session to load.")
-      end
-    },
-    config = function(opts)
-      require("persisted").setup(opts)
-      require("telescope").load_extension("persisted")
+    "Shatur/neovim-session-manager",
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local config = require('session_manager.config')
+
+      require('session_manager').setup({
+        autoload_mode = config.AutoloadMode.CurrentDir,
+        autosave_ignore_filetypes = {
+          'gitcommit',
+          'gitrebase',
+          'alpha',
+        },
+      })
     end,
-    dependencies = {
-      'nvim-telescope/telescope.nvim',
-    },
   },
   {
     "folke/which-key.nvim",
@@ -49,5 +43,18 @@ return {
     config = function ()
       require'alpha'.setup(require'alpha.themes.dashboard'.config)
     end
-  };
+  },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    keys = {
+      { "s", mode = { "n", "o", "x" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
 }
