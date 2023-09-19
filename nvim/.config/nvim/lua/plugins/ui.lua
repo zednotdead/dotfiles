@@ -1,173 +1,53 @@
-local _icons = {
-  File          = "󰈙 ",
-  Module        = " ",
-  Namespace     = "󰌗 ",
-  Package       = " ",
-  Class         = "󰌗 ",
-  Method        = "󰆧 ",
-  Property      = " ",
-  Field         = " ",
-  Constructor   = " ",
-  Enum          = "󰕘",
-  Interface     = "󰕘",
-  Function      = "󰊕 ",
-  Variable      = "󰆧 ",
-  Constant      = "󰏿 ",
-  String        = "󰀬 ",
-  Number        = "󰎠 ",
-  Boolean       = "◩ ",
-  Array         = "󰅪 ",
-  Object        = "󰅩 ",
-  Key           = "󰌋 ",
-  Null          = "󰟢 ",
-  EnumMember    = " ",
-  Struct        = "󰌗 ",
-  Event         = " ",
-  Operator      = "󰆕 ",
-  TypeParameter = "󰊄 ",
-}
-
 return {
+  "lukas-reineke/indent-blankline.nvim",
   {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
-    config = function()
-      require("lualine").setup({
-        options = {
-          disabled_filetypes = {
-            "alpha",
-            "neo-tree"
-          },
-        },
-        sections = {
-          lualine_c = {
-            {
-              "filename",
-              file_status = true,  -- displays file status (readonly status, modified status)
-              path = 1,            -- relative path
-              shorting_target = 40 -- Shortens path to leave 40 space in the window
-            }
-          }
-        }
-      })
-    end
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.3',
+    dependencies = { 'nvim-lua/plenary.nvim' },
   },
   {
-    "stevearc/dressing.nvim",
-    config = true
+    "rcarriga/nvim-notify",
+    config = true,
+    opts = {},
   },
   {
-    "folke/noice.nvim",
-    dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+    "olimorris/persisted.nvim",
     opts = {
-      presets = { inc_rename = true }
+      autosave = true,
+      autoload = true,
+      follow_cwd = true,
+      should_autosave = function()
+        -- do not autosave if the alpha dashboard is the current filetype
+        if vim.bo.filetype == "alpha" then
+          return false
+        end
+        return true
+      end,
+      on_autoload_no_session = function()
+        vim.notify("No existing session to load.")
+      end
     },
-    config = function(_, opts)
-      require("noice").setup(opts)
-    end
-  },
-  {
-    'romgrk/barbar.nvim',
-    dependencies = {
-      'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
-      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-    },
-    init = function() vim.g.barbar_auto_setup = false end,
-    opts = {
-      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-      animation = false,
-      insert_at_start = true,
-      -- …etc.
-    },
-    version = '^1.0.0', -- optional: only update when a new 1.x version is released
-  },
-  {
-    -- WINDOW BAR BREADCRUMBS
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    version = "*",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons"
-    },
-    config = function()
-      require("barbecue").setup({
-        attach_navic = false,
-        kinds = _icons,
-      })
-    end
-  },
-  {
-    -- SCROLLBAR
-    "petertriho/nvim-scrollbar",
-    config = true
-  },
-  {
-    "catppuccin/nvim",
-    as = "catppuccin",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme "catppuccin"
-    end
-  },
-  {
-    'lewis6991/gitsigns.nvim',
-    config = true
-  },
-  {
-    'gorbit99/codewindow.nvim',
-    config = function()
-      local codewindow = require('codewindow')
-      codewindow.setup()
-      codewindow.apply_default_keybinds()
+    config = function(opts)
+      require("persisted").setup(opts)
+      require("telescope").load_extension("persisted")
     end,
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    opts = {
-      space_char_blankline = " ",
-      show_current_context = true,
-      show_current_context_start = true,
-      show_trailing_blankline = true,
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
     },
-    config = function(_, opts)
-      vim.opt.termguicolors = true
-
-      require('indent_blankline').setup(opts)
-    end
   },
   {
-    "b0o/incline.nvim",
-    config = function(_, opts)
-      vim.o.laststatus = 3
-
-      require('incline').setup(opts)
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
     end,
     opts = {}
   },
   {
-    "SmiteshP/nvim-navic",
-    opts = {
-      icons = _icons,
-      lsp = {
-        auto_attach = false,
-        preference = nil,
-      },
-      separator = " > ",
-    },
-    config = true
-  },
-  {
-    'glacambre/firenvim',
-    -- Lazy load firenvim
-    -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
-    cond = not not vim.g.started_by_firenvim,
-    build = function()
-      require("lazy").load({ plugins = "firenvim", wait = true })
-      vim.fn["firenvim#install"](0)
+    'goolord/alpha-nvim',
+    config = function ()
+      require'alpha'.setup(require'alpha.themes.dashboard'.config)
     end
-  }
+  };
 }
-

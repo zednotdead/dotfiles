@@ -1,3 +1,5 @@
+local wk_loaded, wk = pcall(require, 'which-key')
+
 function _G.set_terminal_keymaps()
   local opts = { buffer = 0 }
   vim.keymap.set('t', '<C-esc>', [[<C-\><C-n>]], opts)
@@ -9,8 +11,14 @@ end
 
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+vim.keymap.set('n', '<Leader>sl', '<cmd>Telescope persisted<cr>', { desc = "List sessions" })
+vim.keymap.set('n', '<Leader>ss', '<cmd>SessionSave<cr>', { desc = "Save session" })
+vim.keymap.set('n', '<Leader>sd', '<cmd>SessionDelete<cr>', { desc = "Delete current session" })
+vim.keymap.set('n', '<Leader>s<Space>', '<cmd>SessionLoadLast<cr>', { desc = "Load last session" })
 
-map('n', 'gT', '<Cmd>BufferPrevious<CR>', opts)
-map('n', 'gt', '<Cmd>BufferNext<CR>', opts)
+-- Load prefix names
+if wk_loaded then
+  wk.register({
+    s = { name = "sessions" },
+  }, { prefix = "<Leader>"})
+end
