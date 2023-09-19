@@ -23,17 +23,25 @@ return {
       lspconfig.tsserver.setup({
         capabilities = cmp_capabilities,
         on_attach = function(client)
-          client.resolved_capabilities.document_formatting = false
+          client.server_capabilities.documentFormattingProvider = false
         end,
       })
       lspconfig.eslint.setup({
         capabilities = cmp_capabilities,
+        on_attach = function(client)
+          client.server_capabilities.documentFormattingProvider = true
+        end,
       })
     end,
     dependencies = {
       'hrsh7th/nvim-cmp',
       'hrsh7th/cmp-nvim-lsp',
     },
+  },
+  {
+    "j-hui/fidget.nvim",
+    event = "LspAttach",
+    opts = {},
   },
   --- LSP }}}
   -- AUTOINSTALL {{{
@@ -46,6 +54,7 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "eslint",
           "tsserver",
           "lua_ls",
         },
@@ -60,7 +69,7 @@ return {
   {
     'hrsh7th/nvim-cmp',
     config = function()
-      local cmp = require'cmp'
+      local cmp = require 'cmp'
 
       cmp.setup({
         snippet = {
@@ -93,23 +102,71 @@ return {
     end
   },
   -- COMPLETION }}}
-  "nvim-tree/nvim-web-devicons",
-  "lukas-reineke/indent-blankline.nvim",
+-- TREESITTER {{{
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "lua",
-        "tsx",
-        "typescript",
-        "jsx",
-        "javascript",
-      },
-      auto_install = true,
+    config = function()
+      require 'nvim-treesitter.configs'.setup({
+        sync_install = false,
+        auto_install = true,
+        ignore_install = {},
+        modules = {},
+        ensure_installed = "all",
+        highlight = {
+          enable = true,
+        },
+        indent = {
+          enable = false,
+        },
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              -- You can use the capture groups defined in textobjects.scm
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+              -- You can also use captures from other query groups like `locals.scm`
+              ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+            },
+            -- If you set this to `true` (default is `false`) then any textobject is
+            -- extended to include preceding or succeeding whitespace. Succeeding
+            -- whitespace has priority in order to act similarly to eg the built-in
+            -- `ap`.
+            include_surrounding_whitespace = true,
+          },
+          move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+
+            goto_next_start = {
+              ["]m"] = "@function.outer",
+              ["]]"] = { query = "@class.outer", desc = "Next class start" },
+            },
+            goto_previous_start = {
+              ["[m"] = "@function.outer",
+              ["[["] = "@class.outer",
+            },
+          },
+        },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "vv",
+            node_incremental = "+",
+            node_decremental = "=",
+          },
+        },
+      })
+    end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
     },
-    config = true,
   },
-  "nvim-treesitter/nvim-treesitter-textobjects",
+-- }}}
+-- MISC {{{
   {
     "kylechui/nvim-surround",
     version = "*",
@@ -120,4 +177,5 @@ return {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
   },
+-- }}}
 }

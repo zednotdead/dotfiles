@@ -22,7 +22,7 @@ return {
         theme.button(
           "f",
           "  Find project",
-          ":lua require'custom_telescope.project'.projects {}<CR>",
+          ":SessionManager load_session<CR>",
           {}
         ),
 

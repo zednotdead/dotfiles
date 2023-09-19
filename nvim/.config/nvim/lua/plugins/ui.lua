@@ -1,8 +1,6 @@
 return {
   "lukas-reineke/indent-blankline.nvim",
-  {
-    'stevearc/dressing.nvim',
-  },
+  'stevearc/dressing.nvim',
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.3',
@@ -20,11 +18,14 @@ return {
       local config = require('session_manager.config')
 
       require('session_manager').setup({
-        autoload_mode = config.AutoloadMode.CurrentDir,
+        autoload_mode = config.AutoloadMode.Disabled,
         autosave_ignore_filetypes = {
           'gitcommit',
           'gitrebase',
           'alpha',
+        },
+        autosave_ignore_dirs = {
+          vim.fn.expand('$HOME')
         },
       })
     end,
@@ -39,15 +40,23 @@ return {
     opts = {}
   },
   {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    opts = {},
-    keys = {
-      { "s", mode = { "n", "o", "x" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    opts = {
+      enable_git_status = true,
+      enable_diagnostics = true,
+      default_component_configs = {
+        container = {
+          enable_character_fade = true
+        }
+      },
     },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
   },
+  "nvim-tree/nvim-web-devicons",
+  "lukas-reineke/indent-blankline.nvim",
 }
