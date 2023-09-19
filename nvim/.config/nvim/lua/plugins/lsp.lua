@@ -1,4 +1,5 @@
 return {
+  -- LSP
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -34,6 +35,23 @@ return {
       'hrsh7th/cmp-nvim-lsp',
     },
   },
+  -- AUTOINSTALL {{{
+  {
+    "williamboman/mason.nvim",
+    config = true,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "tsserver",
+          "lua_ls",
+        },
+      })
+    end,
+  },
+  -- }}}
   "hrsh7th/cmp-nvim-lsp",
   'L3MON4D3/LuaSnip',
   'saadparwaiz1/cmp_luasnip',
@@ -72,17 +90,6 @@ return {
       })
     end
   },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "tsserver",
-          "lua_ls",
-        },
-      })
-    end,
-  },
   "nvim-tree/nvim-web-devicons",
   "lukas-reineke/indent-blankline.nvim",
   {
@@ -109,9 +116,5 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
-  },
-  {
-    "williamboman/mason.nvim",
-    config = true,
   },
 }

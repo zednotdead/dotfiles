@@ -14,19 +14,29 @@ return {
     opts = {},
   },
   {
-    "Shatur/neovim-session-manager",
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local config = require('session_manager.config')
+    "gennaro-tedesco/nvim-possession",
+    dependencies = {
+      "ibhagwan/fzf-lua",
+    },
+    config = true,
+    init = function()
+      if vim.fn.isdirectory(vim.fn.stdpath("data") .. "/sessions/") == 0 then
+        vim.fn.mkdir(vim.fn.stdpath("data") .. "/sessions/")
+      end
 
-      require('session_manager').setup({
-        autoload_mode = config.AutoloadMode.CurrentDir,
-        autosave_ignore_filetypes = {
-          'gitcommit',
-          'gitrebase',
-          'alpha',
-        },
-      })
+      local possession = require("nvim-possession")
+      vim.keymap.set("n", "<leader>sl", function()
+        possession.list()
+      end, { desc = "List sessions" })
+      vim.keymap.set("n", "<leader>sn", function()
+        possession.new()
+      end, { desc = "Save session" })
+      vim.keymap.set("n", "<leader>su", function()
+        possession.update()
+      end, { desc = "Update session" })
+      vim.keymap.set("n", "<leader>sd", function()
+        possession.delete()
+      end, { desc = "Update session" })
     end,
   },
   {
@@ -47,7 +57,6 @@ return {
   {
     "folke/flash.nvim",
     event = "VeryLazy",
-    ---@type Flash.Config
     opts = {},
     keys = {
       { "s", mode = { "n", "o", "x" }, function() require("flash").jump() end, desc = "Flash" },

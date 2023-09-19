@@ -18,6 +18,9 @@ vim.opt.termguicolors = true
 -- set GUI font
 vim.opt.guifont = { "PragmataPro Liga", ":h16" }
 
+-- allow folding on marker
+vim.o.foldmethod = "marker"
+
 vim.g.python3_host_prog = "/home/zed/.local/share/rtx/installs/python/3.10.11/bin/python3"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
