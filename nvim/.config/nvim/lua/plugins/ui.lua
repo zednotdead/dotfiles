@@ -18,6 +18,12 @@ return {
     dependencies = {
       "ibhagwan/fzf-lua",
     },
+    opts = {
+      autoswitch = {
+        enable = true,
+        exclude_ft = { "term" },
+      },
+    },
     config = true,
     init = function()
       if vim.fn.isdirectory(vim.fn.stdpath("data") .. "/sessions/") == 0 then
@@ -47,12 +53,6 @@ return {
       vim.o.timeoutlen = 300
     end,
     opts = {}
-  },
-  {
-    'goolord/alpha-nvim',
-    config = function ()
-      require'alpha'.setup(require'alpha.themes.dashboard'.config)
-    end
   },
   {
     "folke/flash.nvim",

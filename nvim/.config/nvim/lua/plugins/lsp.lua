@@ -1,5 +1,5 @@
 return {
-  -- LSP
+  -- LSP {{{
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -35,6 +35,7 @@ return {
       'hrsh7th/cmp-nvim-lsp',
     },
   },
+  --- LSP }}}
   -- AUTOINSTALL {{{
   {
     "williamboman/mason.nvim",
@@ -52,6 +53,7 @@ return {
     end,
   },
   -- }}}
+  -- COMPLETION {{{
   "hrsh7th/cmp-nvim-lsp",
   'L3MON4D3/LuaSnip',
   'saadparwaiz1/cmp_luasnip',
@@ -90,6 +92,7 @@ return {
       })
     end
   },
+  -- COMPLETION }}}
   "nvim-tree/nvim-web-devicons",
   "lukas-reineke/indent-blankline.nvim",
   {
