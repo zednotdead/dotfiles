@@ -20,9 +20,19 @@ vim.keymap.set("n", "<Leader>ss", [[<Cmd>SessionManager save_current_session<CR>
 
 -- LSP BEGIN
 -- Functions BEGIN
-local format_fn = function()
-	vim.lsp.buf.format()
+local format_fn
+local conform_loaded, conform = pcall(require, "conform")
+
+if conform_loaded then
+	format_fn = function()
+		conform.format()
+	end
+else
+	format_fn = function()
+		vim.lsp.buf.format()
+	end
 end
+
 local code_action_fn = function()
 	vim.lsp.buf.code_action()
 end

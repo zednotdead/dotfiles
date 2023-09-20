@@ -4,6 +4,7 @@
   "catppuccin": { "branch": "main", "commit": "85e93601e0f0b48aa2c6bbfae4d0e9d7a1898280" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "44b16d11215dce86f253ce0c30949813c0a90765" },
   "cmp_luasnip": { "branch": "master", "commit": "18095520391186d634a0045dacaa346291096566" },
+  "conform.nvim": { "branch": "master", "commit": "ce107d7d14ecca9f473e49c63d1da8b02e87344c" },
   "dressing.nvim": { "branch": "master", "commit": "c1e1d5fa44fe08811b6ef4aadac2b50e602f9504" },
   "fidget.nvim": { "branch": "legacy", "commit": "90c22e47be057562ee9566bad313ad42d622c1d3" },
   "flash.nvim": { "branch": "main", "commit": "cc8c7e03987134997d74ee87e55a5717279f2d05" },

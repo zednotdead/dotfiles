@@ -182,6 +182,19 @@ return {
 		},
 	},
 	-- END }}}
+	-- FORMATTING BEGIN {{{
+	{
+		"stevearc/conform.nvim",
+		opts = {
+			formatters_by_ft = {
+				lua = { "stylua" },
+				javascript = { "eslint_d" },
+				typescript = { "eslint_d" },
+				typescriptreact = { "eslint_d" },
+			},
+		},
+	},
+	-- }}}
 	-- MISC BEGIN {{{
 	{
 		"kylechui/nvim-surround",
