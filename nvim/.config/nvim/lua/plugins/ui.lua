@@ -174,5 +174,8 @@ return {
     opts = {
       enabled = false
     },
+  },
+  {
+    'yorickpeterse/nvim-pqf', config = true
   }
 }
