@@ -1,20 +1,20 @@
 local function get_os_icon()
-  local os = vim.loop.os_uname().sysname
-  if os == "Darwin" then
-    return "🍎"
-  else
-    return "🐧"
-  end
+	local os = vim.loop.os_uname().sysname
+	if os == "Darwin" then
+		return "🍎"
+	else
+		return "🐧"
+	end
 end
 
 return {
-  {
-    "goolord/alpha-nvim",
-    enabled = true,
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    event = "VimEnter",
-    config = function()
-      local theme = require("alpha.themes.dashboard")
+	{
+		"goolord/alpha-nvim",
+		enabled = true,
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		event = "VimEnter",
+		config = function()
+			local theme = require("alpha.themes.dashboard")
 
       -- stylua: ignore start
       theme.section.header.val = {
@@ -53,6 +53,6 @@ return {
         ),
       }
       require("alpha").setup(theme.config)
-    end
-  }
+		end,
+	},
 }
