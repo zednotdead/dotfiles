@@ -6,7 +6,8 @@ return {
   event = "VeryLazy",
   config = function()
     local get_hex = require("cokeline/utils").get_hex
-    local mappings = require("cokeline/mappings")
+    local is_picking_focus = require('cokeline.mappings').is_picking_focus
+    local is_picking_close = require('cokeline.mappings').is_picking_close
 
     local comments_fg = get_hex("Comment", "fg")
     local errors_fg = get_hex("DiagnosticError", "fg")
@@ -47,16 +48,16 @@ return {
       separator_back = separator_generator(""),
       devicon = {
         text = function(buffer)
-          return (mappings.is_picking_focus() or mappings.is_picking_close()) and buffer.pick_letter .. " "
+          return (is_picking_focus() or is_picking_close()) and buffer.pick_letter .. " "
               or buffer.devicon.icon
         end,
         fg = function(buffer)
-          return (mappings.is_picking_focus() and yellow)
-              or (mappings.is_picking_close() and red)
+          return (is_picking_focus() and yellow)
+              or (is_picking_close() and red)
               or buffer.devicon.color
         end,
         style = function(_)
-          return (mappings.is_picking_focus() or mappings.is_picking_close()) and "italic,bold" or nil
+          return (is_picking_focus() or is_picking_close()) and "italic,bold" or nil
         end,
         truncation = { priority = 1 },
       },
