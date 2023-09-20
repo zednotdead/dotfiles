@@ -1,3 +1,12 @@
+local function get_os_icon()
+  local os = vim.loop.os_uname().sysname
+  if os == "Darwin" then
+    return "🍎"
+  else
+    return "🐧"
+  end
+end
+
 return {
   {
     "goolord/alpha-nvim",
@@ -7,6 +16,7 @@ return {
     config = function()
       local theme = require("alpha.themes.dashboard")
 
+      -- stylua: ignore start
       theme.section.header.val = {
         [[　　　 　　/＾>》, -―‐‐＜＾}]],
         [[　　　 　./:::/,≠´::::::ヽ.]],
@@ -15,9 +25,11 @@ return {
         [[　　 /:::::::瓜イ＞　´＜ ,:ﾉ]],
         [[　 ./::::::|ﾉﾍ.{､　(_ﾌ_ノﾉイ＿]],
         [[　 |:::::::|／}｀ｽ /          /]],
-        [[.　|::::::|(_:::つ/    🐧    /　neovim!]],
-        [[.￣￣￣￣￣￣￣＼/＿＿＿＿＿/￣￣￣￣￣]],
+        string.format(
+          " 　|::::::|(_:::つ/    %s    /　neovim!", get_os_icon()),
+        [[|￣￣￣￣￣￣￣＼/＿＿＿＿＿/￣￣￣￣￣]],
       }
+
       theme.section.buttons.val = {
         theme.button(
           "f",

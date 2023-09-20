@@ -1,12 +1,16 @@
 return {
-  -- LSP {{{
+  -- LSP BEGIN {{{
   {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
       local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local signature_on_attach = require"lsp_signature".on_attach
 
       lspconfig.lua_ls.setup({
+        on_attach = function (client, bufnr)
+          signature_on_attach(client, bufnr)
+        end,
         capabilities = cmp_capabilities,
         settings = {
           Lua = {
@@ -36,15 +40,27 @@ return {
     dependencies = {
       'hrsh7th/nvim-cmp',
       'hrsh7th/cmp-nvim-lsp',
+      "ray-x/lsp_signature.nvim",
     },
   },
   {
     "j-hui/fidget.nvim",
+    branch = "legacy",
     event = "LspAttach",
     opts = {},
   },
-  --- LSP }}}
-  -- AUTOINSTALL {{{
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    opts = {
+      noice = true,
+      transparency = 10
+    },
+    config = true,
+  },
+  { "folke/neodev.nvim", opts = {} },
+  --- LSP END }}}
+  -- AUTOINSTALL BEGIN {{{
   {
     "williamboman/mason.nvim",
     config = true,
@@ -58,11 +74,12 @@ return {
           "tsserver",
           "lua_ls",
         },
+
       })
     end,
   },
-  -- }}}
-  -- COMPLETION {{{
+  -- END }}}
+  -- COMPLETION BEGIN {{{
   "hrsh7th/cmp-nvim-lsp",
   'L3MON4D3/LuaSnip',
   'saadparwaiz1/cmp_luasnip',
@@ -101,8 +118,8 @@ return {
       })
     end
   },
-  -- COMPLETION }}}
--- TREESITTER {{{
+  -- COMPLETION END }}}
+  -- TREESITTER BEGIN {{{
   {
     "nvim-treesitter/nvim-treesitter",
     config = function()
@@ -165,8 +182,8 @@ return {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
   },
--- }}}
--- MISC {{{
+  -- END }}}
+  -- MISC BEGIN {{{
   {
     "kylechui/nvim-surround",
     version = "*",
@@ -177,5 +194,5 @@ return {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
   },
--- }}}
+  -- END }}}
 }

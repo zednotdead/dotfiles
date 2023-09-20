@@ -5,6 +5,11 @@ return {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.3',
     dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {
+      pickers = {
+        live_grep = { theme = "ivy" },
+      },
+    },
   },
   {
     "rcarriga/nvim-notify",
@@ -28,6 +33,15 @@ return {
           vim.fn.expand('$HOME')
         },
       })
+      local config_group = vim.api.nvim_create_augroup('NeovimSessionManagerGroup', {})
+
+      vim.api.nvim_create_autocmd({ 'User' }, {
+        pattern = "SessionLoadPost",
+        group = config_group,
+        callback = function()
+          require('neo-tree.command').execute({ action = "show" })
+        end,
+      })
     end,
   },
   {
@@ -45,18 +59,86 @@ return {
     opts = {
       enable_git_status = true,
       enable_diagnostics = true,
+      source_selector = {
+        winbar = true,
+      },
       default_component_configs = {
         container = {
           enable_character_fade = true
         }
       },
     },
+    config = function(_, opts)
+      require('neo-tree').setup(opts)
+    end,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     }
   },
-  "nvim-tree/nvim-web-devicons",
   "lukas-reineke/indent-blankline.nvim",
+  {
+    "folke/noice.nvim",
+    event = "VimEnter",
+    dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+    opts = {
+      routes = {
+        -- skip displaying message that file was written to.
+        {
+          filter = {
+            event = "msg_show",
+            kind = "",
+            find = "written"
+          },
+          opts = { skip = true }
+        },
+        {
+          filter = {
+            event = "msg_show",
+            kind = "",
+            find = "more lines"
+          },
+          opts = { skip = true }
+        },
+        {
+          filter = {
+            event = "msg_show",
+            kind = "",
+            find = "fewer lines"
+          },
+          opts = { skip = true }
+        },
+        {
+          filter = {
+            event = "msg_show",
+            kind = "",
+            find = "lines yanked"
+          },
+          opts = { skip = true }
+        },
+        {
+          view = "split",
+          filter = { event = "msg_show", min_height = 10 }
+        }
+      },
+      lsp = {
+        progress = {
+          enabled = false
+        },
+        signature = {
+          enabled = false,
+        },
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true
+        }
+      }
+    }
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = true
+  }
 }
