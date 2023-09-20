@@ -71,9 +71,11 @@ if cokeline_loaded then
   vim.keymap.set('n', 'gT', function() ckl.by_step("focus", -1) end, { desc = "Previous tab" })
   vim.keymap.set('n', '<Leader>t.', function() ckl.by_step("focus", 1) end, { desc = "Next tab" })
   vim.keymap.set('n', '<Leader>t,', function() ckl.by_step("focus", -1) end, { desc = "Previous tab" })
-  vim.keymap.set('n', '<Leader>tt', function () ckl.pick("focus") end, {desc = "Pick tab" })
+  vim.keymap.set('n', '<Leader>tt', function() ckl.pick("focus") end, { desc = "Pick tab" })
 end
 -- Tabs END
+
+vim.keymap.set('n', '<Leader>gb', "<Cmd>GitBlameToggle<CR>", { desc = "Toggle blame" })
 
 local wk_loaded, wk = pcall(require, 'which-key')
 -- Load prefix names
@@ -82,5 +84,7 @@ if wk_loaded then
     s = { name = "sessions" },
     f = { name = "find" },
     l = { name = "LSP" },
+    g = { name = "git" },
+    t = { name = "tabs" },
   }, { prefix = "<Leader>" })
 end
