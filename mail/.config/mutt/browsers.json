@@ -1,10 +1,10 @@
 [
     {
-        "display": "Lynx", 
-        "command": "lynx -force_html -assume_charset='utf-8' -display_charset=utf-8"
-    },
-    {
         "display": "Firefox", 
         "command": "firefox"
+    },
+    {
+        "display": "Lynx", 
+        "command": "lynx -force_html -assume_charset='utf-8' -display_charset=utf-8"
     }
 ]

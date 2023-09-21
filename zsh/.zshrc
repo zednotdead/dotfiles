@@ -102,6 +102,10 @@ if (( $+commands[starship] )) then
 	eval "$(starship init zsh)"
 fi
 
+if (( $+commands[direnv] )) then
+	eval "$(direnv hook zsh)"
+fi
+
 # Fuzzy git checkout
 # by: https://polothy.github.io/post/2019-08-19-fzf-git-checkout/
 
@@ -165,6 +169,10 @@ fi
 
 if (( $+commands[evcxr] )) then
     alias irust="evcxr"
+fi
+
+if (( $+commands[go-task] )) then
+    alias task="go-task"
 fi
 
 # Loading Antidote
