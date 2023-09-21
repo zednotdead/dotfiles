@@ -16,6 +16,10 @@ if (( $+commands[nvim] )) then
     export EDITOR=nvim
 fi
 
+if [ -d "/opt/homebrew" ]; then
+    export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+fi
+
 # Config
 
 HISTFILE=$HOME/.cache/zsh/.histfile
@@ -150,6 +154,29 @@ grev() {
 	git revert $(fzf-git-get-hash)
 }
 
+gpuu() {
+     git push -u origin $(git branch --show-current)
+}
+
+getticketnr() {
+    git branch --show-current | perl -lane 'print m/([A-Z]{2,}-\d+)/'
+}
+
+clearnode_info() {
+    echo "\e[34;49m[INFO]\e[0m $1"
+}
+
+clearnode() {
+    if [ -d "node_modules" ]; then
+        clearnode_info "node_modules exists. Deleting..."
+        rm -rf "./node_modules"
+    fi
+    if [ -f "package-lock.json" ]; then
+        clearnode_info "package-lock.json exists. Deleting..."
+        rm -rf "./package-lock.json"
+    fi
+}
+
 alias ls="exa --icons"
 alias gpu="git push"
 alias gpl="git pull"
@@ -162,6 +189,8 @@ ulimit -f unlimited
 if (( $+commands[paru] )) then
     alias yay="paru"
 fi
+
+alias zel="zellij"
 
 if (( $+commands[gitui] )) then
     alias gitui="gitui -t mocha.ron"
