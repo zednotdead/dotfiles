@@ -36,6 +36,8 @@ return {
 					client.server_capabilities.documentFormattingProvider = true
 				end,
 			})
+			lspconfig.rust_analyzer.setup({})
+			lspconfig.crystalline.setup({})
 		end,
 		dependencies = {
 			"hrsh7th/nvim-cmp",
@@ -191,7 +193,7 @@ return {
 				javascript = { "eslint_d" },
 				typescript = { "eslint_d" },
 				typescriptreact = { "eslint_d" },
-        json = { "jq", { "prettierd", "prettier" } },
+				json = { "jq", { "prettierd", "prettier" } },
 			},
 		},
 	},

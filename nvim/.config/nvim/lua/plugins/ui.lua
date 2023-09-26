@@ -32,6 +32,7 @@ return {
 				autosave_ignore_dirs = {
 					vim.fn.expand("$HOME"),
 				},
+				autosave_only_in_session = true,
 			})
 			local config_group = vim.api.nvim_create_augroup("NeovimSessionManagerGroup", {})
 
@@ -197,10 +198,22 @@ return {
 		opts = {
 			enabled = false,
 		},
+		config = function(opts)
+			require("gitblame").setup(opts)
+		end,
 	},
 	{
 		"yorickpeterse/nvim-pqf",
 		config = true,
 	},
 	{ "chrisgrieser/nvim-spider", config = true },
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {
+      highlight = {
+        pattern = [[.*<(KEYWORDS)\s*:]],
+      }
+    },
+	},
 }
