@@ -204,6 +204,10 @@ if (( $+commands[go-task] )) then
     alias task="go-task"
 fi
 
+if (( $+commands[docker] )) then
+    alias dcup="docker-compose up"
+fi
+
 # Loading Antidote
 
 # source antidote
