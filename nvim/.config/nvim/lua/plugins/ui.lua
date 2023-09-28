@@ -200,4 +200,17 @@ return {
 			},
 		},
 	},
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+      toggler = {
+        line = '<leader><leader><leader>',
+      },
+      opleader = {
+        line = '<leader><leader>c',
+        block = '<leader><leader>b'
+      },
+    },
+    config = true,
+  }
 }

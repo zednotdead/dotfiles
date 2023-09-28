@@ -124,5 +124,6 @@ if wk_loaded then
 		l = { name = "LSP" },
 		g = { name = "git" },
 		t = { name = "tabs" },
+    ["<Leader>"] = { name = "comment" },
 	}, { prefix = "<Leader>" })
 end
