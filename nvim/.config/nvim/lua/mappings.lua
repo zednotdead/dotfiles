@@ -10,7 +10,7 @@ end
 
 vim.cmd("autocmd! TermOpen term://* lua terminal_keymaps()")
 -- Neotree BEGIN
-vim.keymap.set("n", "<Leader><Tab>", [[<Cmd>Neotree toggle<CR>]], { desc = "Open neotree" })
+vim.keymap.set("n", "<Leader><Tab>", [[<Cmd>NvimTreeToggle<CR>]], { desc = "Open neotree" })
 -- Neotree END
 
 -- Sessions BEGIN
@@ -83,7 +83,10 @@ end
 -- Telescope END
 
 -- Noice BEGIN
-vim.keymap.set("n", "<Leader><Esc>", [[<Cmd>NoiceDismiss<CR>]], { desc = "Dismiss notifications" })
+vim.keymap.set("n", "<Leader><Esc>", function ()
+  require"noice".cmd("dismiss")
+  vim.cmd[[cclose]]
+end, { desc = "Dismiss everything" })
 -- Noice END
 
 -- Tabs BEGIN
@@ -104,6 +107,9 @@ if cokeline_loaded then
 	vim.keymap.set("n", "<Leader>tt", function()
 		ckl.pick("focus")
 	end, { desc = "Pick tab" })
+	vim.keymap.set("n", "<Leader>td", function()
+		ckl.pick("close")
+	end, { desc = "Delete tab" })
 end
 -- Tabs END
 

@@ -40,7 +40,7 @@ return {
 				pattern = "SessionLoadPost",
 				group = config_group,
 				callback = function()
-					require("neo-tree.command").execute({ action = "show" })
+					require("nvim-tree.api").tree.open()
 				end,
 			})
 		end,
@@ -55,27 +55,14 @@ return {
 		opts = {},
 	},
 	{
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
+		"nvim-tree/nvim-tree.lua",
 		opts = {
-			enable_git_status = true,
-			enable_diagnostics = true,
-			source_selector = {
-				winbar = true,
-			},
-			default_component_configs = {
-				container = {
-					enable_character_fade = true,
-				},
-			},
-		},
+      update_focused_file = { enabled = true },
+    },
 		config = function(_, opts)
-			require("neo-tree").setup(opts)
+			require("nvim-tree").setup(opts)
 		end,
 		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-			"MunifTanjim/nui.nvim",
 		},
 	},
 	"lukas-reineke/indent-blankline.nvim",
@@ -202,18 +189,15 @@ return {
 			require("gitblame").setup(opts)
 		end,
 	},
-	{
-		"yorickpeterse/nvim-pqf",
-		config = true,
-	},
+	{ "kevinhwang91/nvim-bqf", config = true },
 	{ "chrisgrieser/nvim-spider", config = true },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
-      highlight = {
-        pattern = [[.*<(KEYWORDS)\s*:]],
-      }
-    },
+			highlight = {
+				pattern = [[.*<(KEYWORDS)\s*:]],
+			},
+		},
 	},
 }

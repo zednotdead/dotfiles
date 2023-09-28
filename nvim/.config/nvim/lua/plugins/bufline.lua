@@ -94,7 +94,6 @@ return {
 					direction = "left",
 				},
 			},
-
 			diagnostics = {
 				text = function(buffer)
 					return (buffer.diagnostics.errors ~= 0 and "  " .. buffer.diagnostics.errors)
@@ -125,32 +124,20 @@ return {
 			show_if_buffers_are_at_least = 1,
 
 			buffers = {
-				-- filter_valid = function(buffer) return buffer.type ~= 'terminal' end,
-				-- filter_visible = function(buffer) return buffer.type ~= 'terminal' end,
-				new_buffers_position = "next",
+				filter_valid = function(buffer) return buffer.type ~= 'terminal' end,
+				filter_visible = function(buffer) return buffer.type ~= 'terminal' end,
 			},
-
 			sidebar = {
-				filetype = { "NvimTree", "neo-tree" },
+				filetype = { "NvimTree" },
 				components = {
 					{
-						text = function(buf)
-							return buf.filetype
-						end,
-						fg = function()
-							return get_hex("Type", "fg")
-						end,
-						bg = function()
-							return buffer_line_background
-						end,
-						bold = true,
+						text = "",
 					},
 				},
 			},
 			rendering = {
 				max_buffer_width = 30,
 			},
-
 			default_hl = {
 				fg = function(buffer)
 					return buffer.is_focused and get_hex("Normal", "fg") or get_hex("TabLine", "fg")
