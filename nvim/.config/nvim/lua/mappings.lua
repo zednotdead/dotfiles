@@ -48,16 +48,21 @@ end
 local hover_fn = function()
 	vim.lsp.buf.hover()
 end
+local rename_fn = function()
+	vim.lsp.buf.rename()
+end
 -- END
 
 -- Bindings BEGIN
 vim.keymap.set("n", "<Leader>lf", format_fn, { desc = "Format" })
 vim.keymap.set("n", "<Leader>la", code_action_fn, { desc = "Code action" })
-vim.keymap.set("n", "<Leader>ld", show_diagnostics_fn, { desc = "Show diagnostics" })
 vim.keymap.set("n", "ga", code_action_fn, { desc = "Code action" })
+vim.keymap.set("n", "<Leader>ld", show_diagnostics_fn, { desc = "Show diagnostics" })
 vim.keymap.set("n", "gd", goto_definition_fn, { desc = "Go to definition" })
 vim.keymap.set("n", "gD", goto_references_fn, { desc = "Show references" })
 vim.keymap.set("n", "K", hover_fn, { desc = "Show information" })
+vim.keymap.set("n", "<Leader>lr", rename_fn, { desc = "Rename" })
+vim.keymap.set("n", "gr", rename_fn, { desc = "Rename" })
 -- Bindings END
 -- LSP END
 
@@ -83,9 +88,9 @@ end
 -- Telescope END
 
 -- Noice BEGIN
-vim.keymap.set("n", "<Leader><Esc>", function ()
-  require"noice".cmd("dismiss")
-  vim.cmd[[cclose]]
+vim.keymap.set("n", "<Leader><Esc>", function()
+	require("noice").cmd("dismiss")
+	vim.cmd([[cclose]])
 end, { desc = "Dismiss everything" })
 -- Noice END
 
@@ -115,6 +120,13 @@ end
 
 vim.keymap.set("n", "<Leader>gb", "<Cmd>GitBlameToggle<CR>", { desc = "Toggle blame" })
 
+local refactor_loaded, _ = pcall(require, "refactoring")
+if refactor_loaded then
+	vim.keymap.set({ "n", "x" }, "<leader>rr", function()
+		require("telescope").extensions.refactoring.refactors()
+	end)
+end
+
 local wk_loaded, wk = pcall(require, "which-key")
 -- Load prefix names
 if wk_loaded then
@@ -124,6 +136,7 @@ if wk_loaded then
 		l = { name = "LSP" },
 		g = { name = "git" },
 		t = { name = "tabs" },
-    ["<Leader>"] = { name = "comment" },
+		r = { name = "refactor" },
+		["<Leader>"] = { name = "comment" },
 	}, { prefix = "<Leader>" })
 end

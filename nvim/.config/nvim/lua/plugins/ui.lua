@@ -57,13 +57,16 @@ return {
 	{
 		"nvim-tree/nvim-tree.lua",
 		opts = {
-      update_focused_file = { enabled = true },
-    },
+			respect_buf_cwd = true,
+			sync_root_with_cwd = true,
+			update_focused_file = {
+				enable = true,
+			},
+		},
 		config = function(_, opts)
 			require("nvim-tree").setup(opts)
 		end,
-		dependencies = {
-		},
+		dependencies = {},
 	},
 	"lukas-reineke/indent-blankline.nvim",
 	{
@@ -139,22 +142,6 @@ return {
 		},
 		keys = {
 			{
-				"s",
-				mode = { "n", "o", "x" },
-				function()
-					require("flash").jump()
-				end,
-				desc = "Flash",
-			},
-			{
-				"S",
-				mode = { "n", "o", "x" },
-				function()
-					require("flash").treesitter()
-				end,
-				desc = "Flash Treesitter",
-			},
-			{
 				"r",
 				mode = "o",
 				function()
@@ -200,17 +187,29 @@ return {
 			},
 		},
 	},
-  {
-    'numToStr/Comment.nvim',
-    opts = {
-      toggler = {
-        line = '<leader><leader><leader>',
-      },
-      opleader = {
-        line = '<leader><leader>c',
-        block = '<leader><leader>b'
-      },
-    },
-    config = true,
-  }
+	{
+		"numToStr/Comment.nvim",
+		opts = {
+			toggler = {
+				line = "<leader><leader><leader>",
+			},
+			opleader = {
+				line = "<leader><leader>c",
+				block = "<leader><leader>b",
+			},
+		},
+		config = true,
+	},
+	{
+		"ThePrimeagen/refactoring.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim",
+		},
+		config = function()
+			require("refactoring").setup()
+      require("telescope").load_extension("refactoring")
+		end,
+	},
 }
