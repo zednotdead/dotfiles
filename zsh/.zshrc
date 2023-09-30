@@ -2,6 +2,7 @@
 
 # Environment variables
 export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$HOME/go/bin:$HOME/bin:$PATH
+
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="$HOME/.evm/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
@@ -20,6 +21,10 @@ if [ -d "/opt/homebrew" ]; then
     export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 fi
 
+if [ -d "$HOME/.pulumi/bin" ]; then
+    # add Pulumi to the PATH
+    export PATH=$PATH:$HOME/.pulumi/bin
+fi
 # Config
 
 HISTFILE=$HOME/.cache/zsh/.histfile
@@ -91,6 +96,7 @@ generate-completion "docker" "docker completion zsh"
 generate-completion "sqlx" "sqlx completions zsh"
 generate-completion "gh" "gh completion -s zsh"
 generate-completion "op" "op completion zsh"
+generate-completion "pulumi" "pulumi gen-completion zsh"
 
 # Hooks
 
