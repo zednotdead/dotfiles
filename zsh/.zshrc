@@ -97,6 +97,7 @@ generate-completion "sqlx" "sqlx completions zsh"
 generate-completion "gh" "gh completion -s zsh"
 generate-completion "op" "op completion zsh"
 generate-completion "pulumi" "pulumi gen-completion zsh"
+generate-completion "just" "just --completions zsh"
 
 # Hooks
 
@@ -185,7 +186,9 @@ clearnode() {
 
 alias ls="exa --icons"
 alias gpu="git push"
+alias gput="git push && git push --tags"
 alias gpl="git pull"
+alias goops="git commit -a --amend --no-edit; git push --force-with-lease"
 alias "1f"="onefetch --include-hidden"
 alias "cls"="clear"
 

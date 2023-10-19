@@ -5,12 +5,8 @@ return {
 		config = function()
 			local lspconfig = require("lspconfig")
 			local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local signature_on_attach = require("lsp_signature").on_attach
 
 			lspconfig.lua_ls.setup({
-				on_attach = function(client, bufnr)
-					signature_on_attach(client, bufnr)
-				end,
 				capabilities = cmp_capabilities,
 				settings = {
 					Lua = {
@@ -37,12 +33,12 @@ return {
 				end,
 			})
 			lspconfig.rust_analyzer.setup({})
-			lspconfig.crystalline.setup({})
+			lspconfig.bashls.setup({})
+			lspconfig.mdx_analyzer.setup({})
 		end,
 		dependencies = {
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp",
-			"ray-x/lsp_signature.nvim",
 		},
 	},
 	{
@@ -50,15 +46,6 @@ return {
 		branch = "legacy",
 		event = "LspAttach",
 		opts = {},
-	},
-	{
-		"ray-x/lsp_signature.nvim",
-		event = "VeryLazy",
-		opts = {
-			noice = true,
-			transparency = 10,
-		},
-		config = true,
 	},
 	{ "folke/neodev.nvim", opts = {} },
 	--- LSP END }}}
@@ -71,11 +58,18 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
+				automatic_installation = true,
 				ensure_installed = {
 					"eslint",
 					"tsserver",
 					"lua_ls",
 				},
+			})
+			require("mason-lspconfig").setup_handlers({
+				function(server_name) -- default handler (optional)
+					local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+					require("lspconfig")[server_name].setup({ capabilities = cmp_capabilities })
+				end,
 			})
 		end,
 	},
@@ -84,22 +78,29 @@ return {
 	"hrsh7th/cmp-nvim-lsp",
 	"L3MON4D3/LuaSnip",
 	"saadparwaiz1/cmp_luasnip",
+	"FelipeLema/cmp-async-path",
 	{
 		"hrsh7th/nvim-cmp",
 		config = function()
 			local cmp = require("cmp")
+			local luasnip = require("luasnip")
 
+			require("luasnip.loaders.from_lua").lazy_load({
+				paths = {
+					"./snippets",
+				},
+			})
+
+			---@diagnostic disable-next-line: missing-fields
 			cmp.setup({
+				enabled = true,
 				snippet = {
-					-- REQUIRED - you must specify a snippet engine
 					expand = function(args)
-						require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-						-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-						-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+						luasnip.lsp_expand(args.body) -- For `luasnip` users.
 					end,
 				},
 				window = {
-					-- completion = cmp.config.window.bordered(),
+					completion = cmp.config.window.bordered(),
 					-- documentation = cmp.config.window.bordered(),
 				},
 				mapping = cmp.mapping.preset.insert({
@@ -113,12 +114,14 @@ return {
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
+					{ name = "async_path" },
 				}, {
 					{ name = "buffer" },
 				}),
 			})
 		end,
 	},
+	{},
 	-- COMPLETION END }}}
 	-- TREESITTER BEGIN {{{
 	{
@@ -193,6 +196,7 @@ return {
 				javascript = { "eslint_d" },
 				typescript = { "eslint_d" },
 				typescriptreact = { "eslint_d" },
+				astro = { "eslint_d" },
 				json = { "jq", { "prettierd", "prettier" } },
 			},
 		},

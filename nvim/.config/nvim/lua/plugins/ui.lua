@@ -207,8 +207,9 @@ return {
 			"nvim-treesitter/nvim-treesitter",
       "nvim-telescope/telescope.nvim",
 		},
-		config = function()
-			require("refactoring").setup()
+    opts = {},
+		config = function(opts)
+			require("refactoring").setup(opts)
       require("telescope").load_extension("refactoring")
 		end,
 	},
