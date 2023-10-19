@@ -184,6 +184,22 @@ clearnode() {
     fi
 }
 
+git-current-branch() {
+    git rev-parse --abbrev-ref HEAD
+}
+
+copy-to-clipboard() {
+    if [[ `uname` -eq "Darwin" ]]; then
+        pbcopy
+    elif [[ `uname` -eq "Linux" ]]; then
+        wl-copy
+    fi
+}
+
+ghpr() {
+    gh pr view $(git-current-branch) --json url | jq -r .url | copy-to-clipboard
+}
+
 alias ls="exa --icons"
 alias gpu="git push"
 alias gput="git push && git push --tags"
