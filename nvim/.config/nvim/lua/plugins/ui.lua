@@ -142,6 +142,13 @@ return {
 		},
 		keys = {
 			{
+				";",
+				mode = { "n", "o", "x" },
+				function()
+					require("flash").jump()
+				end,
+			},
+			{
 				"r",
 				mode = "o",
 				function()
@@ -205,11 +212,19 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
-      "nvim-telescope/telescope.nvim",
+			"nvim-telescope/telescope.nvim",
 		},
 		config = function()
 			require("refactoring").setup()
-      require("telescope").load_extension("refactoring")
+			require("telescope").load_extension("refactoring")
+		end,
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			---@diagnostic disable-next-line: undefined-field
+			require("lualine").config()
 		end,
 	},
 }
