@@ -127,6 +127,10 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		config = function()
+      vim.o.foldmethod = "expr"
+      vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.o.foldenable = false
+
 			require("nvim-treesitter.configs").setup({
 				sync_install = false,
 				auto_install = true,
