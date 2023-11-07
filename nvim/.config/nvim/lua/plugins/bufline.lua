@@ -5,7 +5,7 @@ return {
 	dependencies = "nvim-tree/nvim-web-devicons", -- If you want devicons
 	event = "VeryLazy",
 	config = function()
-		local get_hex = require('cokeline.hlgroups').get_hl_attr
+		local get_hex = require("cokeline.hlgroups").get_hl_attr
 		local is_picking_focus = require("cokeline.mappings").is_picking_focus
 		local is_picking_close = require("cokeline.mappings").is_picking_close
 

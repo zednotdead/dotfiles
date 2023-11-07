@@ -12,6 +12,7 @@ $gradle\
 $haskell\
 $java\
 $julia\
+$bun\
 $nodejs\
 $nim\
 $rust\
@@ -110,7 +111,7 @@ format = '[$symbol ($version)]($style)'
 [nodejs]
 symbol = ""
 style = "fg:green"
-format = '[$symbol ($version)]($style)'
+format = '[ $symbol ($version)]($style)'
 
 [nim]
 symbol = " "
@@ -125,6 +126,11 @@ format = '[$symbol ($version)]($style)'
 [scala]
 symbol = " "
 style = "fg:red"
+format = '[$symbol ($version)]($style)'
+
+[bun]
+symbol = "🍔"
+style = "fg:orange"
 format = '[$symbol ($version)]($style)'
 
 [time]
