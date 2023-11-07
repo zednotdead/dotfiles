@@ -20,6 +20,8 @@ $scala\
 $character
 """
 
+command_timeout = 3600
+
 # Disable the blank line at the start of the prompt
 # add_newline = false
 

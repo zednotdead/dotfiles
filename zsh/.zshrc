@@ -17,6 +17,10 @@ if (( $+commands[nvim] )) then
     export EDITOR=nvim
 fi
 
+if (( $+commands[podman] )) then
+    export DOCKER_HOST="unix:///$HOME/.local/share/containers/podman/machine/qemu/podman.sock"
+fi
+
 if [ -d "/opt/homebrew" ]; then
     export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 fi
@@ -98,6 +102,7 @@ generate-completion "gh" "gh completion -s zsh"
 generate-completion "op" "op completion zsh"
 generate-completion "pulumi" "pulumi gen-completion zsh"
 generate-completion "just" "just --completions zsh"
+generate-completion "podman" "podman completion zsh"
 
 # Hooks
 
