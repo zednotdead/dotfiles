@@ -43,7 +43,6 @@
         "/home/zed/.local/share/nvim/lazy/neovim-session-manager/lua",
         "/home/zed/.local/share/nvim/lazy/nvim-cmp/lua",
         "/home/zed/dotfiles/nvim/.config/nvim/lua",
-        "${3rd}/luv/library"
     ],
     "workspace.checkThirdParty": false
 }
