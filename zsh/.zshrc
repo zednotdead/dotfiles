@@ -240,6 +240,10 @@ if (( $+commands[docker] )) then
     alias dcup="docker-compose up"
 fi
 
+if (( $+commands[npm] )) then
+    alias nr="npm run"
+fi
+
 # Loading Antidote
 
 # source antidote
