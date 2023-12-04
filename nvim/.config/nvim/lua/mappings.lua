@@ -162,6 +162,19 @@ if refactor_loaded then
 	end)
 end
 
+local zen_loaded, zen = pcall(require, "zen-mode")
+if zen_loaded then
+	-- Bindings BEGIN
+	vim.keymap.set("n", "<Leader>z", function()
+		zen.toggle({
+			window = {
+				width = 0.85,
+			},
+		})
+	end, { desc = "Live grep" })
+	-- Bindings END
+end
+
 local wk_loaded, wk = pcall(require, "which-key")
 -- Load prefix names
 if wk_loaded then

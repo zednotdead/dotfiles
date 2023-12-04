@@ -52,5 +52,7 @@ if not vim.fn.isdirectory(undodir) then
 end
 vim.opt.undodir = undodir
 
+vim.loader.enable()
+
 require("lazy").setup("plugins")
 require("mappings")
