@@ -86,12 +86,17 @@ if telescope_loaded then
 	local function telescope_live_grep()
 		require("telescope.builtin").live_grep()
 	end
+
+  local function telescope_diagnostics()
+    require("telescope.builtin").diagnostics()
+  end
 	-- Functions END
 
 	-- Bindings BEGIN
 	vim.keymap.set("n", "<Leader>fi", telescope_find_files, { desc = "Find files" })
 	vim.keymap.set("n", "<C-S-f>", telescope_live_grep, { desc = "Live grep" })
 	vim.keymap.set("n", "<Leader>ff", telescope_live_grep, { desc = "Live grep" })
+  vim.keymap.set("n", "<Leader>fd", telescope_diagnostics, { desc = "Diagnostics" })
 	-- Bindings END
 end
 -- Telescope END
