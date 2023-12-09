@@ -10,7 +10,7 @@ export SOPS_AGE_KEY_FILE=$HOME/.config/sops/age/keys.txt
 
 ARCHITECTURE=$(uname -m)
 
-if [[ $ARCHITECTURE -ne "arm64" ]] then
+if [[ $ARCHITECTURE -eq "arm64" ]] then
     export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
     export PUPPETEER_EXECUTABLE_PATH=`which chromium`
 fi
@@ -249,6 +249,10 @@ fi
 
 if (( $+commands[docker] )) then
     alias dcup="docker-compose up"
+fi
+
+if (( $+commands[npm] )) then
+    alias nr="npm run"
 fi
 
 # Loading Antidote

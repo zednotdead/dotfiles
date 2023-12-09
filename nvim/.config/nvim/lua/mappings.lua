@@ -1,4 +1,13 @@
 ---@diagnostic disable-next-line: duplicate-set-field
+local function contains(table, val)
+	for i = 1, #table do
+		if table[i] == val then
+			return true
+		end
+	end
+	return false
+end
+
 function _G.terminal_keymaps()
 	local opts = { buffer = 0 }
 	vim.keymap.set("t", "<C-esc>", [[<C-\><C-n>]], opts)
@@ -94,6 +103,10 @@ vim.keymap.set("n", "<Leader><Esc>", function()
 end, { desc = "Dismiss everything" })
 -- Noice END
 
+local no_delete = {
+	"NvimTree",
+}
+
 -- Tabs BEGIN
 local cokeline_loaded, ckl = pcall(require, "cokeline.mappings")
 if cokeline_loaded then
@@ -115,6 +128,28 @@ if cokeline_loaded then
 	vim.keymap.set("n", "<Leader>td", function()
 		ckl.pick("close")
 	end, { desc = "Delete tab" })
+
+	vim.keymap.set("n", "<Leader>to", function()
+		-- Get all buffers
+		local bufs = vim.api.nvim_list_bufs()
+		-- Get current buffer
+		local current_buf = vim.api.nvim_get_current_buf()
+
+		for _, i in ipairs(bufs) do
+			---@diagnostic disable-next-line: undefined-field
+			local filetype = vim.bo[i].filetype
+			-- If the filetype is on no delete list, skip it
+			if contains(no_delete, filetype) then
+				goto continue
+			end
+
+			-- If the buffer is the current one, skip it
+			if i ~= current_buf then
+				vim.api.nvim_buf_delete(i, {})
+			end
+			::continue::
+		end
+	end, { desc = "Close all but current tab" })
 end
 -- Tabs END
 
@@ -125,6 +160,19 @@ if refactor_loaded then
 	vim.keymap.set({ "n", "x" }, "<leader>rr", function()
 		require("telescope").extensions.refactoring.refactors()
 	end)
+end
+
+local zen_loaded, zen = pcall(require, "zen-mode")
+if zen_loaded then
+	-- Bindings BEGIN
+	vim.keymap.set("n", "<Leader>z", function()
+		zen.toggle({
+			window = {
+				width = 0.85,
+			},
+		})
+	end, { desc = "Live grep" })
+	-- Bindings END
 end
 
 local wk_loaded, wk = pcall(require, "which-key")

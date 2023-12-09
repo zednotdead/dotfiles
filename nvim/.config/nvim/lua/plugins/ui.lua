@@ -201,7 +201,7 @@ return {
 				line = "<leader><leader><leader>",
 			},
 			opleader = {
-				line = "<leader><leader>c",
+				line = "<leader><leader><leader>",
 				block = "<leader><leader>b",
 			},
 		},
@@ -214,18 +214,30 @@ return {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-telescope/telescope.nvim",
 		},
-    opts = {},
+		opts = {},
 		config = function(opts)
 			require("refactoring").setup(opts)
-      require("telescope").load_extension("refactoring")
-    end
-  },
+			require("telescope").load_extension("refactoring")
+		end,
+	},
 	{
-    "nvim-lualine/lualine.nvim",
+		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			---@diagnostic disable-next-line: undefined-field
 			require("lualine").setup({})
 		end,
+	},
+	{
+		"folke/zen-mode.nvim",
+		opts = {
+			kitty = {
+				enabled = false,
+				font = "+4", -- font size increment
+			},
+		},
+	},
+	{
+		"folke/twilight.nvim",
+    config = true,
 	},
 }
