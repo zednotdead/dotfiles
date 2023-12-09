@@ -105,6 +105,7 @@ generate-completion "op" "op completion zsh"
 generate-completion "pulumi" "pulumi gen-completion zsh"
 generate-completion "just" "just --completions zsh"
 generate-completion "podman" "podman completion zsh"
+generate-completion "kubectl" "kubectl completion zsh"
 
 # Hooks
 
@@ -195,11 +196,17 @@ git-current-branch() {
     git rev-parse --abbrev-ref HEAD
 }
 
-copy-to-clipboard() {
-    if [[ `uname` -eq "Darwin" ]]; then
-        pbcopy
-    elif [[ `uname` -eq "Linux" ]]; then
-        wl-copy
+if [[ `uname` -eq "Linux" ]]; then
+    alias copy-to-clipboard="wl-copy"
+elif [[ `uname` -eq "Darwin" ]]; then
+    alias copy-to-clipboard="pbcopy"
+fi
+
+copy() {
+    if [[ -f "$1" ]]; then
+        copy-to-clipboard < $1
+    else
+        copy-to-clipboard $1
     fi
 }
 
@@ -217,6 +224,10 @@ alias "cls"="clear"
 
 ulimit -n 65536 65536
 ulimit -f unlimited
+
+open() {
+    setsid xdg-open $1 2> /dev/null
+}
 
 if (( $+commands[paru] )) then
     alias yay="paru"
