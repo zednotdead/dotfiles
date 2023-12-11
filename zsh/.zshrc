@@ -251,6 +251,10 @@ if (( $+commands[npm] )) then
     alias nr="npm run"
 fi
 
+if (( $+commands[jaq] )) then
+    alias jq="jaq"
+fi
+
 # Loading Antidote
 
 # source antidote
