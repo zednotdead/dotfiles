@@ -8,12 +8,12 @@ export PATH="$HOME/.evm/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
 export SOPS_AGE_KEY_FILE=$HOME/.config/sops/age/keys.txt
 
-ARCHITECTURE=$(uname -m)
-
-if [[ $ARCHITECTURE -eq "arm64" ]] then
-    export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-    export PUPPETEER_EXECUTABLE_PATH=`which chromium`
-fi
+# ARCHITECTURE=$(uname -m)
+#
+# if [[ `uname -m` -eq "arm64" ]] then
+#     export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+#     export PUPPETEER_EXECUTABLE_PATH=`which chromium`
+# fi
 
 if (( $+commands[nvim] )) then
     export EDITOR=nvim
@@ -234,10 +234,6 @@ if (( $+commands[paru] )) then
 fi
 
 alias zel="zellij"
-
-if (( $+commands[gitui] )) then
-    alias gitui="gitui -t mocha.ron"
-fi
 
 if (( $+commands[evcxr] )) then
     alias irust="evcxr"
