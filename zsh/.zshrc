@@ -10,7 +10,7 @@ export SOPS_AGE_KEY_FILE=$HOME/.config/sops/age/keys.txt
 
 ARCHITECTURE=$(uname -m)
 
-if [[ $ARCHITECTURE -eq "arm64" ]] then
+if [[ $ARCHITECTURE = "arm64" ]] then
     export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
     export PUPPETEER_EXECUTABLE_PATH=`which chromium`
 fi
@@ -196,9 +196,9 @@ git-current-branch() {
     git rev-parse --abbrev-ref HEAD
 }
 
-if [[ `uname` -eq "Linux" ]]; then
+if [[ `uname` = "Linux" ]]; then
     alias copy-to-clipboard="wl-copy"
-elif [[ `uname` -eq "Darwin" ]]; then
+elif [[ `uname` = "Darwin" ]]; then
     alias copy-to-clipboard="pbcopy"
 fi
 
