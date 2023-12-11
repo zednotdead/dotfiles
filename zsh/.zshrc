@@ -235,10 +235,6 @@ fi
 
 alias zel="zellij"
 
-if (( $+commands[gitui] )) then
-    alias gitui="gitui -t mocha.ron"
-fi
-
 if (( $+commands[evcxr] )) then
     alias irust="evcxr"
 fi
