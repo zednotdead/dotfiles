@@ -127,9 +127,9 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		config = function()
-      vim.o.foldmethod = "expr"
-      vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-      vim.o.foldenable = false
+			vim.o.foldmethod = "expr"
+			vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+			vim.o.foldenable = false
 
 			require("nvim-treesitter.configs").setup({
 				sync_install = false,
@@ -202,6 +202,18 @@ return {
 				typescriptreact = { "eslint_d" },
 				astro = { "eslint_d" },
 				json = { "jq", { "prettierd", "prettier" } },
+				rust = { "rustfmt" },
+				bash = { "beautysh" },
+				sh = { "beautysh" },
+				zsh = { "beautysh" },
+				sql = { "sqlfluff" },
+				toml = { "taplo" },
+			},
+			formatters = {
+				rustfmt = {
+					command = "rustfmt",
+					args = { "--edition=2021", "--emit=stdout" },
+				},
 			},
 		},
 	},
