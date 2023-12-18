@@ -32,7 +32,16 @@ return {
 					client.server_capabilities.documentFormattingProvider = true
 				end,
 			})
-			lspconfig.rust_analyzer.setup({})
+			lspconfig.rust_analyzer.setup({
+				settings = {
+					["rust-analyzer"] = {
+						checkOnSave = true,
+						check = {
+							command = "clippy",
+						},
+					},
+				},
+			})
 			lspconfig.bashls.setup({})
 			lspconfig.mdx_analyzer.setup({})
 		end,
