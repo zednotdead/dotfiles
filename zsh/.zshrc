@@ -257,6 +257,10 @@ if (( $+commands[jaq] )) then
     alias jq="jaq"
 fi
 
+npm-update() {
+    jq -r ".devDependencies | keys[]" package.json | fzf --multi | xargs -I _ npm i -D _@latest
+}
+
 # Loading Antidote
 
 # source antidote
