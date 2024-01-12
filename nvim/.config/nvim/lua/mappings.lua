@@ -99,6 +99,7 @@ if telescope_loaded then
   vim.keymap.set("n", "<Leader>ff", '<Nop>', { desc = "Live grep" })
   vim.keymap.set("n", "<Leader>ff", telescope_live_grep, { desc = "Live grep" })
   vim.keymap.set("n", "<Leader>fd", telescope_diagnostics, { desc = "Diagnostics" })
+  vim.keymap.set("n", "<Leader>lD", telescope_diagnostics, { desc = "Diagnostics" })
   -- Bindings END
 end
 -- Telescope END

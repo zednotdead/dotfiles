@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 
 # Environment variables
-export PATH=$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$HOME/go/bin:$HOME/bin:$PATH
+export FLYCTL_INSTALL="/home/zed/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$HOME/go/bin:$HOME/bin:$PATH"
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="$HOME/.evm/bin:$PATH"
@@ -106,6 +107,7 @@ generate-completion "pulumi" "pulumi gen-completion zsh"
 generate-completion "just" "just --completions zsh"
 generate-completion "podman" "podman completion zsh"
 generate-completion "kubectl" "kubectl completion zsh"
+generate-completion "pnpm" "pnpm install-completion zsh"
 
 # Hooks
 
@@ -262,3 +264,7 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
 # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
 antidote load
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
