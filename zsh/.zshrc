@@ -261,6 +261,10 @@ npm-update() {
     jq -r ".devDependencies | keys[]" package.json | fzf --multi | xargs -I _ npm i -D _@latest
 }
 
+sshfzf() {
+    ssh $(grep -P '(Host )(?!\*)' ~/.ssh/config | cut -b 6- | fzf --query "$LBUFFER" --height=20)
+}
+
 # Loading Antidote
 
 # source antidote
