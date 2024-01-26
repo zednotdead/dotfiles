@@ -196,3 +196,25 @@ if wk_loaded then
     ["<Leader>"] = { name = "comment" },
   }, { prefix = "<Leader>" })
 end
+
+local spider_loaded, spider = pcall(require, "spider")
+if spider_loaded then
+  vim.keymap.set(
+    { "n", "o", "x" },
+    "w",
+    function() spider.motion('w') end,
+    { desc = "Spider-w" }
+  )
+  vim.keymap.set(
+    { "n", "o", "x" },
+    "e",
+    function() spider.motion('e') end,
+    { desc = "Spider-e" }
+  )
+  vim.keymap.set(
+    { "n", "o", "x" },
+    "b",
+    function() spider.motion('b') end,
+    { desc = "Spider-b" }
+  )
+end

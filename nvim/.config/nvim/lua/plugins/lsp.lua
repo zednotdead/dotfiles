@@ -220,13 +220,13 @@ return {
 		end,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-textobjects",
-      "IndianBoy42/tree-sitter-just"
+			"IndianBoy42/tree-sitter-just",
 		},
 	},
-  {
-    "IndianBoy42/tree-sitter-just",
-    config = true
-  },
+	{
+		"IndianBoy42/tree-sitter-just",
+		config = true,
+	},
 	-- END }}}
 	-- FORMATTING BEGIN {{{
 	{
@@ -266,5 +266,14 @@ return {
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
 	},
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		opts = {},
+	},
+  {
+		"windwp/nvim-ts-autotag",
+		opts = {},
+  },
 	-- END }}}
 }
