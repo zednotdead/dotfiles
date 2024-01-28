@@ -270,5 +270,14 @@ return {
 		"pest-parser/pest.vim",
 		config = true,
 	},
+  {
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		opts = {},
+	},
+  {
+		"windwp/nvim-ts-autotag",
+		opts = {},
+  },
 	-- END }}}
 }
