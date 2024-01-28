@@ -12,3 +12,5 @@ if [[ -f "$HOME/.cargo/bin/rtx" ]]; then
 fi
 
 
+
+complete -C /usr/bin/vault vault

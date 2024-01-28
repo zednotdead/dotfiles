@@ -8,6 +8,7 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="$HOME/.evm/bin:$PATH"
 export HISTORY_SUBSTRING_SEARCH_PREFIXED="true"
 export SOPS_AGE_KEY_FILE=$HOME/.config/sops/age/keys.txt
+export VAULT_ADDR="http://192.168.1.6:8200"
 
 ARCHITECTURE=$(uname -m)
 
@@ -98,7 +99,7 @@ generate-completion() {
 
 generate-completion "rustup" "rustup completions zsh"
 generate-completion "cargo" "rustup completions zsh cargo"
-generate-completion "rtx" "rtx complete --shell zsh"
+generate-completion "mise" "mise complete --shell zsh"
 generate-completion "docker" "docker completion zsh"
 generate-completion "sqlx" "sqlx completions zsh"
 generate-completion "gh" "gh completion -s zsh"
@@ -108,6 +109,9 @@ generate-completion "just" "just --completions zsh"
 generate-completion "podman" "podman completion zsh"
 generate-completion "kubectl" "kubectl completion zsh"
 generate-completion "pnpm" "pnpm install-completion zsh"
+generate-completion "vault" "vault -autocomplete-install"
+generate-completion "flux" "flux completion zsh"
+generate-completion "helm" "helm completion zsh"
 
 # Hooks
 
@@ -115,8 +119,8 @@ if (( $+commands[zoxide] )) then
 	eval "$(zoxide init zsh)"
 fi
 
-if (( $+commands[rtx] )) then
-	eval "$(rtx activate zsh)"
+if (( $+commands[mise] )) then
+	eval "$(mise activate zsh)"
 fi
 
 if (( $+commands[starship] )) then
@@ -276,3 +280,6 @@ antidote load
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/vault vault
