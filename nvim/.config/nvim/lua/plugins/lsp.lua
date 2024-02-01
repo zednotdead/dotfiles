@@ -21,6 +21,18 @@ return {
 				},
 			})
 			lspconfig.tsserver.setup({
+				init_options = {
+					preferences = {
+						includeInlayParameterNameHints = "all",
+						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+						includeInlayFunctionParameterTypeHints = true,
+						includeInlayVariableTypeHints = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayFunctionLikeReturnTypeHints = true,
+						includeInlayEnumMemberValueHints = true,
+						importModuleSpecifierPreference = "non-relative",
+					},
+				},
 				capabilities = cmp_capabilities,
 				on_attach = function(client)
 					client.server_capabilities.documentFormattingProvider = false
@@ -32,7 +44,7 @@ return {
 					client.server_capabilities.documentFormattingProvider = true
 				end,
 			})
-			lspconfig.rust_analyzer.setup({
+			--[[ lspconfig.rust_analyzer.setup({
 				settings = {
 					["rust-analyzer"] = {
 						checkOnSave = true,
@@ -41,7 +53,7 @@ return {
 						},
 					},
 				},
-			})
+			}) ]]
 			lspconfig.bashls.setup({})
 			lspconfig.mdx_analyzer.setup({})
 			lspconfig.jsonls.setup({
@@ -72,6 +84,10 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			"b0o/schemastore.nvim",
 		},
+	},
+	{
+		"mrcjkb/rustaceanvim",
+		ft = { "rust" },
 	},
 	{
 		"j-hui/fidget.nvim",
@@ -153,7 +169,6 @@ return {
 			})
 		end,
 	},
-	{},
 	-- COMPLETION END }}}
 	-- TREESITTER BEGIN {{{
 	{
@@ -270,14 +285,14 @@ return {
 		"pest-parser/pest.vim",
 		config = true,
 	},
-  {
+	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		opts = {},
 	},
-  {
+	{
 		"windwp/nvim-ts-autotag",
 		opts = {},
-  },
+	},
 	-- END }}}
 }
