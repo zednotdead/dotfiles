@@ -18,8 +18,8 @@ if [[ -f "$HOME/.cargo/env" ]]; then
 	. $HOME/.cargo/env
 fi
 
-if [[ -f "$HOME/.cargo/bin/rtx" ]]; then
-	. <(rtx env)
+if [[ -f "$HOME/.cargo/bin/mise" ]]; then
+	. <(mise env)
 fi
 
 #if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
