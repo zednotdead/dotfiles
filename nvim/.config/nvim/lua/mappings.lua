@@ -111,31 +111,39 @@ vim.keymap.set("n", "<Leader><Esc>", function()
 end, { desc = "Dismiss everything" })
 -- Noice END
 
-local no_delete = {
-	"NvimTree",
-}
-
 -- Tabs BEGIN
-local cokeline_loaded, ckl = pcall(require, "cokeline.mappings")
-if cokeline_loaded then
+local barbar_loaded, bb = pcall(require, "barbar.api")
+if barbar_loaded then
 	vim.keymap.set("n", "gt", function()
-		ckl.by_step("focus", 1)
+		vim.cmd([[BufferNext]])
 	end, { desc = "Next tab" })
 	vim.keymap.set("n", "gT", function()
-		ckl.by_step("focus", -1)
+		vim.cmd([[BufferPrevious]])
 	end, { desc = "Previous tab" })
 	vim.keymap.set("n", "<Leader>t.", function()
-		ckl.by_step("focus", 1)
+		vim.cmd([[BufferNext]])
 	end, { desc = "Next tab" })
 	vim.keymap.set("n", "<Leader>t,", function()
-		ckl.by_step("focus", -1)
+		vim.cmd([[BufferPrevious]])
 	end, { desc = "Previous tab" })
-	vim.keymap.set("n", "<Leader>tt", function()
-		ckl.pick("focus")
-	end, { desc = "Pick tab" })
-	vim.keymap.set("n", "<Leader>td", function()
-		ckl.pick("close")
-	end, { desc = "Delete tab" })
+
+	vim.keymap.set("n", "<Leader>tt", bb.pick_buffer, { desc = "Pick tab" })
+	vim.keymap.set("n", "<Leader>td", function ()
+	 bb.pick_buffer_delete(1, true)
+	end, { desc = "Pick tab to delete" })
+
+	for var = 1, 9 do
+		vim.keymap.set("n", "<A-" .. var .. ">", function()
+			bb.goto_buffer(var)
+		end, { desc = "Go to tab " .. var })
+	end
+
+	vim.keymap.set("n", "<A-0>", function()
+		bb.goto_buffer(-1)
+	end, { desc = "Go to last tab" })
+
+	vim.keymap.set("n", "<Leader>to", bb.close_all_but_current_or_pinned, { desc = "Close all but last tab" })
+
 	--
 	-- vim.keymap.set("n", "<Leader>to", function()
 	--   -- Get all buffers
