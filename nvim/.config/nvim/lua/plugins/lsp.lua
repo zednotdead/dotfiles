@@ -44,7 +44,7 @@ return {
 					client.server_capabilities.documentFormattingProvider = true
 				end,
 			})
-			--[[ lspconfig.rust_analyzer.setup({
+			lspconfig.rust_analyzer.setup({
 				settings = {
 					["rust-analyzer"] = {
 						checkOnSave = true,
@@ -53,7 +53,7 @@ return {
 						},
 					},
 				},
-			}) ]]
+			})
 			lspconfig.bashls.setup({})
 			lspconfig.mdx_analyzer.setup({})
 			lspconfig.jsonls.setup({
@@ -78,16 +78,19 @@ return {
 					},
 				},
 			})
+      lspconfig.tailwindcss.setup {
+        init_options = {
+          eelixir = "html-eex",
+          eruby = "erb",
+          rust = "html"
+        }
+      }
 		end,
 		dependencies = {
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp",
 			"b0o/schemastore.nvim",
 		},
-	},
-	{
-		"mrcjkb/rustaceanvim",
-		ft = { "rust" },
 	},
 	{
 		"j-hui/fidget.nvim",

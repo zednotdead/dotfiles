@@ -112,6 +112,8 @@ generate-completion "pnpm" "pnpm install-completion zsh"
 generate-completion "vault" "vault -autocomplete-install"
 generate-completion "flux" "flux completion zsh"
 generate-completion "helm" "helm completion zsh"
+generate-completion "jj" "jj util completion --zsh"
+generate-completion "zellij" "zellij setup --generate-completion zsh"
 
 # Hooks
 
@@ -283,3 +285,11 @@ antidote load
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/vault vault
+
+# pnpm
+export PNPM_HOME="/home/zed/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
