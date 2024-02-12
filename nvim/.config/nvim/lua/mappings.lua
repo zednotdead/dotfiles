@@ -23,8 +23,18 @@ vim.keymap.set("n", "<Leader><Tab>", [[<Cmd>NvimTreeToggle<CR>]], { desc = "Open
 -- Neotree END
 
 -- Sessions BEGIN
-vim.keymap.set("n", "<Leader>sl", [[<Cmd>SessionManager load_session<CR>]], { desc = "Load session" })
-vim.keymap.set("n", "<Leader>ss", [[<Cmd>SessionManager save_current_session<CR>]], { desc = "Save current session" })
+local possession_loaded, pos = pcall(require, "possession")
+if possession_loaded then
+  vim.keymap.set("n", "<Leader>sl", function ()
+    require("telescope").extensions.possession.list()
+  end, { desc = "Load session" })
+
+  vim.keymap.set("n", "<Leader>ss", function ()
+    vim.ui.input({ prompt="Input name of session: " }, function (input)
+      pos.save(input)
+    end)
+  end, { desc = "Save current session" })
+end
 -- Sessions END
 
 -- LSP BEGIN
@@ -144,28 +154,6 @@ if barbar_loaded then
 
 	vim.keymap.set("n", "<Leader>to", bb.close_all_but_current_or_pinned, { desc = "Close all but last tab" })
 
-	--
-	-- vim.keymap.set("n", "<Leader>to", function()
-	--   -- Get all buffers
-	--   local bufs = vim.api.nvim_list_bufs()
-	--   -- Get current buffer
-	--   local current_buf = vim.api.nvim_get_current_buf()
-	--
-	--   for _, i in ipairs(bufs) do
-	--     ---@diagnostic disable-next-line: undefined-field
-	--     local filetype = vim.bo[i].filetype
-	--     -- If the filetype is on no delete list, skip it
-	--     if contains(no_delete, filetype) then
-	--       goto continue
-	--     end
-	--
-	--     -- If the buffer is the current one, skip it
-	--     if i ~= current_buf then
-	--       vim.api.nvim_buf_delete(i, {})
-	--     end
-	--     ::continue::
-	--   end
-	-- end, { desc = "Close all but current tab" })
 end
 -- Tabs END
 

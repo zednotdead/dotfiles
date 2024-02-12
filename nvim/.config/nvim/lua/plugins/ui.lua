@@ -17,32 +17,11 @@ return {
 		opts = {},
 	},
 	{
-		"Shatur/neovim-session-manager",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		"jedrzejboczar/possession.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
 		config = function()
-			local config = require("session_manager.config")
-
-			require("session_manager").setup({
-				autoload_mode = config.AutoloadMode.Disabled,
-				autosave_ignore_filetypes = {
-					"gitcommit",
-					"gitrebase",
-					"alpha",
-				},
-				autosave_ignore_dirs = {
-					vim.fn.expand("$HOME"),
-				},
-				autosave_only_in_session = true,
-			})
-			local config_group = vim.api.nvim_create_augroup("NeovimSessionManagerGroup", {})
-
-			vim.api.nvim_create_autocmd({ "User" }, {
-				pattern = "SessionLoadPost",
-				group = config_group,
-				callback = function()
-					require("nvim-tree.api").tree.open()
-				end,
-			})
+			require("possession").setup({})
+			require("telescope").load_extension("possession")
 		end,
 	},
 	{
@@ -238,6 +217,6 @@ return {
 	},
 	{
 		"folke/twilight.nvim",
-    config = true,
+		config = true,
 	},
 }
