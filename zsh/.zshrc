@@ -222,7 +222,6 @@ ghpr() {
     gh pr view $(git-current-branch) --json url | jq -r .url | copy-to-clipboard
 }
 
-alias ls="exa --icons"
 alias gpu="git push"
 alias gput="git push && git push --tags"
 alias gpl="git pull"
@@ -293,3 +292,7 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+if (( $+commands[eza] )) then
+    alias ls="eza --icons"
+fi
