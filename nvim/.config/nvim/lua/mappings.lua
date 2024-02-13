@@ -1,13 +1,3 @@
----@diagnostic disable-next-line: duplicate-set-field
-local function contains(table, val)
-	for i = 1, #table do
-		if table[i] == val then
-			return true
-		end
-	end
-	return false
-end
-
 function _G.terminal_keymaps()
 	local opts = { buffer = 0 }
 	vim.keymap.set("t", "<C-esc>", [[<C-\><C-n>]], opts)
@@ -25,15 +15,20 @@ vim.keymap.set("n", "<Leader><Tab>", [[<Cmd>NvimTreeToggle<CR>]], { desc = "Open
 -- Sessions BEGIN
 local possession_loaded, pos = pcall(require, "possession")
 if possession_loaded then
-  vim.keymap.set("n", "<Leader>sl", function ()
-    require("telescope").extensions.possession.list()
-  end, { desc = "Load session" })
+	vim.keymap.set("n", "<Leader>sl", function()
+		require("telescope").extensions.possession.list()
+	end, { desc = "Load session" })
 
-  vim.keymap.set("n", "<Leader>ss", function ()
-    vim.ui.input({ prompt="Input name of session: " }, function (input)
-      pos.save(input)
-    end)
-  end, { desc = "Save current session" })
+	vim.keymap.set("n", "<Leader>ss", function()
+    local session_name = require("possession.session").session_name
+    if session_name == nil then
+      vim.ui.input({ prompt = "Input name of session: " }, function(input)
+        pos.save(input, { no_confirm = true })
+      end)
+    else
+      pos.save(session_name, { no_confirm = true })
+    end
+	end, { desc = "Save current session" })
 end
 -- Sessions END
 
@@ -138,8 +133,8 @@ if barbar_loaded then
 	end, { desc = "Previous tab" })
 
 	vim.keymap.set("n", "<Leader>tt", bb.pick_buffer, { desc = "Pick tab" })
-	vim.keymap.set("n", "<Leader>td", function ()
-	 bb.pick_buffer_delete(1, true)
+	vim.keymap.set("n", "<Leader>td", function()
+		bb.pick_buffer_delete(1, true)
 	end, { desc = "Pick tab to delete" })
 
 	for var = 1, 9 do
@@ -153,7 +148,6 @@ if barbar_loaded then
 	end, { desc = "Go to last tab" })
 
 	vim.keymap.set("n", "<Leader>to", bb.close_all_but_current_or_pinned, { desc = "Close all but last tab" })
-
 end
 -- Tabs END
 

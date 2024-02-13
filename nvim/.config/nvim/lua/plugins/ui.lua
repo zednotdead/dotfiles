@@ -162,7 +162,7 @@ return {
 			require("gitblame").setup(opts)
 		end,
 	},
-	{ "kevinhwang91/nvim-bqf", config = true },
+	{ "kevinhwang91/nvim-bqf", config = true, opts = {} },
 	{ "chrisgrieser/nvim-spider", config = true },
 	{
 		"folke/todo-comments.nvim",

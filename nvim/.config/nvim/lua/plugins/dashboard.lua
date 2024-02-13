@@ -36,7 +36,7 @@ return {
         theme.button(
           "f",
           "  Find project",
-          ":SessionManager load_session<CR>",
+          ":Telescope possession list<CR>",
           {}
         ),
 
