@@ -17,6 +17,10 @@ if [[ $ARCHITECTURE = "arm64" ]] then
     export PUPPETEER_EXECUTABLE_PATH=`which chromium`
 fi
 
+if (( $+commands[bob] )) then
+    export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+fi
+
 if (( $+commands[nvim] )) then
     export EDITOR=nvim
 fi
@@ -114,6 +118,8 @@ generate-completion "flux" "flux completion zsh"
 generate-completion "helm" "helm completion zsh"
 generate-completion "jj" "jj util completion --zsh"
 generate-completion "zellij" "zellij setup --generate-completion zsh"
+generate-completion "grype" "grype completion zsh"
+generate-completion "syft" "syft completion zsh"
 
 # Hooks
 
@@ -296,3 +302,11 @@ esac
 if (( $+commands[eza] )) then
     alias ls="eza --icons"
 fi
+
+if (( $+commands[mcfly] )) then
+    eval "$(mcfly init zsh)"
+    if (( $+commands[mcfly-fzf] )) then
+        eval "$(mcfly-fzf init zsh)"
+    fi
+fi
+

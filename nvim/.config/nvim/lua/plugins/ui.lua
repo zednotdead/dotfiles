@@ -163,7 +163,11 @@ return {
 		end,
 	},
 	{ "kevinhwang91/nvim-bqf", config = true, opts = {} },
-	{ "chrisgrieser/nvim-spider", config = true },
+	{
+		"chrisgrieser/nvim-spider",
+		config = true,
+		opts = { skipInsignificantPunctuation = false },
+	},
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
