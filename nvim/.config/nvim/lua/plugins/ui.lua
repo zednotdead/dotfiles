@@ -12,6 +12,15 @@ return {
 		},
 	},
 	{
+		"aznhe21/actions-preview.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim", "MunifTanjim/nui.nvim" },
+		config = function()
+			require("actions-preview").setup({
+        backend = {"telescope", "nui"},
+			})
+		end,
+	},
+	{
 		"rcarriga/nvim-notify",
 		config = true,
 		opts = {},

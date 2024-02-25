@@ -47,8 +47,14 @@ else
 	end
 end
 
+local ap_loaded, ap = pcall(require, "actions-preview");
+
 local code_action_fn = function()
-	vim.lsp.buf.code_action()
+  if ap_loaded then
+    ap.code_actions()
+  else
+    vim.lsp.buf.code_action()
+  end
 end
 local show_diagnostics_fn = function()
 	vim.diagnostic.open_float()
