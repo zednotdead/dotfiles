@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Environment variables
-export FLYCTL_INSTALL="/home/zed/.fly"
+export FLYCTL_INSTALL="$HOME/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$HOME/.local/bin:$HOME/.config/emacs/bin:$HOME/.deno/bin:$HOME/go/bin:$HOME/bin:$PATH"
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
@@ -120,6 +120,7 @@ generate-completion "jj" "jj util completion --zsh"
 generate-completion "zellij" "zellij setup --generate-completion zsh"
 generate-completion "grype" "grype completion zsh"
 generate-completion "syft" "syft completion zsh"
+generate-completion "bob" "bob complete zsh"
 
 # Hooks
 
@@ -225,7 +226,7 @@ copy() {
 }
 
 ghpr() {
-    gh pr view $(git-current-branch) --json url | jq -r .url | copy-to-clipboard
+    gh pr view $(git-current-branch) --json url | jq -r .url | copy
 }
 
 alias gpu="git push"
@@ -292,7 +293,7 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/vault vault
 
 # pnpm
-export PNPM_HOME="/home/zed/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
