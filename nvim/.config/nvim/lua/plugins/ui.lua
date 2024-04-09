@@ -16,7 +16,23 @@ return {
 		dependencies = { "nvim-telescope/telescope.nvim", "MunifTanjim/nui.nvim" },
 		config = function()
 			require("actions-preview").setup({
-        backend = {"telescope", "nui"},
+				backend = { "telescope", "nui" },
+				telescope = vim.tbl_extend(
+					"force",
+					require("telescope.themes").get_cursor({
+						winblend = 10,
+						preview_title = false,
+						results_title = false,
+						layout_config = {
+							width = 180,
+							height = 15,
+						},
+					}),
+					{
+						make_value = nil,
+						make_make_display = nil,
+					}
+				),
 			})
 		end,
 	},
@@ -28,8 +44,9 @@ return {
 	{
 		"jedrzejboczar/possession.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
-		config = function()
-			require("possession").setup({})
+    opts = {},
+		config = function(_, opts)
+			require("possession").setup(opts)
 			require("telescope").load_extension("possession")
 		end,
 	},

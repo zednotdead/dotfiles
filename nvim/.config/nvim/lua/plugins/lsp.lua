@@ -6,6 +6,7 @@ return {
 			local lspconfig = require("lspconfig")
 			local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+      lspconfig.biome.setup({})
 			lspconfig.lua_ls.setup({
 				capabilities = cmp_capabilities,
 				settings = {
@@ -53,6 +54,9 @@ return {
 						},
 					},
 				},
+				on_attach = function(_, bufnr)
+					vim.lsp.inlay_hint.enable(bufnr, true)
+				end,
 			})
 			lspconfig.bashls.setup({})
 			lspconfig.mdx_analyzer.setup({})
@@ -78,13 +82,13 @@ return {
 					},
 				},
 			})
-      lspconfig.tailwindcss.setup {
-        init_options = {
-          eelixir = "html-eex",
-          eruby = "erb",
-          rust = "html"
-        }
-      }
+			lspconfig.tailwindcss.setup({
+				init_options = {
+					eelixir = "html-eex",
+					eruby = "erb",
+					rust = "html",
+				},
+			})
 		end,
 		dependencies = {
 			"hrsh7th/nvim-cmp",
@@ -252,9 +256,9 @@ return {
 		opts = {
 			formatters_by_ft = {
 				lua = { "stylua" },
-				javascript = { "eslint_d" },
-				typescript = { "eslint_d" },
-				typescriptreact = { "eslint_d" },
+				javascript = { { "biome" }, "eslint_d" },
+				typescript = { { "biome" }, "eslint_d" },
+				typescriptreact = { { "biome" }, "eslint_d" },
 				astro = { "eslint_d" },
 				json = { "jq", { "prettierd", "prettier" } },
 				rust = { "rustfmt" },

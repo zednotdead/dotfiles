@@ -33,6 +33,10 @@ if [ -d "/opt/homebrew" ]; then
     export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 fi
 
+if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 if [ -d "$HOME/.pulumi/bin" ]; then
     # add Pulumi to the PATH
     export PATH=$PATH:$HOME/.pulumi/bin
@@ -101,6 +105,10 @@ generate-completion() {
     fi
 }
 
+get-task-completions() {
+    curl "https://raw.githubusercontent.com/go-task/task/main/completion/zsh/_task"
+}
+
 generate-completion "rustup" "rustup completions zsh"
 generate-completion "cargo" "rustup completions zsh cargo"
 generate-completion "mise" "mise complete --shell zsh"
@@ -120,6 +128,8 @@ generate-completion "jj" "jj util completion --zsh"
 generate-completion "zellij" "zellij setup --generate-completion zsh"
 generate-completion "grype" "grype completion zsh"
 generate-completion "syft" "syft completion zsh"
+generate-completion "velero" "velero completion zsh"
+generate-completion "go-task" "get-task-completions"
 
 # Hooks
 
@@ -266,6 +276,14 @@ fi
 
 if (( $+commands[jaq] )) then
     alias jq="jaq"
+fi
+
+if (( $+commands[kdash] )) then
+    alias kd="kdash"
+fi
+
+if (( $+commands[go-task] )) then
+    alias task="go-task"
 fi
 
 npm-update() {
