@@ -131,6 +131,7 @@ generate-completion "syft" "syft completion zsh"
 generate-completion "velero" "velero completion zsh"
 generate-completion "go-task" "get-task-completions"
 generate-completion "bob" "bob complete zsh"
+generate-completion "talosctl" "talosctl completion zsh"
 
 # Hooks
 

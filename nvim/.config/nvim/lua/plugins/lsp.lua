@@ -6,7 +6,7 @@ return {
 			local lspconfig = require("lspconfig")
 			local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      lspconfig.biome.setup({})
+			lspconfig.biome.setup({})
 			lspconfig.lua_ls.setup({
 				capabilities = cmp_capabilities,
 				settings = {
@@ -267,11 +267,16 @@ return {
 				zsh = { "beautysh" },
 				sql = { "sqlfluff" },
 				toml = { "taplo" },
+				terraform = { "terraform_fmt" },
 			},
 			formatters = {
 				rustfmt = {
 					command = "rustfmt",
 					args = { "--edition=2021", "--emit=stdout" },
+				},
+				terraform_fmt = {
+					command = "tofu",
+					args = { "fmt", "-no-color", "-" },
 				},
 			},
 		},
