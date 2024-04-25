@@ -41,6 +41,12 @@ if [ -d "$HOME/.pulumi/bin" ]; then
     # add Pulumi to the PATH
     export PATH=$PATH:$HOME/.pulumi/bin
 fi
+
+if [ -d "$HOME/.krew/bin" ]; then
+    # add Pulumi to the PATH
+    export PATH=$PATH:$HOME/.krew/bin
+fi
+
 # Config
 
 HISTFILE=$HOME/.cache/zsh/.histfile
@@ -286,6 +292,10 @@ fi
 
 if (( $+commands[go-task] )) then
     alias task="go-task"
+fi
+
+if (( $+commands[kubectl] )) then
+    alias k="kubectl"
 fi
 
 npm-update() {
