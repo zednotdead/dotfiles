@@ -298,6 +298,10 @@ if (( $+commands[kubectl] )) then
     alias k="kubectl"
 fi
 
+if (( $+commands[yazi] )) then
+    alias yy="yazi"
+fi
+
 npm-update() {
     jq -r ".devDependencies | keys[]" package.json | fzf --multi | xargs -I _ npm i -D _@latest
 }
