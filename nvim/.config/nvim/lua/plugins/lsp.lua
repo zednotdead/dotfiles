@@ -291,6 +291,7 @@ return {
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-neotest/neotest-jest",
+			"marilari88/neotest-vitest",
 			"rouge8/neotest-rust",
 		},
 		config = function()
@@ -298,6 +299,7 @@ return {
 				adapters = {
 					require("neotest-jest")({}),
 					require("neotest-rust"),
+					require("neotest-vitest"),
 				},
 			})
 		end,
