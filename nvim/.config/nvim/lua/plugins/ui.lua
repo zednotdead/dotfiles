@@ -86,8 +86,8 @@ return {
 			close_if_last_window = true,
 			filesystem = {
 				follow_current_file = {
-					enabled = false,
-					leave_dirs_open = false,
+					enabled = true,
+					leave_dirs_open = true,
 				},
 				filtered_items = {
 					hide_dotfiles = false,
