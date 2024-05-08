@@ -7,32 +7,41 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
 			pickers = {
-				live_grep = { theme = "ivy" },
+				live_grep = {
+					theme = "ivy",
+					file_ignore_patterns = {
+						"node_modules",
+						".git",
+						".venv",
+						"lazy-lock.json",
+						"package-lock.json",
+						"yarn.lock",
+					},
+					additional_args = function(_)
+						return { "-uuu" }
+					end,
+				},
+				find_files = {
+					file_ignore_patterns = {
+						"node_modules",
+						".git",
+						".venv",
+						"lazy-lock.json",
+						"package-lock.json",
+						"yarn.lock",
+					},
+					find_command = { "fd", "-tf", "-u" },
+				},
 			},
 		},
 	},
 	{
 		"aznhe21/actions-preview.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim", "MunifTanjim/nui.nvim" },
+		dependencies = { "nvim-telescope/telescope.nvim" },
 		config = function()
 			require("actions-preview").setup({
-				backend = { "telescope", "nui" },
-				telescope = vim.tbl_extend(
-					"force",
-					require("telescope.themes").get_cursor({
-						winblend = 10,
-						preview_title = false,
-						results_title = false,
-						layout_config = {
-							width = 180,
-							height = 15,
-						},
-					}),
-					{
-						make_value = nil,
-						make_make_display = nil,
-					}
-				),
+				backend = { "telescope" },
+				telescope = vim.tbl_extend("force", require("telescope.themes").get_ivy(), {}),
 			})
 		end,
 	},
@@ -72,6 +81,19 @@ return {
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
 			"3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+		},
+		opts = {
+			close_if_last_window = true,
+			filesystem = {
+				follow_current_file = {
+					enabled = false,
+					leave_dirs_open = false,
+				},
+				filtered_items = {
+					hide_dotfiles = false,
+					visible = true,
+				},
+			},
 		},
 	},
 	"lukas-reineke/indent-blankline.nvim",
