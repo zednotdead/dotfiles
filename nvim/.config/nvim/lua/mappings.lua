@@ -9,7 +9,7 @@ end
 
 vim.cmd("autocmd! TermOpen term://* lua terminal_keymaps()")
 -- Neotree BEGIN
-vim.keymap.set("n", "<Leader><Tab>", [[<Cmd>NvimTreeToggle<CR>]], { desc = "Open neotree" })
+vim.keymap.set("n", "<Leader><Tab>", [[<Cmd>Neotree toggle<CR>]], { desc = "Open neotree" })
 -- Neotree END
 
 -- Sessions BEGIN
