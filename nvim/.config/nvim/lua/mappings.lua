@@ -47,15 +47,16 @@ else
 	end
 end
 
-local ap_loaded, ap = pcall(require, "actions-preview");
+local ap_loaded, ap = pcall(require, "actions-preview")
 
 local code_action_fn = function()
-  if ap_loaded then
-    ap.code_actions()
-  else
-    vim.lsp.buf.code_action()
-  end
+	if ap_loaded then
+		ap.code_actions()
+	else
+		vim.lsp.buf.code_action()
+	end
 end
+
 local show_diagnostics_fn = function()
 	vim.diagnostic.open_float()
 end
@@ -90,8 +91,29 @@ vim.keymap.set("n", "gr", rename_fn, { desc = "Rename" })
 local telescope_loaded, _ = pcall(require, "telescope")
 if telescope_loaded then
 	-- Functions BEGIN
+
+	-- SOURCE: https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#live-grep-from-project-git-root-with-fallback
 	local function telescope_find_files()
-		require("telescope.builtin").find_files()
+		local function is_git_repo()
+			vim.fn.system("git rev-parse --is-inside-work-tree")
+
+			return vim.v.shell_error == 0
+		end
+
+		local function get_git_root()
+			local dot_git_path = vim.fn.finddir(".git", ".;")
+			return vim.fn.fnamemodify(dot_git_path, ":h")
+		end
+
+		local opts = {}
+
+		if is_git_repo() then
+			opts = {
+				cwd = get_git_root(),
+			}
+		end
+
+		require("telescope.builtin").live_grep(opts)
 	end
 
 	local function telescope_live_grep()
