@@ -39,7 +39,7 @@ local conform_loaded, conform = pcall(require, "conform")
 
 if conform_loaded then
 	format_fn = function()
-		conform.format()
+		conform.format({ lsp_fallback = true })
 	end
 else
 	format_fn = function()

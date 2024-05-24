@@ -256,9 +256,9 @@ return {
 		opts = {
 			formatters_by_ft = {
 				lua = { "stylua" },
-				javascript = { { "biome" }, "eslint_d" },
-				typescript = { { "biome" }, "eslint_d" },
-				typescriptreact = { { "biome" }, "eslint_d" },
+				javascript = { { "biome" }, "eslint", "eslint_d" },
+				typescript = { { "biome" }, "eslint", "eslint_d" },
+				typescriptreact = { { "biome" }, "eslint", "eslint_d" },
 				astro = { "eslint_d" },
 				json = { "jq", { "prettierd", "prettier" } },
 				rust = { "rustfmt" },
