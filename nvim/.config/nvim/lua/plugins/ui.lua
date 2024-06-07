@@ -311,7 +311,7 @@ return {
 		"folke/zen-mode.nvim",
 		opts = {
 			kitty = {
-				enabled = false,
+				enabled = true,
 				font = "+4", -- font size increment
 			},
 		},

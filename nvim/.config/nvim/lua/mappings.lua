@@ -92,8 +92,12 @@ local telescope_loaded, _ = pcall(require, "telescope")
 if telescope_loaded then
 	-- Functions BEGIN
 
-	-- SOURCE: https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#live-grep-from-project-git-root-with-fallback
 	local function telescope_find_files()
+		require("telescope.builtin").find_files()
+	end
+
+	-- SOURCE: https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#live-grep-from-project-git-root-with-fallback
+	local function telescope_live_grep_no_gitignore()
 		local function is_git_repo()
 			vim.fn.system("git rev-parse --is-inside-work-tree")
 
@@ -117,7 +121,9 @@ if telescope_loaded then
 	end
 
 	local function telescope_live_grep()
-		require("telescope.builtin").live_grep()
+		local opts = {}
+
+		require("telescope.builtin").live_grep(opts)
 	end
 
 	local function telescope_diagnostics()
@@ -127,10 +133,11 @@ if telescope_loaded then
 
 	-- Bindings BEGIN
 	vim.keymap.set("n", "<Leader>fi", telescope_find_files, { desc = "Find files" })
-	vim.keymap.set("n", "<C-S-f>", telescope_live_grep, { desc = "Live grep" })
+	vim.keymap.set("n", "<C-S-f>", telescope_live_grep_no_gitignore, { desc = "Live grep" })
 	-- Unset, something conflicts
 	vim.keymap.set("n", "<Leader>ff", "<Nop>", { desc = "Live grep" })
 	vim.keymap.set("n", "<Leader>ff", telescope_live_grep, { desc = "Live grep" })
+	vim.keymap.set("n", "<Leader>fF", telescope_live_grep_no_gitignore, { desc = "Live grep" })
 	vim.keymap.set("n", "<Leader>fd", telescope_diagnostics, { desc = "Diagnostics" })
 	vim.keymap.set("n", "<Leader>lD", telescope_diagnostics, { desc = "Diagnostics" })
 	-- Bindings END
@@ -199,6 +206,11 @@ if zen_loaded then
 		})
 	end, { desc = "Live grep" })
 	-- Bindings END
+end
+
+local spectre_loaded, spectre = pcall(require, "spectre")
+if spectre_loaded then
+	vim.keymap.set("n", "<Leader>S", spectre.toggle, { desc = "Toggle Spectre" })
 end
 
 local wk_loaded, wk = pcall(require, "which-key")
