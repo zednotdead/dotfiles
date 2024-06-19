@@ -31,7 +31,7 @@ return {
 						includeInlayPropertyDeclarationTypeHints = true,
 						includeInlayFunctionLikeReturnTypeHints = true,
 						includeInlayEnumMemberValueHints = true,
-						importModuleSpecifierPreference = "non-relative",
+						importModuleSpecifierPreference = "relative",
 					},
 				},
 				capabilities = cmp_capabilities,
