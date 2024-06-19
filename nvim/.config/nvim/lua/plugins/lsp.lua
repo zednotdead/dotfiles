@@ -289,15 +289,35 @@ return {
       { "nvim-lua/plenary.nvim",        lazy = true },
       {
         "jay-babu/mason-null-ls.nvim",
-        dependencies = { "williamboman/mason.nvim" },
-        cmd = { "NullLsInstall", "NullLsUninstall" },
-        opts_extend = { "ensure_installed" },
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
-          ensure_installed = {},
-          handlers = {},
-        },
-      },
+          ensure_installed = nil,
+          automatic_installation = true,
+        }
+      }
     },
+    opts = function(_, opts)
+      local nls = require('null-ls').builtins
+      opts.sources = {
+        nls.formatting.biome.with({
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'json',
+            'jsonc',
+            'typescript',
+            'typescriptreact',
+            'css',
+          },
+        }),
+        nls.formatting.stylua,
+        nls.formatting.shfmt.with({
+          filetypes = { 'sh', 'zsh' },
+        }),
+        require("none-ls.formatting.eslint_d"),
+      }
+      return opts
+    end
   },
   -- }}}
   -- TESTING & DEBUGGING {{{
