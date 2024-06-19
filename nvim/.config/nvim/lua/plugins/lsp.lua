@@ -315,6 +315,7 @@ return {
           filetypes = { 'sh', 'zsh' },
         }),
         require("none-ls.formatting.eslint_d"),
+        require("none-ls.diagnostics.eslint"),
       }
       return opts
     end
