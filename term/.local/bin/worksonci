@@ -1,0 +1,44 @@
+#!/usr/bin/env zsh
+
+BLACK=$(tput setaf 0)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+LIME_YELLOW=$(tput setaf 190)
+POWDER_BLUE=$(tput setaf 153)
+BLUE=$(tput setaf 4)
+MAGENTA=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+WHITE=$(tput setaf 7)
+BRIGHT=$(tput bold)
+NORMAL=$(tput sgr0)
+BLINK=$(tput blink)
+REVERSE=$(tput smso)
+UNDERLINE=$(tput smul)
+
+fixprod() {
+    # Check if we're in a Node.js project
+    if [[ ! -f ./package.json ]] then
+        echo "${RED}[ERROR]${NORMAL} You are not currently in a Node.js project. Move to one, and run the command again."
+        return 1;
+    fi
+
+    if ! jq '.scripts.build, .scripts.test' './package.json' 2>&1 > /dev/null; then
+        echo "${RED}[ERROR]${NORMAL} There are no \`build\` or \`test\` scripts, exiting early."
+        return 1;
+    fi
+
+    if [[ -d ./dist ]] then
+        echo "${BLUE}[INFO]${NORMAL} Deleting the dist directory"
+        rm -rf ./dist
+    fi
+
+    echo "${BLUE}[INFO]${NORMAL} Rebuilding the app"
+    NODE_ENV=production npm run build
+    echo "${BLUE}[INFO]${NORMAL} Running the test"
+    NODE_ENV=production npm run test
+}
+
+fixprod
+
+# vim: set ft=zsh:

@@ -267,17 +267,17 @@ return {
 		opts = function(_, opts)
 			local nls = require("null-ls").builtins
 			opts.sources = {
-				nls.formatting.biome.with({
-					filetypes = {
-						"javascript",
-						"javascriptreact",
-						"json",
-						"jsonc",
-						"typescript",
-						"typescriptreact",
-						"css",
-					},
-				}),
+				-- nls.formatting.biome.with({
+				-- 	filetypes = {
+				-- 		"javascript",
+				-- 		"javascriptreact",
+				-- 		"json",
+				-- 		"jsonc",
+				-- 		"typescript",
+				-- 		"typescriptreact",
+				-- 		"css",
+				-- 	},
+				-- }),
 				nls.formatting.stylua,
 				nls.formatting.shfmt.with({
 					filetypes = { "sh", "zsh" },
