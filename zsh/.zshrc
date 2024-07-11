@@ -26,7 +26,7 @@ if (( $+commands[nvim] )) then
 fi
 
 if (( $+commands[podman] )) then
-    export DOCKER_HOST="unix:///$HOME/.local/share/containers/podman/machine/qemu/podman.sock"
+  export DOCKER_HOST="unix://$(podman info -f json | jq -r .host.remoteSocket.path)"
 fi
 
 if [ -d "/opt/homebrew" ]; then
@@ -136,6 +136,7 @@ generate-completion "grype" "grype completion zsh"
 generate-completion "syft" "syft completion zsh"
 generate-completion "velero" "velero completion zsh"
 generate-completion "go-task" "get-task-completions"
+generate-completion "task" "get-task-completions"
 generate-completion "bob" "bob complete zsh"
 generate-completion "talosctl" "talosctl completion zsh"
 generate-completion "kubectl-cnpg" "kubectl-cnpg completion zsh"
@@ -285,9 +286,9 @@ if (( $+commands[npm] )) then
     alias nr="npm run"
 fi
 
-if (( $+commands[jaq] )) then
-    alias jq="jaq"
-fi
+# if (( $+commands[jaq] )) then
+#     alias jq="jaq"
+# fi
 
 if (( $+commands[kdash] )) then
     alias kd="kdash"
@@ -362,6 +363,5 @@ if (( $+commands[mcfly] )) then
         eval "$(mcfly-fzf init zsh)"
     fi
 fi
-
 
 source /home/zed/.config/broot/launcher/bash/br

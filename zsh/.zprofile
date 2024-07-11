@@ -26,10 +26,6 @@ fi
 #    export MOZ_ENABLE_WAYLAND=1
 #fi
 
-if (( $+commands[podman] )) then
-	export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
-fi
-
 if (( $+commands[sccache] )) then
 	export RUSTC_WRAPPER=$(which sccache)
 fi

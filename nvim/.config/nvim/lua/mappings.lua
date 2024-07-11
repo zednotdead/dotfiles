@@ -20,7 +20,7 @@ if possession_loaded then
 	end, { desc = "Load session" })
 
 	vim.keymap.set("n", "<Leader>ss", function()
-		local session_name = require("possession.session").session_name
+		local session_name = require("possession.session").get_session_name()
 		if session_name == nil then
 			vim.ui.input({ prompt = "Input name of session: " }, function(input)
 				pos.save(input, { no_confirm = true })
