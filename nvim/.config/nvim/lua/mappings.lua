@@ -175,6 +175,27 @@ if barbar_loaded then
 
 	vim.keymap.set("n", "<Leader>to", bb.close_all_but_current_or_pinned, { desc = "Close all but last tab" })
 end
+
+local bufferline_loaded, bfl = pcall(require, "bufferline")
+if bufferline_loaded then
+	vim.keymap.set("n", "gt", function()
+    bfl.cycle(1);
+	end, { desc = "Next tab" })
+	vim.keymap.set("n", "gT", function()
+    bfl.cycle(-1);
+	end, { desc = "Previous tab" })
+	vim.keymap.set("n", "<Leader>t.", function()
+    bfl.cycle(1);
+	end, { desc = "Next tab" })
+	vim.keymap.set("n", "<Leader>t,", function()
+    bfl.cycle(-1);
+	end, { desc = "Previous tab" })
+
+	vim.keymap.set("n", "<Leader>tt", bfl.pick, { desc = "Pick tab" })
+	vim.keymap.set("n", "<Leader>td", bfl.close_with_pick, { desc = "Pick tab to delete" })
+
+	vim.keymap.set("n", "<Leader>to", bfl.close_others, { desc = "Close all but last tab" })
+end
 -- Tabs END
 
 vim.keymap.set("n", "<Leader>gb", "<Cmd>GitBlameToggle<CR>", { desc = "Toggle blame" })
