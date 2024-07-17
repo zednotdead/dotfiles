@@ -303,6 +303,10 @@ if (( $+commands[yazi] )) then
     alias yy="yazi"
 fi
 
+if (( $+commands[nvim] )) then
+    alias vim="$EDITOR"
+fi
+
 npm-update() {
     jq -r ".devDependencies | keys[]" package.json | fzf --multi | xargs -I _ npm i -D _@latest
 }
