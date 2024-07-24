@@ -139,9 +139,6 @@ generate-completion "go-task" "get-task-completions"
 generate-completion "task" "get-task-completions"
 generate-completion "bob" "bob complete zsh"
 generate-completion "talosctl" "talosctl completion zsh"
-generate-completion "kubectl-cnpg" "kubectl-cnpg completion zsh"
-generate-completion "restic" "restic generate --zsh-completion zsh > /dev/stdin"
-generate-completion "trivy" "trivy completion zsh"
 
 # Hooks
 
@@ -306,6 +303,10 @@ if (( $+commands[yazi] )) then
     alias yy="yazi"
 fi
 
+if (( $+commands[nvim] )) then
+    alias vim="$EDITOR"
+fi
+
 if (( $+commands[kubie] )) then
     alias kubens="kubie ns"
     alias kubectx="kubectx"
@@ -317,17 +318,6 @@ npm-update() {
 
 sshfzf() {
     ssh $(grep -P '(Host )(?!\*)' ~/.ssh/config | cut -b 6- | fzf --query "$LBUFFER" --height=20)
-}
-
-alias zreload="source $HOME/.zshrc"
-
-function yy() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
 }
 
 # Loading Antidote
@@ -364,4 +354,3 @@ if (( $+commands[mcfly] )) then
     fi
 fi
 
-source /home/zed/.config/broot/launcher/bash/br
