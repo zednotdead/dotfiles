@@ -8,8 +8,6 @@ return {
       bufferline.setup({
         options = {
           diagnostics = "nvim_lsp",
-          diagnostics_update_in_insert = true,
-          numbers = "ordinal",
           hover = {
             enabled = true,
             delay = 200,

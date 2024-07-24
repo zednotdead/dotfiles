@@ -55,7 +55,7 @@ return {
 					},
 				},
 				on_attach = function(_, bufnr)
-					vim.lsp.inlay_hint.enable(bufnr, true)
+					vim.lsp.inlay_hint.enable(true, { bufnr })
 				end,
 			})
 			lspconfig.bashls.setup({})
@@ -102,7 +102,16 @@ return {
 		event = "LspAttach",
 		opts = {},
 	},
-	{ "folke/neodev.nvim", opts = {} },
+	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+			},
+		},
+	},
+	{ "Bilal2453/luvit-meta", lazy = true },
 	--- LSP END }}}
 	-- AUTOINSTALL BEGIN {{{
 	{
