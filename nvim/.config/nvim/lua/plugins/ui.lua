@@ -1,3 +1,13 @@
+local ignore_js = {
+						"node_modules",
+						".git",
+						".venv",
+						"lazy-lock.json",
+						"package-lock.json",
+						"yarn.lock",
+            "dist"
+					}
+
 return {
 	{
 		"hiphish/rainbow-delimiters.nvim",
@@ -48,27 +58,13 @@ return {
 			pickers = {
 				live_grep = {
 					theme = "ivy",
-					file_ignore_patterns = {
-						"node_modules",
-						".git",
-						".venv",
-						"lazy-lock.json",
-						"package-lock.json",
-						"yarn.lock",
-					},
+					file_ignore_patterns = ignore_js,
 					additional_args = function(_)
 						return { "-uuu" }
 					end,
 				},
 				find_files = {
-					file_ignore_patterns = {
-						"node_modules",
-						".git",
-						".venv",
-						"lazy-lock.json",
-						"package-lock.json",
-						"yarn.lock",
-					},
+					file_ignore_patterns = ignore_js,
 					find_command = { "fd", "-tf", "-u" },
 				},
 			},
