@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-curl -GH "Content-Type: text/plain" ifconfig.me/ip
+current_ip=$(curl -sGH "Content-Type: text/plain" ifconfig.me/ip)
+
+echo $current_ip
