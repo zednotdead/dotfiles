@@ -359,3 +359,7 @@ if (( $+commands[mcfly] )) then
     fi
 fi
 
+
+if [[ `hostname` =~ "polpc.*" ]] then
+    source $HOME/work.zshrc
+fi
