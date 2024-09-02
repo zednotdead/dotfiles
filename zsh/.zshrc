@@ -95,6 +95,11 @@ zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle :compinstall filename '$HOME/.zshrc'
 zstyle :omz:plugins:ssh-agent quiet yes
 
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
 autoload -Uz compinit
 compinit
 
@@ -126,7 +131,7 @@ generate-completion "pulumi" "pulumi gen-completion zsh"
 generate-completion "just" "just --completions zsh"
 generate-completion "podman" "podman completion zsh"
 generate-completion "kubectl" "kubectl completion zsh"
-generate-completion "pnpm" "pnpm install-completion zsh"
+generate-completion "pnpm" "pnpm completion zsh"
 generate-completion "vault" "vault -autocomplete-install"
 generate-completion "flux" "flux completion zsh"
 generate-completion "helm" "helm completion zsh"
@@ -271,10 +276,10 @@ if (( $+commands[evcxr] )) then
     alias irust="evcxr"
 fi
 
-if (( $+commands[go-task] )) then
-    alias task="go-task"
-fi
-
+# if (( $+commands[go-task] )) then
+#     alias task="go-task"
+# fi
+#
 if (( $+commands[docker] )) then
     alias dcup="docker-compose up"
 fi
@@ -289,10 +294,6 @@ fi
 
 if (( $+commands[kdash] )) then
     alias kd="kdash"
-fi
-
-if (( $+commands[go-task] )) then
-    alias task="go-task"
 fi
 
 if (( $+commands[kubectl] )) then
@@ -310,6 +311,10 @@ fi
 if (( $+commands[kubie] )) then
     alias kubens="kubie ns"
     alias kubectx="kubectx"
+fi
+
+if (( $+commands[listenbrainz-cli-tools] )) then
+    alias lb="listenbrainz-cli-tools"
 fi
 
 npm-update() {
