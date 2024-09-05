@@ -1,0 +1,8 @@
+[settings]
+experimental = true
+
+[tools]
+go = "latest"
+"go:github.com/charmbracelet/glow" = "latest"
+ubi = "latest"
+"cargo:git-delta" = "latest"
