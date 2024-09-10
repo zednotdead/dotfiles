@@ -1,12 +1,12 @@
 local ignore_js = {
-						"node_modules",
-						".git",
-						".venv",
-						"lazy-lock.json",
-						"package-lock.json",
-						"yarn.lock",
-            "dist"
-					}
+	"node_modules",
+	".git",
+	".venv",
+	"lazy-lock.json",
+	"package-lock.json",
+	"yarn.lock",
+	"dist",
+}
 
 return {
 	{
@@ -315,5 +315,18 @@ return {
 	{
 		"folke/twilight.nvim",
 		config = true,
+	},
+	{
+		"dnlhc/glance.nvim",
+		opts = {},
+		config = true,
+	},
+	{
+		"OXY2DEV/markview.nvim",
+		lazy = false,
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
 	},
 }

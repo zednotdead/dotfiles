@@ -57,14 +57,24 @@ local code_action_fn = function()
 	end
 end
 
+local glances_loaded, glances = pcall(require, "glance")
+
 local show_diagnostics_fn = function()
 	vim.diagnostic.open_float()
 end
 local goto_definition_fn = function()
-	vim.lsp.buf.definition()
+	if glances_loaded then
+		glances.open("definitions")
+	else
+		vim.lsp.buf.definition()
+	end
 end
 local goto_references_fn = function()
-	vim.lsp.buf.references()
+	if glances_loaded then
+		glances.open("references")
+	else
+		vim.lsp.buf.references()
+	end
 end
 local hover_fn = function()
 	vim.lsp.buf.hover()

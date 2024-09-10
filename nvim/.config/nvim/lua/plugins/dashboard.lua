@@ -1,11 +1,11 @@
 local function get_os_icon()
-	local os = vim.loop.os_uname().sysname
+	local os = vim.uv.os_uname().sysname
 	if os == "Darwin" then
 		return "🍎"
 	elseif os == "Linux" then
 		return "🐧"
-  else
-    return "🪟"
+	else
+		return "🪟"
 	end
 end
 
