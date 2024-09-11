@@ -233,29 +233,4 @@ return {
 		end,
 	},
 	-- }}}
-	-- MISC BEGIN {{{
-	{
-		"kylechui/nvim-surround",
-		version = "*",
-		event = "VeryLazy",
-		config = true,
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-treesitter/nvim-treesitter-textobjects",
-		},
-	},
-	{
-		"pest-parser/pest.vim",
-		config = true,
-	},
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		opts = {},
-	},
-	{
-		"windwp/nvim-ts-autotag",
-		opts = {},
-	},
-	-- END }}}
 }

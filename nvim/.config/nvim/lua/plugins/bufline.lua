@@ -13,6 +13,11 @@ return {
             delay = 200,
             reveal = { "close" },
           },
+          offsets = {
+            {
+              filetype = "neo-tree",
+            },
+          },
         },
       })
     end,

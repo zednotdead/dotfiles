@@ -2,7 +2,8 @@
 experimental = true
 
 [tools]
-go = "latest"
 "go:github.com/charmbracelet/glow" = "latest"
-ubi = "latest"
 "cargo:git-delta" = "latest"
+node = "21"
+python = "3.12"
+go = "latest"
