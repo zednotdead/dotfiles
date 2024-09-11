@@ -35,7 +35,7 @@ return {
 					},
 				},
 			})
-			lspconfig.tsserver.setup({
+			lspconfig.ts_ls.setup({
 				init_options = {
 					preferences = {
 						includeInlayParameterNameHints = "all",
@@ -139,7 +139,7 @@ return {
 				automatic_installation = true,
 				ensure_installed = {
 					"eslint",
-					"tsserver",
+					"ts_ls",
 					"lua_ls",
 				},
 			})
