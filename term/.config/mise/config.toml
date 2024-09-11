@@ -4,6 +4,6 @@ experimental = true
 [tools]
 "go:github.com/charmbracelet/glow" = "latest"
 "cargo:git-delta" = "latest"
-node = "21"
 python = "3.12"
 go = "latest"
+node = "22"
