@@ -26,7 +26,7 @@ if (( $+commands[nvim] )) then
 fi
 
 if (( $+commands[podman] )) then
-  export DOCKER_HOST="unix://$(podman info -f json | jq -r .host.remoteSocket.path)"
+  export DOCKER_HOST="unix://$(podman machine inspect | jq -r '.[].ConnectionInfo.PodmanSocket.Path')"
 fi
 
 if [ -d "/opt/homebrew" ]; then

@@ -25,25 +25,8 @@ elseif os == "Linux" then
 	vim.opt.guifont = { font, ":h14" }
 end
 
-vim.g.python3_host_prog = "/home/zed/.local/share/rtx/installs/python/3.10.11/bin/python3"
-
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
-vim.lsp.buf.format({
-	filter = function(client)
-		return client.name ~= "ts_ls"
-	end,
-})
+-- Set up Lazy.nvim
+require("config.lazy")
 
 vim.opt.undofile = true
 local undodir = vim.fn.stdpath("data") .. "/undodir"
@@ -55,6 +38,4 @@ vim.opt.undodir = undodir
 
 vim.loader.enable()
 
----@diagnostic disable-next-line: undefined-field
-require("lazy").setup("plugins")
 require("mappings")

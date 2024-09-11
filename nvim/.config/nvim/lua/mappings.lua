@@ -235,7 +235,7 @@ if zen_loaded then
 				width = 0.85,
 			},
 		})
-	end, { desc = "Live grep" })
+	end, { desc = "Zen mode" })
 	-- Bindings END
 end
 
@@ -275,10 +275,11 @@ if luasnip_loaded then
 	vim.keymap.set({ "i" }, "<C-K>", function()
 		ls.expand()
 	end, { silent = true })
-	vim.keymap.set({ "i", "s" }, "<C-L>", function()
+	vim.keymap.set({ "i", "s" }, "<C-.>", function()
 		ls.jump(1)
 	end, { silent = true })
-	vim.keymap.set({ "i", "s" }, "<C-H>", function()
+	vim.keymap.set({ "i", "s" }, "<C-,>", function()
 		ls.jump(-1)
 	end, { silent = true })
 end
+
