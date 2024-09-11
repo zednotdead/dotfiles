@@ -4,7 +4,7 @@
 
 Remember to run this, or else `poet-v` will not work:
 
-```bash
+```sh
 python3 -m pip install --user --upgrade pynvim
 ```
 
