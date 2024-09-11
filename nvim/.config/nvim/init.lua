@@ -41,7 +41,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 vim.lsp.buf.format({
 	filter = function(client)
-		return client.name ~= "tsserver"
+		return client.name ~= "ts_ls"
 	end,
 })
 
