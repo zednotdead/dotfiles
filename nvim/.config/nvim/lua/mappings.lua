@@ -103,7 +103,12 @@ if telescope_loaded then
 	-- Functions BEGIN
 
 	local function telescope_find_files()
-		require("telescope.builtin").find_files()
+		local frecency_loaded, frecency = pcall(require, "telescope-frecency")
+		if frecency_loaded then
+			frecency.start({ workspace = "CWD" })
+		else
+			require("telescope.builtin").find_files()
+		end
 	end
 
 	-- SOURCE: https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#live-grep-from-project-git-root-with-fallback
@@ -282,4 +287,3 @@ if luasnip_loaded then
 		ls.jump(-1)
 	end, { silent = true })
 end
-
