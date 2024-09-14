@@ -159,6 +159,20 @@ if telescope_loaded then
 end
 -- Telescope END
 
+-- Find and replace BEGIN
+
+local grug_loaded, grug = pcall(require, "grug-far")
+
+if grug_loaded then
+	local function find_and_replace_toggle()
+		grug.open()
+	end
+
+	vim.keymap.set("n", "<Leader>fr", find_and_replace_toggle, { desc = "Find and replace" })
+end
+
+-- Find and replace END
+
 -- Noice BEGIN
 vim.keymap.set("n", "<Leader><Esc>", function()
 	require("noice").cmd("dismiss")
@@ -242,11 +256,6 @@ if zen_loaded then
 		})
 	end, { desc = "Zen mode" })
 	-- Bindings END
-end
-
-local spectre_loaded, spectre = pcall(require, "spectre")
-if spectre_loaded then
-	vim.keymap.set("n", "<Leader>S", spectre.toggle, { desc = "Toggle Spectre" })
 end
 
 local wk_loaded, wk = pcall(require, "which-key")

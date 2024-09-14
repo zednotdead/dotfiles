@@ -3,6 +3,7 @@
 
 -- Set up leader
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 -- Set up tab width
 vim.o.expandtab = true
@@ -18,7 +19,7 @@ vim.opt.termguicolors = true
 -- set GUI font
 local font = "PragmataPro Liga"
 
-local os = vim.loop.os_uname().sysname
+local os = vim.uv.os_uname().sysname
 if os == "Darwin" then
 	vim.opt.guifont = { font, ":h16" }
 elseif os == "Linux" then
