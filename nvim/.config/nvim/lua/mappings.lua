@@ -39,9 +39,7 @@ if possession_loaded then
 end
 local persisted_loaded, pers = pcall(require, "persisted")
 if persisted_loaded then
-	vim.keymap.set("n", "<Leader>sl", function()
-		pers.select()
-	end, { desc = "Load session" })
+	vim.keymap.set("n", "<Leader>sl", "<Cmd>Telescope persisted<CR>", { desc = "Load session" })
 
 	vim.keymap.set("n", "<Leader>ss", function()
 		pers.save()
