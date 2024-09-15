@@ -21,6 +21,7 @@ return {
 					visible = true,
 				},
 			},
+      auto_clean_after_session_restore = true,
 		},
 	},
 }

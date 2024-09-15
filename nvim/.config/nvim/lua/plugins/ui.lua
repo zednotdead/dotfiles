@@ -1,7 +1,7 @@
 return {
 	{
 		"folke/noice.nvim",
-    enabled = true,
+		enabled = true,
 		event = "VeryLazy",
 		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
 		opts = {
@@ -59,14 +59,21 @@ return {
 			},
 		},
 	},
-  {
-    "stevearc/dressing.nvim",
-    enabled = true,
-    lazy = false,
-  },
+	{
+		"stevearc/dressing.nvim",
+		enabled = true,
+		lazy = false,
+	},
 	{
 		"rcarriga/nvim-notify",
 		config = true,
 		opts = {},
+	},
+	{
+		"Bekaboo/dropbar.nvim",
+		event = "BufEnter",
+		dependencies = {
+			"nvim-telescope/telescope-fzf-native.nvim",
+		},
 	},
 }

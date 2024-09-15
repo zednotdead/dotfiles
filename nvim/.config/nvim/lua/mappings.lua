@@ -9,7 +9,14 @@ end
 
 vim.cmd("autocmd! TermOpen term://* lua terminal_keymaps()")
 -- Neotree BEGIN
-vim.keymap.set("n", "<Leader><Tab>", [[<Cmd>Neotree toggle<CR>]], { desc = "Open neotree" })
+local nt_loaded, nt_cmd = pcall(require, "neo-tree.command")
+if nt_loaded then
+  local function toggle_filetree()
+    nt_cmd.execute({ toggle = true })
+  end
+
+	vim.keymap.set("n", "<Leader><Tab>", toggle_filetree, { desc = "Open neotree" })
+end
 -- Neotree END
 
 -- Sessions BEGIN
@@ -28,6 +35,16 @@ if possession_loaded then
 		else
 			pos.save(session_name, { no_confirm = true })
 		end
+	end, { desc = "Save current session" })
+end
+local persisted_loaded, pers = pcall(require, "persisted")
+if persisted_loaded then
+	vim.keymap.set("n", "<Leader>sl", function()
+		pers.select()
+	end, { desc = "Load session" })
+
+	vim.keymap.set("n", "<Leader>ss", function()
+		pers.save()
 	end, { desc = "Save current session" })
 end
 -- Sessions END
@@ -299,6 +316,6 @@ end
 
 local ufo_loaded, ufo = pcall(require, "ufo")
 if ufo_loaded then
-  vim.keymap.set('n', 'zR', ufo.openAllFolds)
-  vim.keymap.set('n', 'zM', ufo.closeAllFolds)
+	vim.keymap.set("n", "zR", ufo.openAllFolds)
+	vim.keymap.set("n", "zM", ufo.closeAllFolds)
 end
