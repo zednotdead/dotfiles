@@ -296,3 +296,9 @@ if luasnip_loaded then
 		ls.jump(-1)
 	end, { silent = true })
 end
+
+local ufo_loaded, ufo = pcall(require, "ufo")
+if ufo_loaded then
+  vim.keymap.set('n', 'zR', ufo.openAllFolds)
+  vim.keymap.set('n', 'zM', ufo.closeAllFolds)
+end

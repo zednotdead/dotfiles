@@ -76,7 +76,12 @@ return {
 			local mason_lspconfig = require("mason-lspconfig")
 			-- local on_attach = require("plugins.lsp.opts").on_attach
 			-- local on_init = require("plugins.lsp.opts").on_init
+
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			capabilities.textDocument.foldingRange = {
+				dynamicRegistration = false,
+				lineFoldingOnly = true,
+			}
 
 			local disabled_servers = {
 				"jdtls",
