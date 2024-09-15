@@ -76,4 +76,11 @@ return {
 			"nvim-telescope/telescope-fzf-native.nvim",
 		},
 	},
+	{
+		"mvllow/modes.nvim",
+		event = "BufEnter",
+		config = function()
+			require("modes").setup()
+		end,
+	},
 }
