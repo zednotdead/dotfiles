@@ -42,6 +42,10 @@ if (( $+commands[rbenv] )) then
   eval "$(rbenv init - zsh)"
 fi
 
+if (( $+commands[rye] )) then
+    source "$HOME/.rye/env"
+fi
+
 # Wasmer
 export WASMER_DIR="/home/zed/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"

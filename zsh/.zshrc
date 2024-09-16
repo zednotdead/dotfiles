@@ -363,3 +363,7 @@ fi
 if [[ `hostname` =~ "polpc.*" ]] then
     source $HOME/work.zshrc
 fi
+
+if (( $+commands[rye] )) then
+    source "$HOME/.rye/env"
+fi

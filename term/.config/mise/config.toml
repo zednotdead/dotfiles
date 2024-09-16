@@ -7,3 +7,5 @@ experimental = true
 python = "3.12"
 go = "latest"
 node = "22"
+"npm:pnpm" = "latest"
+rye = "latest"
