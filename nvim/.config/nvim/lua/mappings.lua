@@ -11,9 +11,9 @@ vim.cmd("autocmd! TermOpen term://* lua terminal_keymaps()")
 -- Neotree BEGIN
 local nt_loaded, nt_cmd = pcall(require, "neo-tree.command")
 if nt_loaded then
-  local function toggle_filetree()
-    nt_cmd.execute({ toggle = true })
-  end
+	local function toggle_filetree()
+		nt_cmd.execute({ toggle = true })
+	end
 
 	vim.keymap.set("n", "<Leader><Tab>", toggle_filetree, { desc = "Open neotree" })
 end
@@ -94,9 +94,18 @@ end
 local hover_fn = function()
 	vim.lsp.buf.hover()
 end
+
 local rename_fn = function()
 	vim.lsp.buf.rename()
 end
+
+local increname_loaded, _ = pcall(require, "inc_rename")
+if increname_loaded then
+	rename_fn = function()
+    return ":IncRename " .. vim.fn.expand("<cword>")
+	end
+end
+
 -- END
 
 -- Bindings BEGIN
@@ -107,8 +116,8 @@ vim.keymap.set("n", "<Leader>ld", show_diagnostics_fn, { desc = "Show diagnostic
 vim.keymap.set("n", "gd", goto_definition_fn, { desc = "Go to definition" })
 vim.keymap.set("n", "gD", goto_references_fn, { desc = "Show references" })
 vim.keymap.set("n", "K", hover_fn, { desc = "Show information" })
-vim.keymap.set("n", "<Leader>lr", rename_fn, { desc = "Rename" })
-vim.keymap.set("n", "gr", rename_fn, { desc = "Rename" })
+vim.keymap.set("n", "<Leader>lr", rename_fn, { desc = "Rename", expr = increname_loaded })
+vim.keymap.set("n", "gr", rename_fn, { desc = "Rename", expr = increname_loaded })
 -- Bindings END
 -- LSP END
 

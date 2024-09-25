@@ -26,6 +26,7 @@ return {
 	},
 	{
 		"smjonas/inc-rename.nvim",
-    event = "BufEnter"
+		cmd = "IncRename",
+		opts = {},
 	},
 }
