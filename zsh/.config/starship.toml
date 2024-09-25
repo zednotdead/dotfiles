@@ -50,7 +50,7 @@ truncate_to_repo = true
 [c]
 symbol = " "
 style = "fg:blue"
-format = '[$symbol($version)]($style)'
+format = '[$symbol($version) ]($style)'
 
 
 [docker_context]
@@ -61,17 +61,17 @@ format = '[$symbol $context]($style)'
 [elixir]
 symbol = " "
 style = "fg:white"
-format = '[$symbol ($version)]($style)'
+format = '[$symbol ($version) ]($style)'
 
 [elm]
 symbol = " "
 style = "fg:white"
-format = '[$symbol ($version)]($style)'
+format = '[$symbol ($version) ]($style)'
 
 [git_branch]
 symbol = ""
 style = "fg:white"
-format = '[$symbol $branch]($style)'
+format = '[$symbol $branch ]($style)'
 
 [git_status]
 style = "fg:yellow"
@@ -83,56 +83,56 @@ staged = "  ×${count}"
 untracked = "  ×${count}"
 stashed = ""
 deleted = "  ×${count}"
-format = '[$all_status$ahead_behind ]($style)'
+format = '[$all_status$ahead_behind]($style)'
 
 [golang]
 symbol = " "
 style = "fg:white"
-format = '[$symbol ($version)]($style)'
+format = '[$symbol ($version) ]($style)'
 
 [gradle]
 style = "fg:white"
-format = '[$symbol ($version)]($style)'
+format = '[$symbol ($version) ]($style)'
 
 [haskell]
 symbol = " "
 style = "fg:purple"
-format = '[$symbol ($version)]($style)'
+format = '[$symbol ($version) ]($style)'
 
 [java]
 symbol = " "
 style = "fg:red"
-format = '[$symbol ($version)]($style)'
+format = '[$symbol ($version) ]($style)'
 
 [julia]
 symbol = " "
 style = "fg:red"
-format = '[$symbol ($version)]($style)'
+format = '[$symbol ($version) ]($style)'
 
 [nodejs]
 symbol = ""
 style = "fg:green"
-format = '[ $symbol ($version)]($style)'
+format = '[$symbol ($version) ]($style)'
 
 [nim]
 symbol = " "
 style = "fg:yellow"
-format = '[$symbol ($version)]($style)'
+format = '[$symbol ($version) ]($style)'
 
 [rust]
 symbol = ""
 style = "fg:orange"
-format = '[$symbol ($version)]($style)'
+format = '[$symbol ($version) ]($style)'
 
 [scala]
 symbol = " "
 style = "fg:red"
-format = '[$symbol ($version)]($style)'
+format = '[$symbol ($version) ]($style)'
 
 [bun]
 symbol = "🍔"
 style = "fg:orange"
-format = '[$symbol ($version)]($style)'
+format = '[$symbol ($version) ]($style)'
 
 [time]
 disabled = true
