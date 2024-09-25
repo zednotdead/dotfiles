@@ -37,6 +37,7 @@ if possession_loaded then
 		end
 	end, { desc = "Save current session" })
 end
+
 local persisted_loaded, pers = pcall(require, "persisted")
 if persisted_loaded then
 	vim.keymap.set("n", "<Leader>sl", "<Cmd>Telescope persisted<CR>", { desc = "Load session" })
@@ -44,6 +45,13 @@ if persisted_loaded then
 	vim.keymap.set("n", "<Leader>ss", function()
 		pers.save()
 	end, { desc = "Save current session" })
+end
+
+local as_loaded, _ = pcall(require, "auto-session")
+if as_loaded then
+	vim.keymap.set("n", "<Leader>sl", "<cmd>SessionSearch<CR>", { desc = "Load session" })
+
+	vim.keymap.set("n", "<Leader>ss", "<cmd>SessionSave<CR>", { desc = "Save session" })
 end
 -- Sessions END
 
@@ -102,7 +110,7 @@ end
 local increname_loaded, _ = pcall(require, "inc_rename")
 if increname_loaded then
 	rename_fn = function()
-    return ":IncRename " .. vim.fn.expand("<cword>")
+		return ":IncRename " .. vim.fn.expand("<cword>")
 	end
 end
 
@@ -325,4 +333,9 @@ local ufo_loaded, ufo = pcall(require, "ufo")
 if ufo_loaded then
 	vim.keymap.set("n", "zR", ufo.openAllFolds)
 	vim.keymap.set("n", "zM", ufo.closeAllFolds)
+end
+
+local tt_loaded, _ = pcall(require, "toggleterm")
+if tt_loaded then
+	vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 end

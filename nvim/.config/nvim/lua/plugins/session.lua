@@ -1,6 +1,7 @@
 return {
-	--[[ {
+	{
 		"jedrzejboczar/possession.nvim",
+		enabled = false,
 		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
 		opts = {
 			autosave = {
@@ -12,9 +13,10 @@ return {
 			require("possession").setup(opts)
 			require("telescope").load_extension("possession")
 		end,
-	}, ]]
+	},
 	{
 		"olimorris/persisted.nvim",
+		enabled = false,
 		lazy = false, -- make sure the plugin is always loaded at startup
 		dependencies = { "nvim-telescope/telescope.nvim" },
 		config = function()
@@ -52,12 +54,23 @@ return {
 				pattern = "PersistedLoadPost",
 				callback = function(_)
 					if nt_loaded then
-            local nt_cmd = require("neo-tree.command")
+						local nt_cmd = require("neo-tree.command")
 
-            nt_cmd.execute({ action = "show" })
+						nt_cmd.execute({ action = "show" })
 					end
 				end,
 			})
 		end,
+	},
+	{
+		"rmagatti/auto-session",
+		lazy = false,
+		---enables autocomplete for opts
+		---@module "auto-session"
+		---@type AutoSession.Config
+		opts = {
+			suppressed_dirs = { "~/Downloads", "/" },
+			auto_save = false,
+		},
 	},
 }

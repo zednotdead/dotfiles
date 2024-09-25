@@ -16,6 +16,7 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		event = "VimEnter",
 		config = function()
+      local alpha = require"alpha"
 			local theme = require("alpha.themes.dashboard")
 
       -- stylua: ignore start
@@ -36,25 +37,25 @@ return {
         theme.button(
           "f",
           "  Find project",
-          ":Telescope possession list<CR>",
+          "<Cmd>SessionSearch<CR>",
           {}
         ),
 
         theme.button(
           "r",
           "  Recent files",
-          ":lua require'telescope.builtin'.oldfiles{}<CR>",
+          "<Cmd>lua require'telescope.builtin'.oldfiles{}<CR>",
           {}
         ),
 
         theme.button(
           "q",
           "  Quit",
-          ":qa<CR>",
+          "<Cmd>qa<CR>",
           {}
         ),
       }
-      require("alpha").setup(theme.config)
+      alpha.setup(theme.config)
 		end,
 	},
 }
