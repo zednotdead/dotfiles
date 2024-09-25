@@ -76,6 +76,7 @@ return {
 			}
 
 			mason.setup({
+				log_level = vim.log.levels.DEBUG,
 				ui = {
 					border = vim.g.border_enabled and "rounded" or "none",
 					-- Whether to automatically check for new versions when opening the :Mason window.
@@ -91,6 +92,29 @@ return {
 
 			mason_lspconfig.setup_handlers({
 				function(server_name) -- default handler (optional)
+					local lspconfig = require("lspconfig")
+
+					if server_name == "omnisharp" then
+						lspconfig[server_name].setup({
+							capabilities = capabilities,
+							cmd = {
+								"omnisharp",
+								"--languageserver",
+								"--hostPID",
+								tostring(vim.fn.getpid()),
+							},
+							settings = {
+								RoslynExtensionsOptions = {
+									enableDecompilationSupport = false,
+									enableImportCompletion = true,
+									enableAnalyzersSupport = true,
+								},
+							},
+							root_dir = lspconfig.util.root_pattern("*.sln"),
+						})
+						return
+					end
+
 					for _, name in pairs(disabled_servers) do
 						if name == server_name then
 							return
@@ -108,7 +132,7 @@ return {
 						opts = vim.tbl_deep_extend("force", server, opts)
 					end
 
-					require("lspconfig")[server_name].setup(opts)
+					lspconfig[server_name].setup(opts)
 				end,
 			})
 		end,

@@ -1,6 +1,10 @@
 -- Proudly stolen from Mark McDonnell
 -- https://github.com/Integralist/nvim
 
+-- Omnisharp
+vim.g.OmniSharp_server_use_net6 = 1
+vim.g.OmniSharp_highlighting = 0
+
 -- Set up leader
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
@@ -27,7 +31,7 @@ elseif os == "Linux" then
 end
 
 -- set up folds
-vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldcolumn = "1" -- '0' is not bad
 vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
