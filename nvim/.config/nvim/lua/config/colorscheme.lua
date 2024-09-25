@@ -1,5 +1,9 @@
-require("catppuccin").setup({
-	flavour = "mocha",
-})
+local cp_loaded, _ = pcall(require, "catppuccin")
+local tn_loaded, _ = pcall(require, "tokyonight")
 
-vim.cmd.colorscheme("catppuccin")
+if cp_loaded then
+  vim.cmd.colorscheme("catppuccin")
+elseif tn_loaded then
+  vim.cmd.colorscheme("tokyonight-night")
+end
+
