@@ -7,19 +7,25 @@ return {
 			vim.opt.splitkeep = "screen"
 		end,
 		keys = {
-      {
-        "<leader>u", desc = "Window layout"
-      },
-      {
-        "<leader>ue",
-        function()
-          require("edgy").toggle()
-        end,
-        desc = "Edgy Toggle",
-      },
-      -- stylua: ignore
-      { "<leader>uE", function() require("edgy").select() end, desc = "Edgy Select Window" },
-    },
+			{
+				"<leader>u",
+				desc = "Window layout",
+			},
+			{
+				"<leader>ue",
+				function()
+					require("edgy").toggle()
+				end,
+				desc = "Edgy Toggle",
+			},
+			{
+				"<leader>uE",
+				function()
+					require("edgy").select()
+				end,
+				desc = "Edgy Select Window",
+			},
+		},
 		---@module "edgy"
 		---@type Edgy.Config
 		opts = {
@@ -49,7 +55,6 @@ return {
 					filter = function(buf, win)
 						return vim.api.nvim_win_get_config(win).relative == ""
 					end,
-
 				},
 				{ ft = "qf", title = "QuickFix" },
 				{

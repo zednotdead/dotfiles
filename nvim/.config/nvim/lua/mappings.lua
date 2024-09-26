@@ -345,3 +345,5 @@ local tt_loaded, _ = pcall(require, "toggleterm")
 if tt_loaded then
 	vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 end
+
+vim.keymap.set("n", "ZZ", "<Cmd>w | qa<CR>", { desc = "quick quit" })
