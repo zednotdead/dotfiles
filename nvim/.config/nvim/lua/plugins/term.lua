@@ -19,7 +19,7 @@ return {
 			float_opts = {
 				border = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" },
 			},
-		},
+g	},
     config = function (_, opts)
       require("toggleterm").setup(opts)
       require("config.terminals")
