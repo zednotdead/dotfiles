@@ -197,7 +197,13 @@ local grug_loaded, grug = pcall(require, "grug-far")
 
 if grug_loaded then
 	local function find_and_replace_toggle()
-		grug.open()
+		local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+		grug.open({
+			transient = true,
+			prefills = {
+				filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+			},
+		})
 	end
 
 	vim.keymap.set("n", "<Leader>fr", find_and_replace_toggle, { desc = "Find and replace" })
