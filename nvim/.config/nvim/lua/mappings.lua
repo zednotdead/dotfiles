@@ -136,7 +136,12 @@ if telescope_loaded then
 
 	local function telescope_find_files()
 		local frecency_loaded, frecency = pcall(require, "telescope-frecency")
-		if frecency_loaded then
+		local smartopen_loaded = pcall(require, "smart-open")
+		if smartopen_loaded then
+			require("telescope").extensions.smart_open.smart_open({
+				cwd_only = true,
+			})
+		elseif frecency_loaded then
 			frecency.start({ workspace = "CWD" })
 		else
 			require("telescope.builtin").find_files()

@@ -26,7 +26,7 @@ if (( $+commands[nvim] )) then
 fi
 
 if (( $+commands[podman] )) then
-  export DOCKER_HOST="unix://$(podman machine inspect | jq -r '.[].ConnectionInfo.PodmanSocket.Path')"
+    export DOCKER_HOST="unix://$(podman machine inspect | jq -r '.[].ConnectionInfo.PodmanSocket.Path')"
 fi
 
 if [ -d "/opt/homebrew" ]; then
@@ -97,7 +97,7 @@ zstyle :omz:plugins:ssh-agent quiet yes
 
 if type brew &>/dev/null
 then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 
 autoload -Uz compinit
@@ -148,19 +148,19 @@ generate-completion "talosctl" "talosctl completion zsh"
 # Hooks
 
 if (( $+commands[zoxide] )) then
-	eval "$(zoxide init zsh)"
+    eval "$(zoxide init zsh)"
 fi
 
 if (( $+commands[mise] )) then
-	eval "$(mise activate zsh)"
+    eval "$(mise activate zsh)"
 fi
 
 if (( $+commands[starship] )) then
-	eval "$(starship init zsh)"
+    eval "$(starship init zsh)"
 fi
 
 if (( $+commands[direnv] )) then
-	eval "$(direnv hook zsh)"
+    eval "$(direnv hook zsh)"
 fi
 
 # Fuzzy git checkout
@@ -172,10 +172,10 @@ fzf-git-branch() {
     git rev-parse HEAD > /dev/null 2>&1 || return
 
     git branch --color=always --all --sort=-committerdate |
-        grep -v HEAD |
-        fzf --height 50% --ansi --no-multi --preview-window right:65% \
-            --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
-        sed "s/.* //"
+    grep -v HEAD |
+    fzf --height 50% --ansi --no-multi --preview-window right:65% \
+        --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
+    sed "s/.* //"
 }
 
 fzf-git-checkout() {
@@ -204,11 +204,11 @@ alias gch="fzf-git-checkout"
 alias fzf-git-get-hash='git log --oneline | fzf | grep -oE "^.{10}"'
 
 grev() {
-	git revert $(fzf-git-get-hash)
+    git revert $(fzf-git-get-hash)
 }
 
 gpuu() {
-     git push -u origin $(git branch --show-current)
+    git push -u origin $(git branch --show-current)
 }
 
 getticketnr() {
@@ -343,8 +343,8 @@ complete -o nospace -C /usr/bin/vault vault
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
 

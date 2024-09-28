@@ -17,7 +17,6 @@ return {
 		tag = "0.1.3",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-frecency.nvim",
 		},
 		opts = {
 			pickers = {
@@ -33,12 +32,36 @@ return {
 					find_command = { "fd", "-tf", "--hidden" },
 				},
 			},
+			extensions = {
+				smart_open = {
+					show_scores = true,
+				},
+			},
 		},
 	},
 	{
 		"nvim-telescope/telescope-frecency.nvim",
+		enabled = false,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
 		config = function()
 			require("telescope").load_extension("frecency")
 		end,
+	},
+	{
+		"danielfalk/smart-open.nvim",
+		branch = "0.2.x",
+		config = function()
+			require("telescope").load_extension("smart_open")
+		end,
+		dependencies = {
+			"kkharji/sqlite.lua",
+			-- Only required if using match_algorithm fzf
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			-- Optional.  If installed, native fzy will be used when match_algorithm is fzy
+			{ "nvim-telescope/telescope-fzy-native.nvim" },
+		},
 	},
 }
