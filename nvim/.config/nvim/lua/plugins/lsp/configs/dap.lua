@@ -61,6 +61,7 @@ return {
 				"theHamsta/nvim-dap-virtual-text",
 				opts = {},
 			},
+			"mxsdev/nvim-dap-vscode-js",
 		},
 
 		keys = {
@@ -201,6 +202,23 @@ return {
 			if vim.fn.filereadable(".vscode/launch.json") then
 				vscode.load_launchjs()
 			end
+		end,
+	},
+	{
+		"mxsdev/nvim-dap-vscode-js",
+		dependencies = {
+			"mfussenegger/nvim-dap",
+			{
+				"microsoft/vscode-js-debug",
+				build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+			},
+		},
+		config = function()
+			---@diagnostic disable-next-line: missing-fields
+			require("dap-vscode-js").setup({
+				debugger_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter",
+				adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
+			})
 		end,
 	},
 }
