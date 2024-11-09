@@ -16,7 +16,7 @@ return {
 			})
 		end,
 		dependencies = {
-			"hrsh7th/nvim-cmp",
+			"iguanacucumber/magazine.nvim",
 			"hrsh7th/cmp-nvim-lsp",
 			"b0o/schemastore.nvim",
 		},
