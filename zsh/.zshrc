@@ -318,6 +318,10 @@ if (( $+commands[listenbrainz-cli-tools] )) then
     alias lb="listenbrainz-cli-tools"
 fi
 
+if (( $+commands[fastfetch] )) then
+    alias ffetch="fastfetch"
+fi
+
 npm-update() {
     jq -r ".devDependencies | keys[]" package.json | fzf --multi | xargs -I _ npm i -D _@latest
 }
