@@ -16,8 +16,8 @@ return {
 			})
 		end,
 		dependencies = {
-			"iguanacucumber/magazine.nvim",
-			"hrsh7th/cmp-nvim-lsp",
+			"saghen/blink.cmp",
+			-- "hrsh7th/cmp-nvim-lsp",
 			"b0o/schemastore.nvim",
 		},
 	},
@@ -55,6 +55,7 @@ return {
 		},
 		dependencies = {
 			"williamboman/mason-lspconfig.nvim",
+			"saghen/blink.cmp",
 		},
 		config = function()
 			local mason = require("mason")
@@ -62,12 +63,6 @@ return {
 			local mason_lspconfig = require("mason-lspconfig")
 			-- local on_attach = require("plugins.lsp.opts").on_attach
 			-- local on_init = require("plugins.lsp.opts").on_init
-
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			}
 
 			local disabled_servers = {
 				"jdtls",
@@ -93,6 +88,12 @@ return {
 			mason_lspconfig.setup_handlers({
 				function(server_name) -- default handler (optional)
 					local lspconfig = require("lspconfig")
+					local config = require("lspconfig.configs")
+					local capabilities = require("blink.cmp").get_lsp_capabilities()
+					capabilities.textDocument.foldingRange = {
+						dynamicRegistration = false,
+						lineFoldingOnly = true,
+					}
 
 					if server_name == "omnisharp" then
 						lspconfig[server_name].setup({

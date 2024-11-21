@@ -42,7 +42,6 @@ require("config.lazy")
 vim.opt.undofile = true
 local undodir = vim.fn.stdpath("data") .. "/undodir"
 if not vim.fn.isdirectory(undodir) then
-	---@diagnostic disable-next-line: param-type-mismatch
 	vim.call(vim.fn.mkdir(vim.fn.expand(undodir), "p"))
 end
 vim.opt.undodir = undodir
