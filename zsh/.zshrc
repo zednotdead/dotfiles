@@ -144,6 +144,7 @@ generate-completion "go-task" "get-task-completions"
 generate-completion "task" "get-task-completions"
 generate-completion "bob" "bob complete zsh"
 generate-completion "talosctl" "talosctl completion zsh"
+generate-completion "nyoom" "nyoom completions zsh"
 
 # Hooks
 
@@ -315,6 +316,10 @@ fi
 
 if (( $+commands[listenbrainz-cli-tools] )) then
     alias lb="listenbrainz-cli-tools"
+fi
+
+if (( $+commands[fastfetch] )) then
+    alias ffetch="fastfetch"
 fi
 
 npm-update() {
