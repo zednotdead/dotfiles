@@ -145,6 +145,7 @@ generate-completion "task" "get-task-completions"
 generate-completion "bob" "bob complete zsh"
 generate-completion "talosctl" "talosctl completion zsh"
 generate-completion "nyoom" "nyoom completions zsh"
+generate-completion "kind" "kind completion zsh"
 
 # Hooks
 
