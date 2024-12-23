@@ -1,6 +1,9 @@
 fish_add_path $HOME/.local/bin
 
 set ARCHITECTURE $(uname -m)
+set SOPS_AGE_KEY_FILE "$HOME/.config/sops/age/keys.txt"
+
+eval (ssh-agent -c)
 
 if test $ARCHITECTURE = "arm64"
   export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
