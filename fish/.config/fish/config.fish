@@ -3,6 +3,10 @@ fish_add_path $HOME/.local/bin
 set ARCHITECTURE $(uname -m)
 set SOPS_AGE_KEY_FILE "$HOME/.config/sops/age/keys.txt"
 
+if command -q cargo
+  fish_add_path "$HOME/.cargo/bin/"
+end
+
 if command -q keychain
   keychain -q --eval id_ed25519 | source
 end
@@ -49,4 +53,11 @@ end
 
 if string match 'polpc.*' $(hostname)
   source "$HOME/.config/fish/work.fish"
+end
+
+if command -q mcfly
+  mcfly init fish | source
+  if command -q mcfly-fzf
+    mcfly-fzf init fish | source
+  end
 end
