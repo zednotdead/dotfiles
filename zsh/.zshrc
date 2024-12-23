@@ -26,7 +26,7 @@ if (( $+commands[nvim] )) then
 fi
 
 if (( $+commands[podman] )) then
-    export DOCKER_HOST="unix://$(podman machine inspect | jq -r '.[].ConnectionInfo.PodmanSocket.Path')"
+    export DOCKER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
 fi
 
 if [ -d "/opt/homebrew" ]; then
@@ -364,7 +364,6 @@ if (( $+commands[mcfly] )) then
         eval "$(mcfly-fzf init zsh)"
     fi
 fi
-
 
 if [[ `hostname` =~ "polpc.*" ]] then
     source $HOME/work.zshrc
