@@ -3,7 +3,7 @@ return {
 		"akinsho/nvim-toggleterm.lua",
 		keys = {
 			{ "<leader>x", desc = "Terminal" },
-			{ "<leader>gg", _gitui_toggle, desc = "Gitui" },
+			{ "<leader>gg", _gitu_toggle, desc = "Gitui" },
 		},
 		opts = {
 			size = 20,

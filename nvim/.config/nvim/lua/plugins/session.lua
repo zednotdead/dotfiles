@@ -69,8 +69,8 @@ return {
 		---@module "auto-session"
 		---@type AutoSession.Config
 		opts = {
-			suppressed_dirs = { "~/Downloads", "/" },
-			auto_save = false,
+			suppressed_dirs = { "~/Downloads", "/", "~" },
+			auto_save = true,
 		},
 	},
 }

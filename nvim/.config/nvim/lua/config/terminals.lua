@@ -3,8 +3,8 @@ if not tt_loaded then
 	return
 end
 
-local gitui = tt.Terminal:new({
-	cmd = "gitui",
+local gitu = tt.Terminal:new({
+	cmd = "gitu",
 	hidden = true,
 	direction = "float",
 	close_on_exit = true,
@@ -18,8 +18,8 @@ local floating = tt.Terminal:new({
 })
 
 ---@diagnostic disable-next-line: lowercase-global
-function _gitui_toggle()
-	gitui:toggle()
+function _gitu_toggle()
+	gitu:toggle()
 end
 
 ---@diagnostic disable-next-line: lowercase-global
@@ -27,4 +27,4 @@ function _floating_toggle()
   floating:toggle()
 end
 
-vim.keymap.set("n", "<Leader>gg", _gitui_toggle, { desc = "Toggle GitUI" })
+vim.keymap.set("n", "<Leader>gg", _gitu_toggle, { desc = "Toggle Gitu" })
