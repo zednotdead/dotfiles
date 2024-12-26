@@ -11,73 +11,32 @@ return {
 		},
 
 		-- use a release tag to download pre-built binaries
-		version = "v0.*",
+		version = "v0.8.2",
 
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
 			keymap = {
-				preset = "enter",
-				["<Tab>"] = {
-					function(cmp)
-						if cmp.is_in_snippet() then
-							return cmp.accept()
-						else
-							return cmp.select_next()
-						end
-					end,
-					"snippet_forward",
-					"fallback",
-				},
-				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
-				["<C-,>"] = { "snippet_backward" },
-				["<C-.>"] = { "snippet_forward" },
+				preset = "enter"
 			},
-			windows = {
-				documentation = {
-					border = vim.g.borderStyle,
-					min_width = 15,
-					max_width = 45, -- smaller, due to https://github.com/Saghen/blink.cmp/issues/194
-					max_height = 10,
-					auto_show = true,
-					auto_show_delay_ms = 250,
-				},
-				autocomplete = {
-					border = vim.g.borderStyle,
-					min_width = 10, -- max_width controlled by draw-function
-					max_height = 10,
-					cycle = { from_top = false }, -- cycle at bottom, but not at the top
-				},
-			},
-			highlight = {
-				use_nvim_cmp_as_default = true,
-			},
-			nerd_font_variant = "normal",
-			sources = {
-				completion = {
-					enabled_providers = { "lsp", "path", "snippets", "buffer", "luasnip" },
-				},
-				providers = {
-					luasnip = {
-						name = "luasnip",
-						module = "blink.compat.source",
-
-						score_offset = -3,
-
-						opts = {
-							use_show_condition = false,
-							show_autosnippets = true,
-						},
-					},
-				},
-			},
-			accept = {
-				expand_snippet = function(snippet)
-					require("luasnip").lsp_expand(snippet)
+			snippets = {
+				expand = function(snippet) require('luasnip').lsp_expand(snippet) end,
+				active = function(filter)
+					if filter and filter.direction then
+						return require('luasnip').jumpable(filter.direction)
+					end
+					return require('luasnip').in_snippet()
 				end,
-				auto_brackets = { enabled = true },
+				jump = function(direction) require('luasnip').jump(direction) end,
 			},
-			trigger = { signature_help = { enabled = true } },
+			sources = {
+				default = { 'lsp', 'path', 'luasnip', 'buffer' },
+			},
+			completion = {
+				list = {
+					selection = "manual",
+				},
+			},
 		},
 		opts_extend = { "sources.completion.enabled_providers" },
 	},
