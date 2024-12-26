@@ -1,7 +1,10 @@
 fish_add_path $HOME/.local/bin
 
-set ARCHITECTURE $(uname -m)
-set SOPS_AGE_KEY_FILE "$HOME/.config/sops/age/keys.txt"
+set -gx ARCHITECTURE $(uname -m)
+set -gx SOPS_AGE_KEY_FILE "$HOME/.config/sops/age/keys.txt"
+set -gx EDITOR "nvim"
+set -gx GIT_EDITOR "$EDITOR"
+set -gx VISUAL "$EDITOR"
 
 if command -q cargo
   fish_add_path "$HOME/.cargo/bin/"

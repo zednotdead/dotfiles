@@ -1,0 +1,11 @@
+# This file contains Gitu's default configuration.
+# It is possible to override settings with an equivalent file at:
+# `~/.config/gitu/config.toml`
+
+[general]
+always_show_help.enabled = false
+confirm_quit.enabled = false
+# Sets initially collapsed sections in the editor. e.g.:
+# collapsed_sections = ["untracked", "recent_commits", "branch_status"]
+collapsed_sections = []
+

@@ -36,10 +36,6 @@ if command -q kubectl
     alias k="kubectl"
 end
 
-if command -q yazi
-    alias yy="yazi"
-end
-
 if command -q nvim
     alias vim="nvim"
 end
