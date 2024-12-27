@@ -33,8 +33,14 @@ return {
 				default = { 'lsp', 'path', 'luasnip', 'buffer' },
 			},
 			completion = {
+				menu = {
+					auto_show = true
+				},
+				ghost_text = {
+					enabled = true
+				},
 				list = {
-					selection = "manual",
+          selection = "auto_insert"
 				},
 			},
 		},
