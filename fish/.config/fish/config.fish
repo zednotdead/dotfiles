@@ -1,4 +1,5 @@
 fish_add_path $HOME/.local/bin
+fish_add_path $HOME/.cargo/bin
 
 set -gx ARCHITECTURE $(uname -m)
 set -gx SOPS_AGE_KEY_FILE "$HOME/.config/sops/age/keys.txt"
@@ -16,7 +17,7 @@ end
 
 if test $ARCHITECTURE = "arm64"
   export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-  export PUPPETEER_EXECUTABLE_PATH=`which chromium`
+  export PUPPETEER_EXECUTABLE_PATH=$(which chromium)
 end
 
 if command -q starship
