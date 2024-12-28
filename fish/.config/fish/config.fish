@@ -1,8 +1,13 @@
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.cargo/bin
 
-set -U fish_greeting ""
+if test -f "/home/linuxbrew/.linuxbrew/bin/brew"
+  /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
+else if test -d /opt/homebrew
+  /opt/homebrew/bin/brew shellenv | source
+end
 
+set -U fish_greeting ""
 set -gx ARCHITECTURE $(uname -m)
 set -gx SOPS_AGE_KEY_FILE "$HOME/.config/sops/age/keys.txt"
 set -gx EDITOR "nvim"
@@ -18,8 +23,8 @@ if command -q keychain
 end
 
 if test $ARCHITECTURE = "arm64"
-  export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-  export PUPPETEER_EXECUTABLE_PATH=$(which chromium)
+  set -gx PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+  set -gx PUPPETEER_EXECUTABLE_PATH $(which chromium)
 end
 
 if command -q starship
@@ -36,16 +41,6 @@ end
 
 if command -q podman
   set DOCKER_HOST "unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
-end
-
-if test -d "/opt/homebrew"
-  fish_add_path "/opt/homebrew/opt/libpq/bin"
-end
-
-if test -f "/home/linuxbrew/.linuxbrew/bin/brew"
-  /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
-else if test -d /opt/homebrew
-  /opt/homebrew/bin/brew shellenv | source
 end
 
 if command -q zoxide
