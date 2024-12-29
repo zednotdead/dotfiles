@@ -47,5 +47,6 @@ end
 vim.opt.undodir = undodir
 
 vim.loader.enable()
+vim.o.background = "dark"
 
 require("mappings")

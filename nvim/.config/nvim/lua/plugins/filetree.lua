@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-neo-tree/neo-tree.nvim",
+		enabled = false,
 		branch = "v3.x",
 		cmd = { "Neotree" },
 		dependencies = {
@@ -21,7 +22,18 @@ return {
 					visible = true,
 				},
 			},
-      auto_clean_after_session_restore = true,
+			auto_clean_after_session_restore = true,
 		},
+	},
+	{
+		"nvim-tree/nvim-tree.lua",
+		version = "*",
+		lazy = false,
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			require("nvim-tree").setup({})
+		end,
 	},
 }

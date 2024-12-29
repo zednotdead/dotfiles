@@ -19,6 +19,17 @@ if nt_loaded then
 end
 -- Neotree END
 
+-- nvim-tree BEGIN
+local nvt_loaded, nvt = pcall(require, "nvim-tree.api")
+if nvt_loaded then
+	local function toggle_filetree()
+		nvt.tree.toggle()
+	end
+
+	vim.keymap.set("n", "<Leader><Tab>", toggle_filetree, { desc = "Open neotree" })
+end
+-- nvim-tree END
+
 -- Sessions BEGIN
 local possession_loaded, pos = pcall(require, "possession")
 if possession_loaded then
