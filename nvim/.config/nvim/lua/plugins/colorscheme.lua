@@ -11,14 +11,28 @@ return {
 			})
 
 			require("config.colorscheme")
-		end
+		end,
 	},
 	{
 		"folke/tokyonight.nvim",
+		enabled = false,
 		lazy = false,
 		priority = 1000,
 		config = function()
 			require("config.colorscheme")
-		end
+		end,
+	},
+	{
+		"rebelot/kanagawa.nvim",
+		enabled = true,
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("kanagawa").setup({
+				theme = "wave"
+			})
+
+			require("config.colorscheme")
+		end,
 	},
 }
