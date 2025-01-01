@@ -1,5 +1,6 @@
 [settings]
 experimental = true
+python_compile = false
 
 [tools]
 "go:github.com/charmbracelet/glow" = "latest"
@@ -7,7 +8,6 @@ experimental = true
 go = "latest"
 node = "22"
 "npm:pnpm" = "latest"
-rye = "latest"
 fx = "latest"
 "cargo:bandwhich" = "latest"
 "cargo:mprocs" = "latest"
@@ -33,3 +33,5 @@ jq = "latest"
 "cargo:fd-find" = "latest"
 usage = "latest"
 python = "system"
+rye = "latest"
+"pipx:httpie" = "latest"
