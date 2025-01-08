@@ -2,6 +2,7 @@ return {
 	{
 		"folke/edgy.nvim",
 		event = "VeryLazy",
+    enabled = false,
 		init = function()
 			vim.opt.laststatus = 3
 			vim.opt.splitkeep = "screen"

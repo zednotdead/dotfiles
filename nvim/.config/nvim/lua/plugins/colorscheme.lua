@@ -25,14 +25,27 @@ return {
 	},
 	{
 		"ellisonleao/gruvbox.nvim",
-		enabled = true,
+		enabled = false,
 		lazy = false,
 		priority = 1000,
-    config = function ()
-      require('gruvbox').setup({
-        contrast = "hard"
-      })
-      vim.cmd.colorscheme("gruvbox")
-    end
+		config = function()
+			require("gruvbox").setup({
+				contrast = "hard",
+			})
+			vim.cmd.colorscheme("gruvbox")
+		end,
+	},
+	{
+		"neanias/everforest-nvim",
+		version = false,
+		lazy = false,
+		priority = 1000, -- make sure to load this before all the other start plugins
+		-- Optional; default configuration will be used if setup isn't called.
+		config = function()
+			require("everforest").setup({
+        background = "hard",
+			})
+      vim.cmd.colorscheme("everforest")
+		end,
 	},
 }
