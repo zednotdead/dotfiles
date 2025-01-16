@@ -38,10 +38,10 @@ end
 if command -q bob
   fish_add_path "$HOME/.local/share/bob/nvim-bin"
 end
-
-if command -q podman
-  set DOCKER_HOST "unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
-end
+#
+# if command -q podman
+#   set DOCKER_HOST "unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
+# end
 
 if command -q zoxide
   zoxide init fish | source
