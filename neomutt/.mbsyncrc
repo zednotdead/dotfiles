@@ -1,0 +1,56 @@
+# Mailbox.org BEGIN
+
+IMAPAccount mailbox
+Host imap.mailbox.org
+User "zbigniew@zolnierowi.cz"
+PassCmd "pass mailbox"
+Port 993
+TLSType IMAPS
+TLSVersions +1.2
+
+IMAPStore mailbox-remote
+Account mailbox
+
+MaildirStore mailbox-local
+Path ~/.mail/Mailbox/
+Inbox ~/.mail/Mailbox/INBOX
+Trash ~/.mail/Mailbox/Trash
+SubFolders Verbatim
+
+Channel mailbox
+Far :mailbox-remote:
+Near :mailbox-local:
+Patterns *
+Expunge None
+CopyArrivalDate yes
+Sync All
+Create Both
+SyncState *
+
+# Mailbox.org END
+
+IMAPAccount gmail
+Host imap.gmail.com
+User zbigniew.zolnierowicz@gmail.com
+PassCmd "pass gmail"
+Port 993
+TLSType IMAPS
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Path ~/.mail/Gmail/
+Inbox ~/.mail/Gmail/INBOX
+Trash ~/.mail/Gmail/Trash
+SubFolders Verbatim
+
+Channel gmail
+Far :gmail-remote:
+Near :gmail-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Expunge None
+CopyArrivalDate yes
+Sync All
+Create Both
+SyncState *

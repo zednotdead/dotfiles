@@ -1,0 +1,5 @@
+# vim: filetype=neomuttrc
+
+source ~/.config/neomutt/settings.neomuttrc
+source ~/.config/neomutt/colors.neomuttrc
+source ~/.config/neomutt/mailboxes.neomuttrc

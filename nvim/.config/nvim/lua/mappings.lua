@@ -270,18 +270,19 @@ end
 
 local bufferline_loaded, bfl = pcall(require, "bufferline")
 if bufferline_loaded then
-	vim.keymap.set("n", "gt", function()
+	local function next_tab()
 		bfl.cycle(1)
-	end, { desc = "Next tab" })
-	vim.keymap.set("n", "gT", function()
+	end
+	local function prev_tab()
 		bfl.cycle(-1)
-	end, { desc = "Previous tab" })
-	vim.keymap.set("n", "<Leader>t.", function()
-		bfl.cycle(1)
-	end, { desc = "Next tab" })
-	vim.keymap.set("n", "<Leader>t,", function()
-		bfl.cycle(-1)
-	end, { desc = "Previous tab" })
+	end
+
+	vim.keymap.set("n", "gt", next_tab, { desc = "Next tab" })
+	vim.keymap.set("n", "gT", prev_tab, { desc = "Previous tab" })
+	vim.keymap.set("n", "<Leader>t.", next_tab, { desc = "Next tab" })
+	vim.keymap.set("n", "<Leader>t,", prev_tab, { desc = "Previous tab" })
+	vim.keymap.set("n", "<C-]>", next_tab, { desc = "Next tab" })
+	vim.keymap.set("n", "<C-[>", prev_tab, { desc = "Previous tab" })
 
 	vim.keymap.set("n", "<Leader>tt", bfl.pick, { desc = "Pick tab" })
 	vim.keymap.set("n", "<Leader>td", bfl.close_with_pick, { desc = "Pick tab to delete" })

@@ -1,0 +1,12 @@
+# vim filetype=mailcap
+#
+# HTML
+text/html; w3m -dump -o -document_charset=%{charset} %s; nametemplate=%s.html; copiousoutput
+text/plain; nvim %s
+
+#PDFs
+application/pdf; /usr/bin/okular %s
+
+#Images
+image/png; /usr/bin/feh %s
+image/jpeg; /usr/bin/feh %s
