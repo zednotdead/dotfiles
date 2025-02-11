@@ -34,6 +34,7 @@ return {
 					sql = { "sqlfluff" },
 					toml = { "taplo" },
 					terraform = { "terraform_fmt" },
+					go = { "goimports", "gofmt" },
 				},
 				formatters = {
 					rustfmt = {

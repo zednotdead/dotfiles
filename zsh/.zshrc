@@ -372,3 +372,5 @@ fi
 if (( $+commands[rye] )) then
     source "$HOME/.rye/env"
 fi
+
+source /home/zed/.config/broot/launcher/bash/br

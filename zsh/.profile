@@ -14,4 +14,3 @@ fi
 
 
 complete -C /usr/bin/vault vault
-. "$HOME/.rye/env"
