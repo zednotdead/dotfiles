@@ -3,3 +3,4 @@ zsh/.zfunc/_*
 term/.local/bin/ghcaf
 term/.local/bin/ghcai
 fish/.config/fish/conf.d/tokyonight.fish
+broot/.config/broot/launcher
