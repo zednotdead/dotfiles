@@ -88,7 +88,6 @@ return {
 			mason_lspconfig.setup_handlers({
 				function(server_name) -- default handler (optional)
 					local lspconfig = require("lspconfig")
-					local config = require("lspconfig.configs")
 					local capabilities = require("blink.cmp").get_lsp_capabilities()
 					capabilities.textDocument.foldingRange = {
 						dynamicRegistration = false,
