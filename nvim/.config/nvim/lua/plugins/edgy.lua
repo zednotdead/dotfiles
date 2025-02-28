@@ -2,7 +2,7 @@ return {
 	{
 		"folke/edgy.nvim",
 		event = "VeryLazy",
-    enabled = false,
+    enabled = true,
 		init = function()
 			vim.opt.laststatus = 3
 			vim.opt.splitkeep = "screen"
@@ -30,6 +30,15 @@ return {
 		---@module "edgy"
 		---@type Edgy.Config
 		opts = {
+      ---@type vim.wo
+      wo = {
+				winbar = true,
+				winfixwidth = true,
+				winfixheight = false,
+        winhighlight = "WinBar:EdgyWinBar,WinBarNC:EdgyWinBarNC,Normal:EdgyNormal",
+				spell = false,
+				signcolumn = "no",
+      },
 			keys = {
 				-- increase width
 				["<c-Right>"] = function(win)

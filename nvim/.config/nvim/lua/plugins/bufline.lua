@@ -8,11 +8,6 @@ return {
       bufferline.setup({
         options = {
           diagnostics = "nvim_lsp",
-          hover = {
-            enabled = true,
-            delay = 200,
-            reveal = { "close" },
-          },
           offsets = {
             {
               filetype = "neo-tree",

@@ -40,7 +40,7 @@ return {
 				keymap = {
 					preset = "super-tab",
 				},
-				fuzzy = { use_frecency = true, use_proximity = true },
+				fuzzy = { use_frecency = true, use_proximity = true, implementation = "prefer_rust" },
 				snippets = { preset = "luasnip" },
 				sources = {
 					default = { "lsp", "path", "snippets", "buffer" },
