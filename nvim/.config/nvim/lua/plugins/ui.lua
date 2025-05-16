@@ -90,17 +90,22 @@ return {
 			require("modes").setup()
 		end,
 	},
-  {
-    "sindrets/diffview.nvim",
-    cmd = {
-      "DiffviewOpen",
-      "DiffviewFileHistory"
-    },
-    opts = {},
-  },
-  {
-    "monaqa/dial.nvim",
-    enabled = true,
-    lazy = false,
-  }
+	{
+		"sindrets/diffview.nvim",
+		cmd = {
+			"DiffviewOpen",
+			"DiffviewFileHistory",
+		},
+		opts = {},
+	},
+	{
+		"monaqa/dial.nvim",
+		enabled = true,
+		lazy = false,
+	},
+	{
+		"lewis6991/satellite.nvim",
+		enabled = true,
+    event = "BufEnter"
+	},
 }
