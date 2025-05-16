@@ -10,6 +10,7 @@ return {
 		event = "BufEnter",
 		opts = {
 			enabled = true,
+      ignored_filetypes = { "gitcommit" }
 		},
 	},
 	{ "akinsho/git-conflict.nvim", version = "*", config = true },
