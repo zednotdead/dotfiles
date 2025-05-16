@@ -31,7 +31,7 @@ return {
 		},
 
 		-- use a release tag to download pre-built binaries
-		version = "v0.13.0",
+		version = "v1.3.1",
 
 		config = function()
 			---@module 'blink.cmp'
