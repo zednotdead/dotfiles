@@ -1,6 +1,6 @@
 return {
 	{
-		"Darazaki/indent-o-matic",
+		"nmac427/guess-indent.nvim",
 		enabled = true,
 		lazy = false,
 		opts = {},
