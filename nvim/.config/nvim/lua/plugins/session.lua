@@ -8,9 +8,12 @@ return {
 		opts = {
 			suppressed_dirs = { "~/Downloads", "/", "~" },
 			auto_save = true,
-      session_lens = {
-        load_on_setup = true,
-      }
+			session_lens = {
+				load_on_setup = true,
+			},
+			bypass_save_filetypes = {
+				"neo-tree",
+			},
 		},
 	},
 }
