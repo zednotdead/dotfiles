@@ -23,7 +23,7 @@ return {
 					javascript = es_formatters,
 					typescript = es_formatters,
 					typescriptreact = es_formatters,
-					astro = { "eslint_d" },
+					astro = { "eslint_d", "eslint", lsp_format = "fallback", stop_after_first = true },
 					json = function(bufnr)
 						return { "jq", first(bufnr, "prettierd", "prettier") }
 					end,

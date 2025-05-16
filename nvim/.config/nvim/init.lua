@@ -49,4 +49,7 @@ vim.opt.undodir = undodir
 vim.loader.enable()
 vim.o.background = "dark"
 
+vim.diagnostic.config({ virtual_lines = true })
+vim.o.backupcopy = "yes"
+
 require("mappings")

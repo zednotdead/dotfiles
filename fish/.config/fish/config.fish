@@ -13,6 +13,8 @@ set -gx SOPS_AGE_KEY_FILE "$HOME/.config/sops/age/keys.txt"
 set -gx EDITOR "nvim"
 set -gx GIT_EDITOR "$EDITOR"
 set -gx VISUAL "$EDITOR"
+set -gx PKG_CONFIG_PATH "/usr/lib/pkgconfig"
+set -gx PKG_CONFIG "/usr/bin/pkg-config"
 
 if command -q cargo
   fish_add_path "$HOME/.cargo/bin/"
@@ -64,3 +66,5 @@ if command -q mcfly
     mcfly-fzf init fish | source
   end
 end
+
+source "$HOME/.config/fish/alias.fish"

@@ -373,4 +373,8 @@ if (( $+commands[rye] )) then
     source "$HOME/.rye/env"
 fi
 
+if (( $+commands[carapace] )) then
+    source <(carapace _carapace zsh)
+fi
+
 source /home/zed/.config/broot/launcher/bash/br
