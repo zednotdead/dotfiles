@@ -30,6 +30,8 @@ return {
 							["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
 							-- You can also use captures from other query groups like `locals.scm`
 							["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+							["ap"] = "@parameter.outer",
+							["ip"] = "@parameter.inner",
 						},
 						-- If you set this to `true` (default is `false`) then any textobject is
 						-- extended to include preceding or succeeding whitespace. Succeeding
@@ -43,13 +45,26 @@ return {
 
 						goto_next_start = {
 							["]m"] = "@function.outer",
-							["]]"] = { query = "@class.outer", desc = "Next class start" },
+							["]p"] = "@parameter.outer",
 						},
 						goto_previous_start = {
 							["[m"] = "@function.outer",
-							["[["] = "@class.outer",
+							["[p"] = "@parameter.outer",
+						},
+						goto_next_end = {
+							["]M"] = "@function.outer",
+							["]P"] = "@parameter.outer",
+						},
+						goto_previous_end = {
+							["[M"] = "@function.outer",
+							["[P"] = "@parameter.outer",
 						},
 					},
+				},
+				selection_modes = {
+					["@parameter.outer"] = "v", -- charwise
+					["@function.outer"] = "V", -- linewise
+					["@class.outer"] = "<c-v>", -- blockwise
 				},
 				incremental_selection = {
 					enable = true,
@@ -69,5 +84,15 @@ return {
 	{
 		"IndianBoy42/tree-sitter-just",
 		config = true,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		lazy = false,
+		---@module "treesitter-context"
+		---@type TSContext.UserConfig
+		opts = {
+			enable = true,
+		},
 	},
 }
