@@ -2,14 +2,16 @@ return {
 	{
 		"lewis6991/gitsigns.nvim",
 		config = true,
-    event = "BufEnter"
+		event = "BufEnter",
 	},
 	{
 		"f-person/git-blame.nvim",
-    name = "gitblame",
+		name = "gitblame",
 		event = "BufEnter",
 		opts = {
-			enabled = false,
+			enabled = true,
+      ignored_filetypes = { "gitcommit" }
 		},
 	},
+	{ "akinsho/git-conflict.nvim", version = "*", config = true },
 }
