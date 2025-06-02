@@ -48,8 +48,7 @@ crystal = "latest"
 air = "latest"
 k9s = "latest"
 ubi = "latest"
-"ubi:carapace-sh/carapace-bin" = { version = "latest", exe = "carapace" } 
-kubens = "latest"
+"ubi:carapace-sh/carapace-bin" = { version = "latest", exe = "carapace" }
 zig = "latest"
 spring-boot = "latest"
 hurl = "latest"
