@@ -82,6 +82,34 @@ return {
 				-- install_root_dir = path.concat { vim.fn.stdpath "config", "/lua/custom/mason" },
 			})
 
+			vim.lsp.enable("atlas")
+			vim.filetype.add({
+				filename = {
+					["atlas.hcl"] = "atlas-config",
+				},
+				pattern = {
+					[".*/*.my.hcl"] = "atlas-schema-mysql",
+					[".*/*.pg.hcl"] = "atlas-schema-postgresql",
+					[".*/*.lt.hcl"] = "atlas-schema-sqlite",
+					[".*/*.ch.hcl"] = "atlas-schema-clickhouse",
+					[".*/*.ms.hcl"] = "atlas-schema-mssql",
+					[".*/*.rs.hcl"] = "atlas-schema-redshift",
+					[".*/*.test.hcl"] = "atlas-test",
+					[".*/*.plan.hcl"] = "atlas-plan",
+					[".*/*.rule.hcl"] = "atlas-rule",
+				},
+			})
+			vim.treesitter.language.register("hcl", "atlas-config")
+			vim.treesitter.language.register("hcl", "atlas-schema-mysql")
+			vim.treesitter.language.register("hcl", "atlas-schema-postgresql")
+			vim.treesitter.language.register("hcl", "atlas-schema-sqlite")
+			vim.treesitter.language.register("hcl", "atlas-schema-clickhouse")
+			vim.treesitter.language.register("hcl", "atlas-schema-mssql")
+			vim.treesitter.language.register("hcl", "atlas-schema-redshift")
+			vim.treesitter.language.register("hcl", "atlas-test")
+			vim.treesitter.language.register("hcl", "atlas-plan")
+			vim.treesitter.language.register("hcl", "atlas-rule")
+
 			mason_lspconfig.setup({
 				ensure_installed = { "lua_ls" },
 				automatic_enable = {
@@ -118,16 +146,16 @@ return {
 	{
 		"andythigpen/nvim-coverage",
 		version = "*",
-    cmd = {
-      "Coverage",
-      "CoverageLoad",
-      "CoverageLoadLcov",
-      "CoverageShow",
-      "CoverageHide",
-      "CoverageToggle",
-      "CoverageClear",
-      "CoverageSummary",
-    },
+		cmd = {
+			"Coverage",
+			"CoverageLoad",
+			"CoverageLoadLcov",
+			"CoverageShow",
+			"CoverageHide",
+			"CoverageToggle",
+			"CoverageClear",
+			"CoverageSummary",
+		},
 		config = function()
 			require("coverage").setup({
 				auto_reload = true,

@@ -1,6 +1,7 @@
 [settings]
 experimental = true
 python_compile = false
+idiomatic_version_file_enable_tools = ["rust"]
 
 [tools]
 "go:github.com/charmbracelet/glow" = "latest"
