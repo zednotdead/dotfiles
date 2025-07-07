@@ -83,6 +83,7 @@ return {
 			})
 
 			vim.lsp.enable("atlas")
+
 			vim.filetype.add({
 				filename = {
 					["atlas.hcl"] = "atlas-config",
@@ -99,6 +100,7 @@ return {
 					[".*/*.rule.hcl"] = "atlas-rule",
 				},
 			})
+
 			vim.treesitter.language.register("hcl", "atlas-config")
 			vim.treesitter.language.register("hcl", "atlas-schema-mysql")
 			vim.treesitter.language.register("hcl", "atlas-schema-postgresql")
