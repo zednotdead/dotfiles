@@ -60,11 +60,4 @@ if string match 'polpc.*' $(hostname)
   source "$HOME/.config/fish/work.fish"
 end
 
-if command -q mcfly
-  mcfly init fish | source
-  if command -q mcfly-fzf
-    mcfly-fzf init fish | source
-  end
-end
-
 source "$HOME/.config/fish/alias.fish"

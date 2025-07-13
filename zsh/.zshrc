@@ -358,13 +358,6 @@ if (( $+commands[eza] )) then
     alias ls="eza --icons"
 fi
 
-if (( $+commands[mcfly] )) then
-    eval "$(mcfly init zsh)"
-    if (( $+commands[mcfly-fzf] )) then
-        eval "$(mcfly-fzf init zsh)"
-    fi
-fi
-
 if [[ `hostname` =~ "polpc.*" ]] then
     source $HOME/work.zshrc
 fi
