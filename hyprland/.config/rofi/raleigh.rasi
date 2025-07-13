@@ -1,0 +1,70 @@
+
+configuration {
+    location: 6;
+    font: "Terminus 12";
+    show-icons: true;
+    display-drun: "Search: ";
+}
+
+window {
+    margin: 0 2px;
+    width: 500px;
+    border: 1px;
+    border-color: #dcdad5;
+    padding: 0px;
+    background-color: #dcdad5;
+}
+
+menu {
+	children: ["inputbar", "listview"];
+}
+
+mainbox {
+	orientation: horizontal;
+  border: 1px;
+  border-color: #ffffff;
+  padding: 0px;
+  background-color: #dcdad5;
+  children: ["stripe", "menu"];
+}
+
+inputbar {
+    children: [ prompt, entry ];
+}
+
+prompt {
+    padding: 0 4px;
+}
+
+listview {
+    scrollbar: false;
+    spacing: 0;
+    border: 0;
+    lines: 10;
+}
+
+element {
+    padding: 7px 8px;
+}
+
+element.normal.normal, element.alternate.normal {
+    background-color: #dcdad5;
+}
+
+element.selected.normal {
+	background-color: #4b6983;
+}
+
+element-icon {
+	size: 24px;
+}
+
+entry {
+  placeholder: "";
+}
+
+stripe {
+	expand: false;
+	width: 24px;
+	background-color: #4b6983;
+}

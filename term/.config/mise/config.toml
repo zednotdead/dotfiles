@@ -1,6 +1,7 @@
 [settings]
 experimental = true
 python_compile = false
+idiomatic_version_file_enable_tools = ["rust"]
 
 [tools]
 "go:github.com/charmbracelet/glow" = "latest"
@@ -57,3 +58,5 @@ grype = "latest"
 "cargo:bob-nvim" = "latest"
 "cargo:grcov" = "latest"
 kubectl = "latest"
+"ubi:git-bug/git-bug" = "latest"
+eza = "latest"
