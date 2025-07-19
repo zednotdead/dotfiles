@@ -49,15 +49,18 @@ if command -q zoxide
   zoxide init fish | source
 end
 
-ulimit -n 65536
-ulimit -f unlimited
-
 if command -q rye
   set -Ua fish_user_paths "$HOME/.rye/shims"
 end
 
 if string match 'polpc.*' $(hostname)
   source "$HOME/.config/fish/work.fish"
+end
+
+function fish_command_not_found
+  if command -q command-not-found
+    /usr/bin/command-not-found $argv
+  end
 end
 
 source "$HOME/.config/fish/alias.fish"
