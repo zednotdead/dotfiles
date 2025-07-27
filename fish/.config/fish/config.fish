@@ -16,6 +16,8 @@ set -gx VISUAL "$EDITOR"
 set -gx PKG_CONFIG_PATH "/usr/lib/pkgconfig"
 set -gx PKG_CONFIG "/usr/bin/pkg-config"
 
+eval (ssh-agent -c) > /dev/null
+
 if command -q cargo
   fish_add_path "$HOME/.cargo/bin/"
 end
