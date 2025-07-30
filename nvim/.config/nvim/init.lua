@@ -16,5 +16,13 @@ vim.opt.fillchars = { eob = " " }
 vim.cmd("colorscheme gruvbox")
 vim.diagnostic.config({ virtual_lines = true })
 
-require("config.keymaps")
+vim.opt.undofile = true
+
+local undodir = vim.fn.stdpath("data") .. "/undodir"
+if not vim.fn.isdirectory(undodir) then
+  vim.call(vim.fn.mkdir(vim.fn.expand(undodir), "p"))
+end
+
+vim.opt.undodir = undodir
+
 require("config.autocmd")

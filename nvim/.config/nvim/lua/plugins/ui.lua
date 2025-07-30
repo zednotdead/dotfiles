@@ -3,12 +3,7 @@ return {
     "ellisonleao/gruvbox.nvim",
     priority = 1000,
     config = true,
-    opts = {
-      contrast = "hard",
-    },
-    setup = function(_, opts)
-      require("gruvbox").setup(opts)
-    end
+    opts = {},
   },
   {
     "folke/which-key.nvim",
@@ -62,6 +57,10 @@ return {
       win = { enabled = true },
       words = { enabled = true },
     },
+    config = function(_, opts)
+      require("snacks").setup(opts)
+      vim.keymap.set("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit", remap = true })
+    end
   },
   {
     'nvim-lualine/lualine.nvim',
@@ -135,4 +134,17 @@ return {
       },
     },
   },
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+      toggler = {
+        line = '<leader><leader><leader>',
+        block = '<leader><leader>b',
+      },
+      opleader = {
+        line = '<leader><leader>',
+        block = '<leader>b',
+      },
+    }
+  }
 }

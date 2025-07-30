@@ -31,7 +31,6 @@ vim.keymap.set("n",
   { silent = true, noremap = true, desc = "Open nvim-tree" }
 )
 
-
 local opts = {
   on_attach = my_on_attach,
   hijack_cursor = true,
