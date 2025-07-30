@@ -1,111 +1,138 @@
 return {
-	{
-		"folke/noice.nvim",
-		enabled = true,
-		event = "VeryLazy",
-		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
-		opts = {
-			routes = {
-				-- skip displaying message that file was written to.
-				{
-					filter = {
-						event = "msg_show",
-						kind = "",
-						find = "written",
-					},
-					opts = { skip = true },
-				},
-				{
-					filter = {
-						event = "msg_show",
-						kind = "",
-						find = "more lines",
-					},
-					opts = { skip = true },
-				},
-				{
-					filter = {
-						event = "msg_show",
-						kind = "",
-						find = "fewer lines",
-					},
-					opts = { skip = true },
-				},
-				{
-					filter = {
-						event = "msg_show",
-						kind = "",
-						find = "lines yanked",
-					},
-					opts = { skip = true },
-				},
-				{
-					view = "split",
-					filter = { event = "msg_show", min_height = 10 },
-				},
-			},
-			lsp = {
-				progress = {
-					enabled = false,
-				},
-				signature = {
-					enabled = false,
-				},
-				override = {
-					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-					["vim.lsp.util.stylize_markdown"] = true,
-					["cmp.entry.get_documentation"] = true,
-				},
-			},
-			presets = {
-				bottom_search = true, -- use a classic bottom cmdline for search
-				command_palette = true, -- position the cmdline and popupmenu together
-				long_message_to_split = true, -- long messages will be sent to a split
-				inc_rename = true, -- enables an input dialog for inc-rename.nvim
-				lsp_doc_border = true, -- add a border to hover docs and signature help
-			},
-		},
-	},
-	{
-		"stevearc/dressing.nvim",
-		enabled = true,
-		lazy = false,
-	},
-	{
-		"rcarriga/nvim-notify",
-		config = true,
-		opts = {},
-	},
-	{
-		"Bekaboo/dropbar.nvim",
-		event = "BufEnter",
-		dependencies = {
-			"nvim-telescope/telescope-fzf-native.nvim",
-		},
-	},
-	{
-		"mvllow/modes.nvim",
-		event = "BufEnter",
-		config = function()
-			require("modes").setup()
-		end,
-	},
-	{
-		"sindrets/diffview.nvim",
-		cmd = {
-			"DiffviewOpen",
-			"DiffviewFileHistory",
-		},
-		opts = {},
-	},
-	{
-		"monaqa/dial.nvim",
-		enabled = true,
-		lazy = false,
-	},
-	{
-		"lewis6991/satellite.nvim",
-		enabled = true,
-    event = "BufEnter"
-	},
+  {
+    "ellisonleao/gruvbox.nvim",
+    priority = 1000,
+    config = true,
+    opts = {
+      contrast = "hard",
+    },
+    setup = function(_, opts)
+      require("gruvbox").setup(opts)
+    end
+  },
+  {
+    "folke/which-key.nvim",
+    opts = {
+      preset = "helix",
+      debug = vim.uv.cwd():find("which%-key"),
+      win = {},
+      spec = {},
+    },
+  },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      views = {
+        cmdline_popup = {
+          border = {
+            style = "none",
+            padding = { 2, 3 },
+          },
+          filter_options = {},
+          win_options = {
+            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+          },
+        },
+      },
+    },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    }
+  },
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      bigfile = { enabled = true },
+      indent = { enabled = true },
+      input = { enabled = true },
+      lazygit = { enabled = true },
+      quickfile = { enabled = true },
+      picker = { enabled = true },
+      rename = { enabled = true },
+      scope = { enabled = true },
+      scroll = { enabled = true },
+      statuscolumn = { enabled = true },
+      win = { enabled = true },
+      words = { enabled = true },
+    },
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require("plugins.config.lualine")
+    end
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    config = function()
+      require("plugins.config.nvim-tree")
+    end
+  },
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      require("plugins.config.bufferline")
+    end
+  },
+  {
+    "kylechui/nvim-surround",
+    version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    opts = {},
+  },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {
+      modes = {
+        search = { enabled = false },
+      },
+    },
+    keys = {
+      {
+        ";",
+        mode = { "n", "o", "x" },
+        function()
+          require("flash").jump()
+        end,
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter_search()
+        end,
+        desc = "Treesitter Search",
+      },
+      {
+        "<c-s>",
+        mode = { "c" },
+        function()
+          require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search",
+      },
+    },
+  },
 }
