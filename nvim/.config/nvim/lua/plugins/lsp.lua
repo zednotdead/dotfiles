@@ -131,5 +131,26 @@ return {
       vim.keymap.set('n', '[;', dropbar_api.goto_context_start, { desc = 'Go to start of current context' })
       vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
     end
-  }
+  },
+  {
+    "luckasRanarison/tailwind-tools.nvim",
+    name = "tailwind-tools",
+    build = ":UpdateRemotePlugins",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    opts = {}
+  },
+  {
+    "roobert/tailwindcss-colorizer-cmp.nvim",
+    name = "tailwindcss-colorizer-cmp",
+    dependencies = {
+      "luckasRanarison/tailwind-tools.nvim",
+    },
+    opts = {
+      color_square_width = 2,
+    },
+  },
 }

@@ -17,6 +17,7 @@ return {
   {
     "folke/noice.nvim",
     event = "VeryLazy",
+    ---@type NoiceConfig
     opts = {
       views = {
         cmdline_popup = {
@@ -34,16 +35,29 @@ return {
     dependencies = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
-    }
+    },
+    config = function(_, opts)
+      local noice = require("noice")
+      local cmd = require("noice.commands")
+
+      noice.setup(opts)
+      vim.keymap.set(
+        "n",
+        "<leader><Esc>",
+        function()
+          cmd.commands.dismiss()
+          vim.cmd([[nohlsearch]])
+        end,
+        { desc = "Lazygit", remap = true }
+      )
+    end
   },
   {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
+    ---@type snacks.Config
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
       bigfile = { enabled = true },
       indent = { enabled = true },
       input = { enabled = true },
@@ -56,10 +70,23 @@ return {
       statuscolumn = { enabled = true },
       win = { enabled = true },
       words = { enabled = true },
+      terminal = { enabled = true },
     },
     config = function(_, opts)
+      local wk = require("which-key")
+
+      wk.add({
+        { "<leader>r", group = "terminal" }
+      })
+
       require("snacks").setup(opts)
+
+      Snacks.terminal.opts = { auto_close = true }
+
       vim.keymap.set("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit", remap = true })
+      vim.keymap.set("n", "<leader>rr", function()
+        Snacks.terminal.toggle("$SHELL", { auto_close = true, win = { position = "bottom" } })
+      end, { desc = "Terminal", remap = true })
     end
   },
   {
