@@ -153,4 +153,8 @@ return {
       color_square_width = 2,
     },
   },
+  {
+    'nmac427/guess-indent.nvim',
+    opts = {}
+  }
 }
