@@ -17,6 +17,7 @@ local conditions = {
 
 local opts = {
   options = {
+    disabled_filetypes = { 'NvimTree' },
     -- Disable sections and component separators
     component_separators = '',
     section_separators = '',
