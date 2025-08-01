@@ -73,18 +73,12 @@ return {
       terminal = { enabled = true },
     },
     config = function(_, opts)
-      local wk = require("which-key")
-
-      wk.add({
-        { "<leader>r", group = "terminal" }
-      })
-
       require("snacks").setup(opts)
 
       Snacks.terminal.opts = { auto_close = true }
 
       vim.keymap.set("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit", remap = true })
-      vim.keymap.set("n", "<leader>rr", function()
+      vim.keymap.set("n", "<leader><Esc>", function()
         Snacks.terminal.toggle("$SHELL", { auto_close = true, win = { position = "bottom" } })
       end, { desc = "Terminal", remap = true })
     end
@@ -174,5 +168,46 @@ return {
         block = '<leader>b',
       },
     }
-  }
+  },
+  {
+    "monaqa/dial.nvim",
+    config = function()
+      vim.keymap.set("n", "<C-a>", function()
+        require("dial.map").manipulate("increment", "normal")
+      end)
+      vim.keymap.set("n", "<C-x>", function()
+        require("dial.map").manipulate("decrement", "normal")
+      end)
+      vim.keymap.set("n", "g<C-a>", function()
+        require("dial.map").manipulate("increment", "gnormal")
+      end)
+      vim.keymap.set("n", "g<C-x>", function()
+        require("dial.map").manipulate("decrement", "gnormal")
+      end)
+      vim.keymap.set("v", "<C-a>", function()
+        require("dial.map").manipulate("increment", "visual")
+      end)
+      vim.keymap.set("v", "<C-x>", function()
+        require("dial.map").manipulate("decrement", "visual")
+      end)
+      vim.keymap.set("v", "g<C-a>", function()
+        require("dial.map").manipulate("increment", "gvisual")
+      end)
+      vim.keymap.set("v", "g<C-x>", function()
+        require("dial.map").manipulate("decrement", "gvisual")
+      end)
+    end
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {},
+  },
+  {
+    "RRethy/vim-illuminate",
+    opts = {},
+    config = function (_, opts)
+      require('illuminate').configure(opts)
+    end
+  },
 }
