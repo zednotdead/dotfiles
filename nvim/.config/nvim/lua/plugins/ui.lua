@@ -98,6 +98,7 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
+    opts = {},
   },
   {
     "nvim-tree/nvim-tree.lua",
