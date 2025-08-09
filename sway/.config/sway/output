@@ -1,0 +1,19 @@
+# Left monitor
+set $disp-main "DP-1"
+set $disp-right "HDMI-A-1"
+output $disp-main mode 2560x1440@359.979Hz position 0 0 adaptive_sync off render_bit_depth 10
+workspace 1 output $disp-main
+workspace 2 output $disp-main
+workspace 3 output $disp-right
+workspace 4 output $disp-right
+workspace 5 output $disp-right
+workspace 6 output $disp-right
+workspace 7 output $disp-right
+workspace 8 output $disp-right
+workspace 9 output $disp-right
+workspace 10 output $disp-right
+
+# Right monitor
+output $disp-right mode 2560x1440@144Hz position 2560 0
+
+# vim: ft=swayconfig
