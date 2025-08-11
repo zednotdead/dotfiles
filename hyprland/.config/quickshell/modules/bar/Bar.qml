@@ -1,8 +1,8 @@
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
-import QtQuick.Shapes
 import qs.modules.widgets.workspaces
+import qs.modules.widgets.clock
 import qs.config
 import qs.modules.corner
 
@@ -16,84 +16,66 @@ PanelWindow {
         left: true
     }
 
-    property double cornerShapeHeight: 30
-
-    implicitHeight: bgWrapper.childrenRect.height + cornerShapeHeight
-    exclusiveZone: bgWrapper.childrenRect.height
+    property double cornerShapeSize: 20
+    property int barHeight: 40
 
     aboveWindows: false
-
-    Item {
-        id: bgWrapper
-
-        implicitWidth: childrenRect.width
-        implicitHeight: childrenRect.height
-
-        anchors.left: parent.left
-        anchors.top: parent.top
-
-        WrapperItem {
-            margin: 10
-            bottomMargin: 10
-            topMargin: 10
-
-            Workspaces {}
-        }
-    }
+    exclusiveZone: barHeight
 
     Rectangle {
-        id: bg
+        id: bar
         z: -1
 
         color: Theme.color00
 
-        implicitHeight: 40
+        implicitHeight: root.barHeight
 
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-    }
 
-    Shape {
-        id: topLeft
-        property int size: root.cornerShapeHeight
+        Item {
+            id: bgWrapper
 
-        width: size
-        height: size
-        anchors.top: parent.bottom
-        anchors.left: parent.left
-        anchors.topMargin: -root.cornerShapeHeight
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.leftMargin: 10
+            anchors.rightMargin: 10
 
-        ShapePath {
-            fillColor: bg.color
-            startX: 0
-            startY: 0
+            anchors.verticalCenter: parent.verticalCenter
 
-            PathLine {
-                x: 0
-                y: 0
+            WrapperItem {
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+
+                Workspaces {}
             }
 
-            PathLine {
-                x: 0
-                y: topLeft.size
-            }
+            WrapperItem {
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
 
-            PathArc {
-                x: topLeft.size
-                y: 0
-                radiusX: topLeft.size
-                radiusY: topLeft.size
+                Clock {}
             }
         }
     }
 
     Corner {
         color: Theme.color00
-        size: root.cornerShapeHeight
+        size: root.cornerShapeSize
+        positionX: "left"
+
+        anchors.top: bar.bottom
+        anchors.left: bar.left
+    }
+
+    Corner {
+        color: Theme.color00
+        size: root.cornerShapeSize
         positionX: "right"
 
-        anchors.top: bg.bottom
-        anchors.right: bg.right
+        anchors.top: bar.bottom
+        anchors.right: bar.right
     }
 }
