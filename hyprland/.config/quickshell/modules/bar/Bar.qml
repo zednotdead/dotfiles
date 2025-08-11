@@ -1,8 +1,9 @@
 import Quickshell
-import Quickshell.Widgets
 import QtQuick
+import QtQuick.Layouts
 import qs.modules.widgets.workspaces
 import qs.modules.widgets.clock
+import qs.modules.widgets.tray
 import qs.config
 import qs.modules.corner
 
@@ -45,18 +46,19 @@ PanelWindow {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            WrapperItem {
+            Workspaces {
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
-
-                Workspaces {}
             }
 
-            WrapperItem {
+            RowLayout {
+                layoutDirection: Qt.RightToLeft
                 anchors.right: parent.right
+                anchors.top: parent.top
                 anchors.verticalCenter: parent.verticalCenter
 
                 Clock {}
+                SysTray {}
             }
         }
     }
