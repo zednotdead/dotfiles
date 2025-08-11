@@ -15,8 +15,8 @@ sunrise_ts=$(date -d "$sunrise" +%s)
 sunset_ts=$(date -d "$sunset" +%s)
 current_ts=$(date +%s)
 
-current_mode=$(gsettings get org.gnome.desktop.interface color-scheme)
-new_theme="dark"
+current_theme=$(gsettings get org.gnome.desktop.interface color-scheme | sed "s/'prefer-\(.*\)'/\\1/g")
+new_theme="light"
 
 if [ $current_ts -ge $sunrise_ts ] &&
 	[ $current_ts -le $sunset_ts ]; then
@@ -25,7 +25,7 @@ else
 	new_theme="dark"
 fi
 
-if [ "${new_theme}" != "${current_theme}" ]; then
+if [ "${new_theme}" == "${current_theme}" ]; then
 	notify-send "no changes"
 	exit 0
 fi

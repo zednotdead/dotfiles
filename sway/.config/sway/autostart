@@ -1,2 +1,3 @@
-
+exec_always wlsunset
+exec swww-daemon
 # vim: ft=swayconfig
