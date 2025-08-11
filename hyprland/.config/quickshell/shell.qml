@@ -7,7 +7,6 @@ import qs.config
 import qs.modules.bar
 
 ShellRoot {
-
     LazyLoader {
         active: Theme.ready
         Bar {}
