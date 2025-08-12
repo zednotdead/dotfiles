@@ -10,7 +10,23 @@ WrapperItem {
     property int size: 20
 
     Rectangle {
-        color: root.workspace.active ? mouse.containsMouse ? Theme.workspaceFocusedHover : Theme.workspaceFocused : mouse.containsMouse ? Theme.workspaceUnfocusedHover : Theme.workspaceUnfocused
+        color: {
+            const items = {
+                focused: {
+                    nohover: Theme.workspaceFocused,
+                    hover: Theme.workspaceFocusedHover
+                },
+                unfocused: {
+                    nohover: Theme.workspaceUnfocused,
+                    hover: Theme.workspaceUnfocusedHover
+                }
+            };
+
+            const focusState = root.workspace.active ? "focused" : "unfocused";
+            const hoverState = mouse.containsMouse ? "hover" : "nohover";
+
+            return items[focusState][hoverState];
+        }
 
         implicitHeight: root.size
         implicitWidth: root.size

@@ -36,7 +36,6 @@ WrapperMouseArea {
     IconImage {
         id: trayIcon
         source: root.item.icon
-        width: parent.width
         height: parent.height
     }
 }

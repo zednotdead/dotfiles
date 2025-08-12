@@ -5,3 +5,4 @@ term/.local/bin/ghcai
 fish/.config/fish/conf.d/tokyonight.fish
 broot/.config/broot/launcher
 **/.qmlls.ini
+hyprland/.config/quickshell/theme.json

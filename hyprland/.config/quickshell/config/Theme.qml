@@ -13,6 +13,10 @@ Singleton {
     property color workspaceUnfocused: Qt.darker(this.workspaceFocused, 1.5)
     property color workspaceUnfocusedHover: Qt.lighter(this.workspaceUnfocused, 1.2)
 
+    property color buttonInactive: this.color05
+    property color buttonHover: Qt.lighter(this.buttonInactive, 1.2)
+    property color buttonActive: Qt.lighter(this.buttonInactive, 1.5)
+
     property alias background: adapter.background
     property alias foreground: adapter.foreground
     property alias color00: adapter.color0
@@ -33,7 +37,7 @@ Singleton {
     property alias color15: adapter.color15
 
     FileView {
-        path: `/home/zed/.config/quickshell/config/theme.json`
+        path: Qt.resolvedUrl("./theme.json")
         watchChanges: true
         onFileChanged: reload()
         onAdapterUpdated: writeAdapter()
@@ -47,24 +51,24 @@ Singleton {
 
         JsonAdapter {
             id: adapter
-            property string background: "#000"
-            property string foreground: "#000"
-            property string color0: "#000"
-            property string color1: "#000"
-            property string color2: "#000"
-            property string color3: "#000"
-            property string color4: "#000"
-            property string color5: "#000"
-            property string color6: "#000"
-            property string color7: "#000"
-            property string color8: "#000"
-            property string color9: "#000"
-            property string color10: "#000"
-            property string color11: "#000"
-            property string color12: "#000"
-            property string color13: "#000"
-            property string color14: "#000"
-            property string color15: "#000"
+            property color background: "#000"
+            property color foreground: "#000"
+            property color color0: "#000"
+            property color color1: "#000"
+            property color color2: "#000"
+            property color color3: "#000"
+            property color color4: "#000"
+            property color color5: "#000"
+            property color color6: "#000"
+            property color color7: "#000"
+            property color color8: "#000"
+            property color color9: "#000"
+            property color color10: "#000"
+            property color color11: "#000"
+            property color color12: "#000"
+            property color color13: "#000"
+            property color color14: "#000"
+            property color color15: "#000"
         }
     }
 

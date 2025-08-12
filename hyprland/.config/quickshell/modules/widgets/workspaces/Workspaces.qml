@@ -1,7 +1,7 @@
 import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
-import qs.services
+import qs.services.hyprland
 
 RowLayout {
     spacing: 8

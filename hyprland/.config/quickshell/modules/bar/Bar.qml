@@ -4,8 +4,10 @@ import QtQuick.Layouts
 import qs.modules.widgets.workspaces
 import qs.modules.widgets.clock
 import qs.modules.widgets.tray
+import qs.modules.widgets.drawertoggle
 import qs.config
-import qs.modules.corner
+import qs.modules.decorations.corner
+import qs.modules.drawer
 
 PanelWindow {
     id: root
@@ -60,7 +62,23 @@ PanelWindow {
                 Clock {}
                 SysTray {}
             }
+
+            DrawerToggle {
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                implicitHeight: parent.height
+                implicitWidth: parent.width / 6
+            }
         }
+    }
+
+    Drawer {
+        anchor.window: root
+        anchor.rect.x: root.width / 2 - width / 2
+        anchor.rect.y: root.height - root.cornerShapeSize - root.barHeight
+
+        drawerWidth: root.width / 3
+        drawerHeight: 500
     }
 
     Corner {

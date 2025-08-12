@@ -7,8 +7,8 @@ Shape {
     required property int size
     required property string positionX
 
-    width: root.size
-    height: root.size
+    implicitWidth: root.size
+    implicitHeight: root.size
 
     ShapePath {
         fillColor: Theme.barBackground
