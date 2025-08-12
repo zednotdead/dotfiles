@@ -10,13 +10,16 @@ WrapperItem {
     property int size: 20
 
     Rectangle {
-        color: root.workspace.active ? Theme.color10 : Theme.color01
+        color: root.workspace.active ? mouse.containsMouse ? Theme.workspaceFocusedHover : Theme.workspaceFocused : mouse.containsMouse ? Theme.workspaceUnfocusedHover : Theme.workspaceUnfocused
+
         implicitHeight: root.size
-        implicitWidth: 20
-        radius: 20
+        implicitWidth: root.size
+        radius: root.size
 
         MouseArea {
+            id: mouse
             anchors.fill: parent
+            hoverEnabled: true
             onClicked: Hyprland.dispatch("workspace " + root.workspace.id)
         }
     }

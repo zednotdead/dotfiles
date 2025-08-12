@@ -27,7 +27,7 @@ PanelWindow {
         id: bar
         z: -1
 
-        color: Theme.color00
+        color: Theme.barBackground
 
         implicitHeight: root.barHeight
 
@@ -64,7 +64,6 @@ PanelWindow {
     }
 
     Corner {
-        color: Theme.color00
         size: root.cornerShapeSize
         positionX: "left"
 
@@ -73,7 +72,6 @@ PanelWindow {
     }
 
     Corner {
-        color: Theme.color00
         size: root.cornerShapeSize
         positionX: "right"
 

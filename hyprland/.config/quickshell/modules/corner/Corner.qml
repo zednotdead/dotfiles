@@ -1,17 +1,18 @@
 import QtQuick
 import QtQuick.Shapes
+import qs.config
 
 Shape {
     id: root
     required property int size
     required property string positionX
-    required property color color
 
     width: root.size
     height: root.size
 
     ShapePath {
-        fillColor: root.color
+        fillColor: Theme.barBackground
+        strokeWidth: 0
         startX: 0
         startY: 0
 

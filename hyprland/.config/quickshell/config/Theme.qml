@@ -1,11 +1,17 @@
 pragma Singleton
+import QtQuick
 import Quickshell
 import Quickshell.Io
 
 Singleton {
     id: root
 
-    property bool ready: false
+    property alias barBackground: adapter.background
+
+    property color workspaceFocused: this.color05
+    property color workspaceFocusedHover: Qt.lighter(this.workspaceFocused, 1.2)
+    property color workspaceUnfocused: Qt.darker(this.workspaceFocused, 1.5)
+    property color workspaceUnfocusedHover: Qt.lighter(this.workspaceUnfocused, 1.2)
 
     property alias background: adapter.background
     property alias foreground: adapter.foreground
@@ -61,4 +67,6 @@ Singleton {
             property string color15: "#000"
         }
     }
+
+    property bool ready: false
 }
