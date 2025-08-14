@@ -8,6 +8,7 @@ import qs.services.drawer
 import qs.config
 import qs.modules.decorations.corner
 import qs.modules.widgets.tab
+import qs.modules.drawer.pages
 
 PopupWindow {
     id: root
@@ -50,29 +51,23 @@ PopupWindow {
 
                     ColumnLayout {
                         anchors.fill: parent
+
                         StackLayout {
                             Layout.fillWidth: true
+                            Layout.fillHeight: true
                             currentIndex: bar.currentIndex
-                            Item {
-                                id: homeTab
-                                Text {
-                                    text: "home"
-                                    color: Theme.foreground
-                                }
-                            }
-                            Item {
+
+                            BasePage {
                                 id: discoverTab
-                                Text {
-                                    text: "discover"
-                                    color: Theme.foreground
-                                }
+                                title: "Discover"
                             }
-                            Item {
-                                id: activityTab
-                                Text {
-                                    text: "activity"
-                                    color: Theme.foreground
-                                }
+
+                            Notifications {
+                                id: notificationTab
+                            }
+
+                            Settings {
+                                id: settingsTab
                             }
                         }
 
@@ -81,16 +76,17 @@ PopupWindow {
 
                             Layout.fillWidth: true
 
-                            background: Theme.background
+                            background: Theme.background.toString()
 
                             StyledTabButton {
-                                text: "Home"
+                                text: discoverTab.title
                             }
                             StyledTabButton {
-                                text: "Discover"
+                                text: notificationTab.title
                             }
+
                             StyledTabButton {
-                                text: "Activity"
+                                text: settingsTab.title
                             }
                         }
                     }

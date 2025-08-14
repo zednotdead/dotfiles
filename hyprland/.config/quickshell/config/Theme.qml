@@ -17,6 +17,7 @@ Singleton {
     property color buttonHover: Qt.lighter(this.buttonInactive, 1.2)
     property color buttonActive: Qt.lighter(this.buttonInactive, 1.5)
 
+    property alias wallpaper: adapter.wallpaper
     property alias background: adapter.background
     property alias foreground: adapter.foreground
     property alias color00: adapter.color0
@@ -51,6 +52,7 @@ Singleton {
 
         JsonAdapter {
             id: adapter
+            property string wallpaper: ""
             property color background: "#000"
             property color foreground: "#000"
             property color color0: "#000"

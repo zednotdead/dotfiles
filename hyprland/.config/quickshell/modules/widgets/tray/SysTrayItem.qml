@@ -7,6 +7,8 @@ WrapperMouseArea {
     id: root
     required property SystemTrayItem item
     property var bar: QsWindow.window
+    property int offset: 300
+
     acceptedButtons: Qt.LeftButton | Qt.RightButton
     Layout.fillHeight: true
     implicitWidth: 24
@@ -17,7 +19,8 @@ WrapperMouseArea {
             item.activate();
             break;
         case Qt.RightButton:
-            if (item.hasMenu) menu.open()
+            if (item.hasMenu)
+                menu.open();
             break;
         }
     }
@@ -27,7 +30,7 @@ WrapperMouseArea {
 
         menu: root.item.menu
         anchor.window: root.QsWindow.window
-        anchor.rect.x: root.x + root.bar.width
+        anchor.rect.x: (root.bar.width + root.x) - root.offset
         anchor.rect.y: root.y
         anchor.rect.height: root.height
         anchor.edges: Edges.Bottom
@@ -36,6 +39,7 @@ WrapperMouseArea {
     IconImage {
         id: trayIcon
         source: root.item.icon
-        height: parent.height
+        implicitHeight: parent.height
+        implicitWidth: parent.width
     }
 }
