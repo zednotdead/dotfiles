@@ -1,13 +1,17 @@
 import QtQuick
 import Quickshell.Widgets
-import Quickshell.Services.Notifications
+import qs.services.notifications
 
-Item {
+WrapperRectangle {
     id: root
-    required property string app
-    required property string title
+    color: "red"
+
+    required property NotificationService.Notif notification
+
+    implicitWidth: 800
+    implicitHeight: 100
 
     Text {
-        text: root.title + root.app
+      text: root.notification.summary
     }
 }
