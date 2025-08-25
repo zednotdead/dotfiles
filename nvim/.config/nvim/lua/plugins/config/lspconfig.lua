@@ -34,3 +34,5 @@ vim.lsp.config('yamlls', {
     },
   }
 })
+
+require"lspconfig".nil_ls.setup{}

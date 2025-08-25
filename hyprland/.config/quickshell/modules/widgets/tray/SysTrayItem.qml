@@ -19,21 +19,11 @@ WrapperMouseArea {
             item.activate();
             break;
         case Qt.RightButton:
+            const p = trayIcon.mapToGlobal(Qt.point(0, 0));
             if (item.hasMenu)
-                menu.open();
+                item.display(root.QsWindow.window, p.x, p.y);
             break;
         }
-    }
-
-    QsMenuAnchor {
-        id: menu
-
-        menu: root.item.menu
-        anchor.window: root.QsWindow.window
-        anchor.rect.x: (root.bar.width + root.x) - root.offset
-        anchor.rect.y: root.y
-        anchor.rect.height: root.height
-        anchor.edges: Edges.Bottom
     }
 
     IconImage {

@@ -9,34 +9,19 @@ WrapperItem {
 
     property int size: 20
 
-    Rectangle {
-        color: {
-            const items = {
-                focused: {
-                    nohover: Theme.workspaceFocused,
-                    hover: Theme.workspaceFocusedHover
-                },
-                unfocused: {
-                    nohover: Theme.workspaceUnfocused,
-                    hover: Theme.workspaceUnfocusedHover
-                }
-            };
-
-            const focusState = root.workspace.active ? "focused" : "unfocused";
-            const hoverState = mouse.containsMouse ? "hover" : "nohover";
-
-            return items[focusState][hoverState];
-        }
-
+    MouseArea {
+        id: mouse
         implicitHeight: root.size
         implicitWidth: root.size
-        radius: root.size
+        anchors.fill: parent
+        onClicked: Hyprland.dispatch("workspace " + root.workspace.id)
 
-        MouseArea {
-            id: mouse
-            anchors.fill: parent
-            hoverEnabled: true
-            onClicked: Hyprland.dispatch("workspace " + root.workspace.id)
+        Text {
+            text: root.workspace.active ? `[ ${root.workspace.name} ]` : root.workspace.name
+            color: "white"
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            style: Text.Raised
         }
     }
 }

@@ -1,25 +1,23 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
+import qs.modules.startmenu
 import qs.modules.widgets.workspaces
 import qs.modules.widgets.clock
 import qs.modules.widgets.tray
-import qs.modules.widgets.drawertoggle
+import qs.modules.widgets.start
 import qs.config
-import qs.modules.decorations.corner
-import qs.modules.drawer
 
 PanelWindow {
     id: root
     color: "transparent"
 
     anchors {
-        top: true
+        bottom: true
         right: true
         left: true
     }
 
-    property double cornerShapeSize: 20
     property int barHeight: 40
 
     aboveWindows: false
@@ -29,11 +27,11 @@ PanelWindow {
         id: bar
         z: -1
 
-        color: Theme.barBackground
+        gradient: Theme.barBackground
 
         implicitHeight: root.barHeight
 
-        anchors.top: parent.top
+        anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
 
@@ -42,15 +40,25 @@ PanelWindow {
 
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.leftMargin: 10
+            anchors.bottom: parent.bottom
             anchors.rightMargin: 10
 
             anchors.verticalCenter: parent.verticalCenter
 
             Workspaces {
-                anchors.left: parent.left
+                id: ws
+
+                anchors.left: sb.right
+                anchors.leftMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
+            }
+
+            StartButton {
+                id: sb
+
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
             }
 
             RowLayout {
@@ -62,38 +70,6 @@ PanelWindow {
                 Clock {}
                 SysTray {}
             }
-
-            DrawerToggle {
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                implicitHeight: parent.height
-                implicitWidth: parent.width / 6
-            }
         }
-    }
-
-    Drawer {
-        anchor.window: root
-        anchor.rect.x: root.width / 2 - width / 2
-        anchor.rect.y: root.height - root.cornerShapeSize - root.barHeight
-
-        drawerWidth: root.width / 3
-        drawerHeight: 500
-    }
-
-    Corner {
-        size: root.cornerShapeSize
-        positionX: "left"
-
-        anchors.top: bar.bottom
-        anchors.left: bar.left
-    }
-
-    Corner {
-        size: root.cornerShapeSize
-        positionX: "right"
-
-        anchors.top: bar.bottom
-        anchors.right: bar.right
     }
 }
