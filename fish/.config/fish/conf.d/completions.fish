@@ -1,3 +1,7 @@
+if command -q mise
+  mise activate fish | source
+end
+
 function generate-completion
   if command -q $argv[1]
     if test ! -f "$HOME/.config/fish/completions/$argv[1].fish"
@@ -40,3 +44,4 @@ generate-completion "talosctl" "talosctl completion fish"
 generate-completion "nyoom" "nyoom completions fish"
 generate-completion "kind" "kind completion fish"
 generate-completion "rye" "rye self completion -s fish"
+generate-completion "gopass" "gopass completion fish"

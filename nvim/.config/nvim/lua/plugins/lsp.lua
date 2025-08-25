@@ -198,5 +198,8 @@ return {
         start_command = { vim.fn.stdpath("data") .. "mason/bin/pkl-lsp" }
       }
     end,
+  },
+  {
+    "slint-ui/vim-slint"
   }
 }
