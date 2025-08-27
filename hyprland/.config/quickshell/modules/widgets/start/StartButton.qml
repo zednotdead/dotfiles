@@ -18,6 +18,9 @@ WrapperMouseArea {
 
     property string imagePrefix: {
         const base = "../../../res/start_button";
+        if (DrawerState.visible) {
+            return `${base}_press`;
+        }
         if (root.pressed) {
             return `${base}_press`;
         }
