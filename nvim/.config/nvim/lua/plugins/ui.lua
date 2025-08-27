@@ -78,7 +78,7 @@ return {
       Snacks.terminal.opts = { auto_close = true }
 
       vim.keymap.set("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit", remap = true })
-      vim.keymap.set("n", "<leader><Esc>", function()
+      vim.keymap.set("n", "<leader>gt", function()
         Snacks.terminal.toggle("$SHELL", { auto_close = true, win = { position = "bottom" } })
       end, { desc = "Terminal", remap = true })
     end
