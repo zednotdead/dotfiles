@@ -71,11 +71,23 @@ return {
       win = { enabled = true },
       words = { enabled = true },
       terminal = { enabled = true },
+      styles = {
+        lazygit = {
+          wo = {
+            winhighlight = "",
+          },
+        },
+        terminal = {
+          wo = {
+            winhighlight = "",
+          },
+        },
+      },
     },
     config = function(_, opts)
       require("snacks").setup(opts)
 
-      Snacks.terminal.opts = { auto_close = true }
+      Snacks.terminal.opts = { auto_close = true, win = { wo = { winhighlight = "" } } }
 
       vim.keymap.set("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit", remap = true })
       vim.keymap.set("n", "<leader>gt", function()
@@ -96,8 +108,22 @@ return {
   },
   {
     "nvim-tree/nvim-tree.lua",
+    enabled = false,
     config = function()
       require("plugins.config.nvim-tree")
+    end
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-tree/nvim-web-devicons",
+    },
+    lazy = false,
+    config = function()
+      require("plugins.config.neo-tree")
     end
   },
   {
@@ -226,4 +252,55 @@ return {
       vim.keymap.set({ "n", "o", "x" }, "b", function() spider.motion('b') end)
     end
   },
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = { 'kevinhwang91/promise-async' },
+    opts = {},
+  },
+  {
+    "hedyhli/outline.nvim",
+    config = function()
+      -- Example mapping to toggle outline
+      vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>",
+        { desc = "Toggle Outline" })
+
+      require("outline").setup {}
+    end,
+  },
+  {
+    "folke/edgy.nvim",
+    init = function()
+      vim.opt.laststatus = 3
+      vim.opt.splitkeep = "screen"
+    end,
+    event = "VeryLazy",
+    config = function()
+      require("plugins.config.edgy")
+    end
+  },
+  {
+    "nvim-pack/nvim-spectre",
+    ---@module "spectre"
+    ---@class SpectreConfig
+    opts = {},
+
+    config = function(_, opts)
+      local sp = require("spectre")
+
+      sp.setup(opts)
+
+      vim.keymap.set('n',
+        '<leader>fr',
+        function()
+          sp.toggle()
+        end,
+        {
+          desc = "Find and replace"
+        })
+    end
+  },
+  {
+    'stevearc/overseer.nvim',
+    opts = {}
+  }
 }
