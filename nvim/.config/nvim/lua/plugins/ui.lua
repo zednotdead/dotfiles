@@ -301,6 +301,9 @@ return {
   },
   {
     'stevearc/overseer.nvim',
-    opts = {}
+    dependencies = { 'akinsho/toggleterm.nvim' },
+    config = function()
+      require("plugins.config.overseer")
+    end
   }
 }
