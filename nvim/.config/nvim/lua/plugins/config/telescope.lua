@@ -29,48 +29,6 @@ wk.add({
   { "<leader>f", group = "find" }
 })
 
--- SOURCE: https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#live-grep-from-project-git-root-with-fallback
-local function live_grep_from_project_git_root()
-  local function is_git_repo()
-    vim.fn.system("git rev-parse --is-inside-work-tree")
-
-    return vim.v.shell_error == 0
-  end
-
-  local function get_git_root()
-    local dot_git_path = vim.fn.finddir(".git", ".;")
-    return vim.fn.fnamemodify(dot_git_path, ":h")
-  end
-
-  local opts = {}
-
-  if is_git_repo() then
-    opts = {
-      cwd = get_git_root(),
-    }
-  end
-
-  builtins.live_grep(opts)
-end
-
-local function find_files_from_project_git_root()
-  local function is_git_repo()
-    vim.fn.system("git rev-parse --is-inside-work-tree")
-    return vim.v.shell_error == 0
-  end
-  local function get_git_root()
-    local dot_git_path = vim.fn.finddir(".git", ".;")
-    return vim.fn.fnamemodify(dot_git_path, ":h")
-  end
-  local opts = {}
-  if is_git_repo() then
-    opts = {
-      cwd = get_git_root(),
-    }
-  end
-  telescope.extensions.frecency.frecency(opts)
-end
-
-vim.keymap.set('n', '<leader>fi', find_files_from_project_git_root, { desc = 'Find files' })
-vim.keymap.set('n', '<leader>ff', live_grep_from_project_git_root, { desc = 'Live grep' })
+vim.keymap.set('n', '<leader>fi', function () Snacks.picker.git_files({ untracked = true }) end, { desc = 'Find files' })
+vim.keymap.set('n', '<leader>ff', function () Snacks.picker.git_grep({ untracked = true }) end, { desc = 'Live grep' })
 vim.keymap.set('n', '<leader>fb', builtins.buffers, { desc = 'Buffers' })
