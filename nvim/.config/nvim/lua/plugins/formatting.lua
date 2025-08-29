@@ -5,9 +5,7 @@ local function first(bufnr, ...)
   local conform = require("conform")
   for i = 1, select("#", ...) do
     local formatter = select(i, ...)
-    if conform.get_formatter_info(formatter, bufnr).available then
-      return formatter
-    end
+    if conform.get_formatter_info(formatter, bufnr).available then return formatter end
   end
   return select(1, ...)
 end
@@ -24,9 +22,7 @@ return {
           typescript = es_formatters,
           typescriptreact = es_formatters,
           astro = { "eslint_d", "eslint", lsp_format = "fallback", stop_after_first = true },
-          json = function(bufnr)
-            return { "jq", first(bufnr, "prettierd", "prettier") }
-          end,
+          json = function(bufnr) return { "jq", first(bufnr, "prettierd", "prettier") } end,
           rust = { "rustfmt" },
           bash = { "beautysh" },
           sh = { "beautysh" },
@@ -35,6 +31,7 @@ return {
           toml = { "taplo" },
           terraform = { "terraform_fmt" },
           go = { "goimports", "gofmt" },
+          nix = { "alejandra" },
         },
         formatters = {
           rustfmt = {

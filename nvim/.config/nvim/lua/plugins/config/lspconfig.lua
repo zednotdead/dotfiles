@@ -1,5 +1,6 @@
 local wk = require("which-key")
 local builtin = require("telescope.builtin")
+local conform = require("conform")
 
 wk.add({
   { "<leader>l", group = "LSP" }
@@ -12,7 +13,7 @@ vim.keymap.set("n", "gd", function() builtin.lsp_definitions() end, { desc = "De
 vim.keymap.set("n", "gD", function() builtin.lsp_references() end, { desc = "References" })
 vim.keymap.set('n', '<leader>ld', function() vim.diagnostic.open_float() end, { desc = 'Diagnostics' })
 vim.keymap.set('n', '<leader>lD', function() builtin.diagnostics() end, { desc = 'All diagnostics' })
-vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format() end, { desc = 'Format' })
+vim.keymap.set('n', '<leader>lf', function() conform.format() end, { desc = 'Format' })
 
 vim.lsp.config('jsonls', {
   settings = {

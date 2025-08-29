@@ -61,7 +61,7 @@ end
 
 function fish_command_not_found
   if command -q command-not-found
-    /usr/bin/command-not-found $argv
+    command-not-found $argv
   end
 end
 
