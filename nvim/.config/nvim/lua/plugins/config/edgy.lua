@@ -3,7 +3,7 @@ local edgy = require("edgy")
 ---@type Edgy.Config
 local config = {
   wo = {
-    winhighlight = ""
+    winhighlight = "",
   },
   ---@type table<Edgy.Pos, {size:integer | fun():integer, wo:vim.wo}>
   options = {
@@ -17,24 +17,23 @@ local config = {
     {
       ft = "snacks_terminal",
       size = { height = 0.3 },
-      filter = function(_, win)
-        return vim.api.nvim_win_get_config(win).relative == ""
-      end,
-      wo = { winhighlight = "" }
+      filter = function(_, win) return vim.api.nvim_win_get_config(win).relative == "" end,
+      wo = { winhighlight = "" },
     },
-    "Trouble",
+    {
+      ft = "trouble",
+      wo = { winhighlight = "" },
+    },
     {
       ft = "qf",
       ---@diagnostic disable-next-line: assign-type-mismatch
-      title = "QuickFix"
+      title = "QuickFix",
     },
     {
       ft = "help",
       size = { height = 20 },
       -- only show help buffers
-      filter = function(buf)
-        return vim.bo[buf].buftype == "help"
-      end,
+      filter = function(buf) return vim.bo[buf].buftype == "help" end,
     },
     { ft = "spectre_panel", size = { height = 0.4 } },
   },
@@ -44,11 +43,9 @@ local config = {
       ---@diagnostic disable-next-line: assign-type-mismatch
       title = "Neo-Tree",
       ft = "neo-tree",
-      filter = function(buf)
-        return vim.b[buf].neo_tree_source == "filesystem"
-      end,
+      filter = function(buf) return vim.b[buf].neo_tree_source == "filesystem" end,
       pinned = true,
-      open = "Neotree position=left action=open"
+      open = "Neotree position=left action=open",
     },
   },
   ---@type (Edgy.View.Opts|string)[]
@@ -60,9 +57,9 @@ local config = {
       end,
       ft = "Outline",
       pinned = true,
-      open = "OutlineOpen"
+      open = "OutlineOpen",
     },
-  }
+  },
 }
 
 edgy.setup(config)

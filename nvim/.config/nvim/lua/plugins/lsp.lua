@@ -7,7 +7,7 @@ return {
         -- See the configuration section for more details
         -- Load luvit types when the `vim.uv` word is found
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        { path = "snacks",             words = { "Snacks" } },
+        { path = "snacks", words = { "Snacks" } },
       },
     },
   },
@@ -24,9 +24,7 @@ return {
   "folke/which-key.nvim",
   {
     "neovim/nvim-lspconfig",
-    config = function()
-      require("plugins.config.lspconfig")
-    end
+    config = function() require("plugins.config.lspconfig") end,
   },
   {
     "mason-org/mason.nvim",
@@ -60,8 +58,8 @@ return {
         lua_ls = {
           enabled_for_neovim_config = true,
           enabled = false,
-        }
-      }
+        },
+      },
     },
   },
   {
@@ -70,9 +68,9 @@ return {
       automatic_enable = {
         exclude = {
           "rust_analyzer",
-          "ts_ls"
-        }
-      }
+          "ts_ls",
+        },
+      },
     },
     dependencies = {
       { "mason-org/mason.nvim", opts = {} },
@@ -81,7 +79,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = 'master',
+    branch = "master",
     lazy = false,
     build = ":TSUpdate",
     opts = {
@@ -91,8 +89,8 @@ return {
         enable = true,
       },
       indent = {
-        enable = true
-      }
+        enable = true,
+      },
     },
   },
   {
@@ -108,20 +106,20 @@ return {
   },
   {
     "windwp/nvim-ts-autotag",
-    config = function ()
+    config = function()
       require("nvim-ts-autotag").setup({
         opts = {
           enable_close = true,
           enable_rename = true,
           enable_close_on_slash = true,
-        }
+        },
       })
-    end
+    end,
   },
   {
-    'windwp/nvim-autopairs',
+    "windwp/nvim-autopairs",
     event = "InsertEnter",
-    opts = {}
+    opts = {},
   },
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -132,22 +130,22 @@ return {
   },
   "b0o/schemastore.nvim",
   {
-    'mrcjkb/rustaceanvim',
-    version = '^6', -- Recommended
-    lazy = false,   -- This plugin is already lazy
+    "mrcjkb/rustaceanvim",
+    version = "^6", -- Recommended
+    lazy = false, -- This plugin is already lazy
   },
   {
-    'Bekaboo/dropbar.nvim',
+    "Bekaboo/dropbar.nvim",
     dependencies = {
-      'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'make'
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
     },
     config = function()
-      local dropbar_api = require('dropbar.api')
-      vim.keymap.set('n', '<Leader>;', dropbar_api.pick, { desc = 'Pick symbols in winbar' })
-      vim.keymap.set('n', '[;', dropbar_api.goto_context_start, { desc = 'Go to start of current context' })
-      vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
-    end
+      local dropbar_api = require("dropbar.api")
+      vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
+      vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
+      vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
+    end,
   },
   {
     "luckasRanarison/tailwind-tools.nvim",
@@ -158,7 +156,7 @@ return {
       "nvim-telescope/telescope.nvim",
       "neovim/nvim-lspconfig",
     },
-    opts = {}
+    opts = {},
   },
   {
     "roobert/tailwindcss-colorizer-cmp.nvim",
@@ -171,8 +169,8 @@ return {
     },
   },
   {
-    'nmac427/guess-indent.nvim',
-    opts = {}
+    "nmac427/guess-indent.nvim",
+    opts = {},
   },
   {
     "apple/pkl-neovim",
@@ -181,14 +179,12 @@ return {
     dependencies = {
       {
         "nvim-treesitter/nvim-treesitter",
-        build = function(_)
-          vim.cmd("TSUpdate")
-        end,
+        build = function(_) vim.cmd("TSUpdate") end,
       },
       "L3MON4D3/LuaSnip",
     },
     build = function()
-      require('pkl-neovim').init()
+      require("pkl-neovim").init()
 
       -- Set up syntax highlighting.
       vim.cmd("TSInstall pkl")
@@ -199,11 +195,30 @@ return {
 
       -- Configure pkl-lsp
       vim.g.pkl_neovim = {
-        start_command = { vim.fn.stdpath("data") .. "mason/bin/pkl-lsp" }
+        start_command = { vim.fn.stdpath("data") .. "mason/bin/pkl-lsp" },
       }
     end,
   },
   {
-    "slint-ui/vim-slint"
-  }
+    "slint-ui/vim-slint",
+  },
+  {
+    "folke/trouble.nvim",
+    cmd = "Trouble",
+    ---@module "trouble"
+    ---@type trouble.Config
+    opts = {
+      modes = {
+        test = {
+          mode = "diagnostics",
+          preview = {
+            type = "split",
+            relative = "win",
+            position = "right",
+            size = 0.3,
+          },
+        },
+      },
+    },
+  },
 }

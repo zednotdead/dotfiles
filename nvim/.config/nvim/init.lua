@@ -13,7 +13,8 @@ vim.opt.signcolumn = "number"
 
 vim.opt.fillchars = { eob = " " }
 
-vim.cmd("colorscheme gruvbox")
+vim.opt.background = "dark" -- set this to dark or light
+vim.cmd("colorscheme oxocarbon")
 vim.diagnostic.config({ virtual_lines = true })
 
 vim.opt.undofile = true

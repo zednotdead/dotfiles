@@ -1,9 +1,14 @@
 return {
   {
     "ellisonleao/gruvbox.nvim",
+    enabled = false,
     priority = 1000,
     config = true,
     opts = {},
+  },
+  {
+    "nyoom-engineering/oxocarbon.nvim",
+    priority = 1000,
   },
   {
     "folke/which-key.nvim",
@@ -259,5 +264,16 @@ return {
     "stevearc/overseer.nvim",
     dependencies = { "akinsho/toggleterm.nvim" },
     config = function() require("plugins.config.overseer") end,
+  },
+  {
+    "s1n7ax/nvim-window-picker",
+    name = "window-picker",
+    event = "VeryLazy",
+    version = "2.*",
+    opts = {
+      hint = "floating-letter",
+      show_prompt = false,
+    },
+    config = function(_, opts) require("window-picker").setup(opts) end,
   },
 }
